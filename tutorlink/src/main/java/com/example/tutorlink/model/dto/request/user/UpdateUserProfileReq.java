@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class UpdateUserProfileReq {
     private String fullName;
     private String email;
-    private String role; // Example: "Silver", "Gold"
+    private String role;
 }
 

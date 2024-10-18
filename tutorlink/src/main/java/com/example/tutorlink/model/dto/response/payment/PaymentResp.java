@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PaymentResp {
     private Long paymentRequestId;
-    private String message; // Status message
-    private String transactionId; // Unique transaction ID for payment
-    private String status; // Status of the payment (e.g., "Payment accepted")
+    private String message;
+    private String transactionId;
+    private String status;
 }
