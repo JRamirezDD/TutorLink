@@ -9,7 +9,6 @@ public class StudentPaymentService {
 
     // Logic for student-side payment request handling (e.g., accept or reject)
     public PaymentResp acceptPayment(Long paymentRequestId) {
-        // Logic to accept the payment
         return PaymentResp.builder()
                 .status("Payment accepted by student")
                 .build();
