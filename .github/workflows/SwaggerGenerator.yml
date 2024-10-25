@@ -26,7 +26,7 @@ jobs:
 
       - name: Build project and generate Swagger JSON
         run: |
-          cd TutorLink
+          cd tutorlink
           mvn clean install
           mvn openapi-generator:generate
           mkdir -p ../docs/development/api
