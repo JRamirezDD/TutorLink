@@ -27,6 +27,7 @@ jobs:
       - name: Build project and generate Swagger JSON
         run: |
           cd tutorlink
+          ls
           ./mvnw clean install
           ./mvnw springdoc-openapi:generate -Dspringdoc.outputDir=./docs/development/api
           
