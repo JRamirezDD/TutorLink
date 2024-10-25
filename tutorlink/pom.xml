@@ -82,6 +82,7 @@
                         <goal>generate</goal>
                     </goals>
                     <configuration>
+			<generatorName>openapi</generatorName>
                         <inputSpec>${project.basedir}/src/main/resources/openapi.yml</inputSpec>
                         <output>${project.build.directory}/generated-sources</output>
                     </configuration>
