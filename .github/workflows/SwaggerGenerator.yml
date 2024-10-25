@@ -42,7 +42,7 @@ jobs:
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/development/api/openapi.json
+          git add docs/development/api/swaggerStuff.json
           git diff-index --quiet HEAD || git commit -m "Update OpenAPI documentation [skip ci]"
           git push
         env:
