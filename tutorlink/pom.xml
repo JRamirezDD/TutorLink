@@ -72,6 +72,26 @@
 				</configuration>
 			</plugin>
 		</plugins>
+
+    <plugins>
+        <plugin>
+            <groupId>org.openapitools</groupId>
+            <artifactId>openapi-generator-maven-plugin</artifactId>
+            <version>6.0.1</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>generate</goal>
+                    </goals>
+                    <configuration>
+                        <inputSpec>${project.basedir}/src/main/resources/openapi.yml</inputSpec>
+                        <output>${project.build.directory}/generated-sources</output>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+		
 	</build>
 
 </project>
