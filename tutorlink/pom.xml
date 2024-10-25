@@ -71,9 +71,7 @@
 					</excludes>
 				</configuration>
 			</plugin>
-		</plugins>
 
-    <plugins>
         <plugin>
             <groupId>org.openapitools</groupId>
             <artifactId>openapi-generator-maven-plugin</artifactId>
@@ -90,7 +88,8 @@
                 </execution>
             </executions>
         </plugin>
-    </plugins>
+			
+		</plugins>
 		
 	</build>
 
