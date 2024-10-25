@@ -25,7 +25,7 @@ jobs:
           java-version: '17'
 
       - name: Mark mvnw as Executable
-        run: chmod -x tutorlink/mvnw
+        run: chmod +x tutorlink/mvnw
 
       - name: Build project and generate Swagger JSON
         run: |
