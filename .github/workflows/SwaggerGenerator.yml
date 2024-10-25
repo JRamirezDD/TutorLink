@@ -34,7 +34,7 @@ jobs:
       - name: Fetch OpenAPI JSON
         run: |
           mkdir -p ../docs/development/api
-          curl -o ../docs/development/api/swaggerStuff.json http://localhost:8080/swagger-ui/v3/api-docs
+          curl -o ../docs/development/api/swaggerStuff.json http://localhost:8080/v3/api-docs
           echo "OpenAPI JSON content:"
           cat ../docs/development/api/swaggerStuff.json  # Print JSON content for troubleshooting
 
