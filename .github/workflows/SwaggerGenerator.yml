@@ -24,15 +24,12 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Mark mvnw as Executable
-        run: chmod +x tutorlink/mvnw
-
       - name: Build project and generate Swagger JSON
         run: |
           cd tutorlink
           ls
-          ./mvnw clean install
-          ./mvnw springdoc-openapi:generate -Dspringdoc.outputDir=./docs/development/api
+          mvn clean install
+          mvn springdoc-openapi:generate -Dspringdoc.outputDir=../docs/development/api
           
       - name: Commit and push Swagger JSON
         run: |
