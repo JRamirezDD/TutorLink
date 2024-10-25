@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "Auth Controller", description = "Authentication Endpoints")
+@Tag(name = "Auth Controller", description = "Authentication endpoints")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
