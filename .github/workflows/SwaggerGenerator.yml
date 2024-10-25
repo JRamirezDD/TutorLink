@@ -1,4 +1,4 @@
-name: Generate Swagger Documentation
+name: Generate OpenAPI Documentation
 
 on:
   push:
@@ -11,7 +11,7 @@ on:
       - 'tutorlink/pom.xml'
 
 jobs:
-  generate-swagger:
+  generate-openapi:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,20 +24,24 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Build project and generate Swagger JSON
+      - name: Build project and start Spring Boot application
         run: |
-          cd tutorlink
+          cd TutorLink
           mvn clean install
-          mvn openapi-generator:generate
+          nohup mvn spring-boot:run &
+          sleep 30  # Wait for the application to start
+
+      - name: Fetch OpenAPI JSON
+        run: |
           mkdir -p ../docs/development/api
-          cp target/generated-sources/*.json ../docs/development/api/swagger.json
-          
-      - name: Commit and push Swagger JSON
+          curl -o ../docs/development/api/openapi.json http://localhost:8080/v3/api-docs
+
+      - name: Commit and push OpenAPI JSON
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git add docs/development/api
-          git commit -m "Update Swagger documentation [skip ci]"
+          git commit -m "Update OpenAPI documentation [skip ci]"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
