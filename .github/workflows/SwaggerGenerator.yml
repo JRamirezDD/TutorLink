@@ -4,11 +4,11 @@ on:
   push:
     paths:
       - 'tutorlink/**/*.java'
-      - 'pom.xml'
+      - 'tutorlink/pom.xml'
   pull_request:
     paths:
       - 'tutorlink/**/*.java'
-      - 'pom.xml'
+      - 'tutorlink/pom.xml'
 
 jobs:
   generate-swagger:
@@ -26,10 +26,11 @@ jobs:
 
       - name: Build project and generate Swagger JSON
         run: |
-          cd tutorlink
-          ls
+          cd TutorLink
           mvn clean install
-          mvn springdoc-openapi:generate -Dspringdoc.outputDir=../docs/development/api
+          mvn openapi-generator:generate
+          mkdir -p ../docs/development/api
+          cp target/generated-sources/*.json ../docs/development/api/swagger.json
           
       - name: Commit and push Swagger JSON
         run: |
