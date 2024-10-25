@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 public class AuthController {
 
-    @Operation(description = "Login User", summary = "User Login")
+    @Operation(description = "Login User", summary = "User login")
     @PostMapping(
             value = "/login",
             consumes = MediaType.APPLICATION_JSON_VALUE,
