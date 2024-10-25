@@ -37,6 +37,15 @@ jobs:
           curl -o ../docs/development/api/swaggerStuff.json http://localhost:8080/v3/api-docs
           echo "OpenAPI JSON content:"
           cat ../docs/development/api/swaggerStuff.json  # Print JSON content for troubleshooting
+          
+      - name: Verify Swagger File Generation
+        run: |
+          if [ -f docs/development/api/swaggerStuff.json ]; then
+            echo "swaggerStuff.json found!"
+          else
+            echo "swaggerStuff.json not found."
+            exit 1
+          fi
 
       - name: Commit and push OpenAPI JSON
         run: |
