@@ -28,7 +28,7 @@ public class AuthController {
                 .build());
     }
 
-    @Operation(description = "Register user", summary = "User registration")
+    @Operation(description = "Register User", summary = "User registration")
     @PostMapping(
             value = "/register",
             consumes = MediaType.APPLICATION_JSON_VALUE,
