@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/catalog")
 public class CatalogController {
 
-    @Operation(description = "Get all available Courses", summary = "View Course Catalog")
+    @Operation(description = "Get all available courses", summary = "View Course Catalog")
     @GetMapping(
             value = "/courses",
             produces = MediaType.APPLICATION_JSON_VALUE
