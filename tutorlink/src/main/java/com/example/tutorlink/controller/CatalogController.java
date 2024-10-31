@@ -41,7 +41,7 @@ public class CatalogController {
         return ResponseEntity.ok(courses);
     }
 
-    @Operation(description = "Search courses by subject", summary = "Search Courses")
+    @Operation(description = "Search courses by Subject", summary = "Search Courses")
     @GetMapping(
             value = "/courses/search",
             produces = MediaType.APPLICATION_JSON_VALUE
