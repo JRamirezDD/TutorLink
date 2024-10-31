@@ -51,10 +51,20 @@ jobs:
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A docs/development/api/swaggerStuff.json
-          git commit -m "Update OpenAPI documentation [skip ci]"
+          
+          # Stage the swaggerStuff.json file
+          git add docs/development/api/swaggerStuff.json
+          
+          # Commit if there are changes to the swagger file
+          if ! git diff --cached --quiet; then
+            git commit -m "Update OpenAPI documentation [skip ci]"
+          fi
+          
+          # Discard changes in tracked files and clean untracked files
           git checkout -- .
           git clean -fd
+          
+          # Push changes
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
