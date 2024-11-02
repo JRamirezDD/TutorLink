@@ -1,4 +1,4 @@
-package com.tutorlink.student_domain.auth;
+package com.tutorlink.tutor_domain.auth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
