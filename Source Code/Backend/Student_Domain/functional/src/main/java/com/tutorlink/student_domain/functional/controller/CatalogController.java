@@ -1,5 +1,16 @@
 package com.tutorlink.student_domain.functional.controller;
 
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.tutorlink.student_domain.functional.model.dto.request.EnrollmentReq;
 import com.tutorlink.student_domain.functional.model.dto.response.CourseCatalogResp;
 import com.tutorlink.student_domain.functional.model.dto.response.CourseDetailResp;
@@ -14,10 +25,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/catalog")
@@ -38,7 +45,9 @@ public class CatalogController {
     })
     @GetMapping("/courses")
     public ResponseEntity<List<CourseCatalogResp>> getAllCourses() {
-        List<CourseCatalogResp> courses = catalogService.getAllCourses();
+        // List<CourseCatalogResp> courses = catalogService.getAllCourses();
+        List<CourseCatalogResp> courses = List.of(CourseCatalogResp.mock());
+
         return ResponseEntity.ok(courses);
     }
 
@@ -54,7 +63,8 @@ public class CatalogController {
     })
     @GetMapping("/courses/{courseId}")
     public ResponseEntity<CourseDetailResp> getCourseDetails(@PathVariable Long courseId) {
-        CourseDetailResp courseDetails = catalogService.getCourseDetails(courseId);
+        // CourseDetailResp courseDetails = catalogService.getCourseDetails(courseId);
+        CourseDetailResp courseDetails = CourseDetailResp.mock();
         return ResponseEntity.ok(courseDetails);
     }
 
@@ -70,7 +80,8 @@ public class CatalogController {
     })
     @PostMapping("/courses/{courseId}/enroll")
     public ResponseEntity<EnrollmentStatusResp> enrollInCourse(@PathVariable Long courseId, @RequestBody EnrollmentReq enrollmentReq) {
-        EnrollmentStatusResp status = catalogService.enrollInCourse(courseId, enrollmentReq);
+        // EnrollmentStatusResp status = catalogService.enrollInCourse(courseId, enrollmentReq);
+        EnrollmentStatusResp status = EnrollmentStatusResp.mock();
         return ResponseEntity.ok(status);
     }
 
@@ -86,7 +97,8 @@ public class CatalogController {
     })
     @GetMapping("/enrolled")
     public ResponseEntity<List<CourseCatalogResp>> getEnrolledCourses(@RequestParam Long studentId) {
-        List<CourseCatalogResp> enrolledCourses = catalogService.getEnrolledCourses(studentId);
+        // List<CourseCatalogResp> enrolledCourses = catalogService.getEnrolledCourses(studentId);
+        List<CourseCatalogResp> enrolledCourses = List.of(CourseCatalogResp.mock());
         return ResponseEntity.ok(enrolledCourses);
     }
 }

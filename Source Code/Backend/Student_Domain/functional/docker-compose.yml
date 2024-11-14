@@ -1,0 +1,39 @@
+#   Title: docker-compose.yml
+#   Author: Ramirez de Diego, Jorge
+#   Date: 2024
+#   Code version: 1.0
+#   Availability: https://github.com/JRamirezDD/TutorLink
+
+version: '3.8'
+
+services:
+  student-domain-functional:
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "10000:10000"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/student_db
+      SPRING_DATASOURCE_USERNAME: main_user
+      SPRING_DATASOURCE_PASSWORD: PassWord12@
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+      SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA: student_schema
+      SPRING_JPA_OPEN_IN_VIEW: "true"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: student_db
+      POSTGRES_USER: main_user
+      POSTGRES_PASSWORD: PassWord12@
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

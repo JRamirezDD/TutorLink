@@ -32,7 +32,8 @@ public class SubscriptionController {
     })
     @PostMapping("/{studentId}/upgrade")
     public ResponseEntity<SubscriptionResp> upgradeToGold(@PathVariable Long studentId) {
-        SubscriptionResp subscription = subscriptionService.upgradeToGold(studentId);
+        // SubscriptionResp subscription = subscriptionService.upgradeToGold(studentId);
+        SubscriptionResp subscription = SubscriptionResp.mock();
         return ResponseEntity.ok(subscription);
     }
 
@@ -49,7 +50,8 @@ public class SubscriptionController {
     })
     @GetMapping("/{studentId}")
     public ResponseEntity<SubscriptionResp> getSubscription(@PathVariable Long studentId) {
-        SubscriptionResp subscription = subscriptionService.getSubscription(studentId);
+        // SubscriptionResp subscription = subscriptionService.getSubscription(studentId);
+        SubscriptionResp subscription = SubscriptionResp.mock();
         return ResponseEntity.ok(subscription);
     }
 }
