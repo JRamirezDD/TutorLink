@@ -8,5 +8,14 @@ public record PaymentResp(
         BigDecimal amount,
         String status, // PENDING, PAID, or DECLINED
         LocalDateTime requestDate
-) {}
-
+) {
+    // Static factory method to create a mock PaymentResp object
+    public static PaymentResp mock() {
+        return new PaymentResp(
+                1L, // mock paymentId
+                BigDecimal.valueOf(100.00), // mock amount
+                "PAID", // mock status
+                LocalDateTime.now() // mock requestDate
+        );
+    }
+}

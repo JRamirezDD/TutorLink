@@ -1,10 +1,18 @@
 package com.tutorlink.student_domain.functional.controller;
 
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.tutorlink.student_domain.functional.model.dto.request.PaymentReq;
 import com.tutorlink.student_domain.functional.model.dto.response.PaymentConfirmationResp;
 import com.tutorlink.student_domain.functional.model.dto.response.PaymentResp;
 import com.tutorlink.student_domain.functional.service.PaymentService;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -12,8 +20,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/payment")
@@ -34,7 +40,8 @@ public class PaymentController {
     })
     @PostMapping("/request")
     public ResponseEntity<PaymentResp> createPaymentRequest(@RequestBody PaymentReq req) {
-        PaymentResp paymentResponse = paymentService.createPaymentRequest(req);
+        // PaymentResp paymentResponse = paymentService.createPaymentRequest(req);
+        PaymentResp paymentResponse = PaymentResp.mock();
         return ResponseEntity.ok(paymentResponse);
     }
 
@@ -50,7 +57,7 @@ public class PaymentController {
     })
     @PostMapping("/{paymentId}/pay")
     public ResponseEntity<String> payRequest(@PathVariable Long paymentId) {
-        paymentService.payRequest(paymentId);
+        // paymentService.payRequest(paymentId);
         return ResponseEntity.ok("Payment successful");
     }
 
@@ -66,21 +73,23 @@ public class PaymentController {
     })
     @PostMapping("/{paymentId}/decline")
     public ResponseEntity<String> declineRequest(@PathVariable Long paymentId) {
-        paymentService.declineRequest(paymentId);
+        // paymentService.declineRequest(paymentId);
         return ResponseEntity.ok("Payment declined");
     }
 
     //confirm acceptance of payment
     @PostMapping("/{paymentRequestId}/confirm/accept")
     public ResponseEntity<PaymentConfirmationResp> confirmAcceptPayment(@PathVariable Long paymentRequestId) {
-        PaymentConfirmationResp response = paymentService.confirmAcceptPayment(paymentRequestId);
+        // PaymentConfirmationResp response = paymentService.confirmAcceptPayment(paymentRequestId);
+        PaymentConfirmationResp response = PaymentConfirmationResp.mock();
         return ResponseEntity.ok(response);
     }
 
     //confirm rejection of payment
     @PostMapping("/{paymentRequestId}/confirm/reject")
     public ResponseEntity<PaymentConfirmationResp> confirmRejectPayment(@PathVariable Long paymentRequestId) {
-        PaymentConfirmationResp response = paymentService.confirmRejectPayment(paymentRequestId);
+        // PaymentConfirmationResp response = paymentService.confirmRejectPayment(paymentRequestId);
+        PaymentConfirmationResp response = PaymentConfirmationResp.mock();
         return ResponseEntity.ok(response);
     }
 }

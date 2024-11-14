@@ -38,7 +38,8 @@ public class CatalogController {
     })
     @GetMapping("/courses")
     public ResponseEntity<List<CourseCatalogResp>> getAllCourses() {
-        List<CourseCatalogResp> courses = catalogService.getAllCourses();
+        // List<CourseCatalogResp> courses = catalogService.getAllCourses();
+        List<CourseCatalogResp> courses = List.of(CourseCatalogResp.mock());
         return ResponseEntity.ok(courses);
     }
 

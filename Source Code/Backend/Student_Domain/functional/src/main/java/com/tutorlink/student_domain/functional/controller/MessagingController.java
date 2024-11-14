@@ -1,11 +1,18 @@
 package com.tutorlink.student_domain.functional.controller;
 
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.tutorlink.student_domain.functional.model.dto.request.SendMessageReq;
 import com.tutorlink.student_domain.functional.model.dto.response.MessageResp;
 import com.tutorlink.student_domain.functional.service.MessagingService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -14,10 +21,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/messages")
@@ -38,7 +41,8 @@ public class MessagingController {
     })
     @PostMapping("/send")
     public ResponseEntity<MessageResp> sendMessage(@RequestBody SendMessageReq sendMessageReq) {
-        MessageResp message = messagingService.sendMessage(sendMessageReq);
+        // MessageResp message = messagingService.sendMessage(sendMessageReq);
+        MessageResp message = MessageResp.mock();
         return ResponseEntity.ok(message);
     }
 
@@ -55,7 +59,8 @@ public class MessagingController {
     @GetMapping("/conversation/{userId}/{otherUserId}")
     public ResponseEntity<List<MessageResp>> getMessagesBetweenUsers(
             @PathVariable Long userId, @PathVariable Long otherUserId) {
-        List<MessageResp> messages = messagingService.getMessagesBetweenUsers(userId, otherUserId);
+        // List<MessageResp> messages = messagingService.getMessagesBetweenUsers(userId, otherUserId);
+        List<MessageResp> messages = List.of(MessageResp.mock());
         return ResponseEntity.ok(messages);
     }
 }

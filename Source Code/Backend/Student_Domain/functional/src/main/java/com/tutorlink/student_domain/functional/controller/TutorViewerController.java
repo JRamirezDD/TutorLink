@@ -31,7 +31,8 @@ public class TutorViewerController {
     })
     @GetMapping
     public ResponseEntity<List<TutorProfileResp>> getAllTutors() {
-        List<TutorProfileResp> tutors = tutorViewerService.getAllTutors();
+        // List<TutorProfileResp> tutors = tutorViewerService.getAllTutors();
+        List<TutorProfileResp> tutors = List.of(TutorProfileResp.mock());
         return ResponseEntity.ok(tutors);
     }
 
@@ -49,7 +50,8 @@ public class TutorViewerController {
     public ResponseEntity<TutorProfileResp> getTutorProfile(
             @RequestParam Long studentId,
             @PathVariable Long tutorId) {
-        TutorProfileResp tutorProfile = tutorViewerService.getTutorProfileById(studentId, tutorId);
+        // TutorProfileResp tutorProfile = tutorViewerService.getTutorProfileById(studentId, tutorId);
+        TutorProfileResp tutorProfile = TutorProfileResp.mock();
         return ResponseEntity.ok(tutorProfile);
     }
 }
