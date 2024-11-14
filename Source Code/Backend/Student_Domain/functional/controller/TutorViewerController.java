@@ -2,6 +2,7 @@ package com.tutorlink.student_domain.functional.controller;
 
 import com.tutorlink.student_domain.functional.model.dto.response.TutorProfileResp;
 import com.tutorlink.student_domain.functional.service.TutorViewerService;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -9,10 +10,13 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import com.example.tutorlink.model.dto.response.tutor.TutorProfileResp;
 
 @RestController
 @RequestMapping("/tutors")
