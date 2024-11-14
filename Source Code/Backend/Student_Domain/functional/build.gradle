@@ -4,7 +4,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.1.6'
 }
 
-group = 'com.tutorlink.student_domain'
+group = 'com.tutorlink.tutor_domain'
 version = '0.0.1-SNAPSHOT'
 
 java {
@@ -31,8 +31,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
-	implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
-	implementation 'org.springdoc:springdoc-openapi-ui:1.5.13'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
