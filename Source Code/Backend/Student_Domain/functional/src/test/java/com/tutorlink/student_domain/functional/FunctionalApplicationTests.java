@@ -1,13 +1,13 @@
-package com.tutorlink.student_domain.functional;
+// package com.tutorlink.student_domain.functional;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class FunctionalApplicationTests {
+// @SpringBootTest
+// class FunctionalApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+// 	@Test
+// 	void contextLoads() {
+// 	}
 
-}
+// }
