@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CatalogService {
 
-    private final CourseRepository courseRepository;
+    private final CourseRepository courseRepository = null;
 
     public List<CourseCatalogResp> getAllCourses() {
         return courseRepository.findAll().stream()

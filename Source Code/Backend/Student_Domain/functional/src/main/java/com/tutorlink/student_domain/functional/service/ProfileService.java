@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ProfileService {
 
-    private final ProfileRepository profileRepository;
+    private final ProfileRepository profileRepository = null;
 
     @Transactional(readOnly = true)
     public StudentProfileResp getStudentProfile(Long studentId) {

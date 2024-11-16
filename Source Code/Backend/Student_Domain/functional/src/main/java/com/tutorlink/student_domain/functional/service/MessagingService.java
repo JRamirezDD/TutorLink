@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MessagingService {
 
-    private final MessagingRepository messagingRepository;
+    private final MessagingRepository messagingRepository = null;
 
     public MessageResp sendMessage(SendMessageReq req) {
         Message message = Message.builder()
