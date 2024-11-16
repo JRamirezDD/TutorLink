@@ -1,3 +1,3 @@
 
 How to run application?
-1. do 'docker-compose -p student-domain-functional up --build' whilst in the directory
+1. run pre-made scripts build_and_host_project.bat, or build_and_host_project.sh
