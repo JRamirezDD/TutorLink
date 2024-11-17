@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 @Service
 @RequiredArgsConstructor
 public class SubscriptionService {
-
-    private final SubscriptionRepository subscriptionRepository;
+        
+    private final SubscriptionRepository subscriptionRepository = null;
 
     //sub upgrade to GOLD!!
     public SubscriptionResp upgradeToGold(Long studentId) {

@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class PaymentService {
 
-    private final PaymentRepository paymentRepository;
+    private final PaymentRepository paymentRepository = null;
 
 
     //creates new payment request at the end of a tutoring session

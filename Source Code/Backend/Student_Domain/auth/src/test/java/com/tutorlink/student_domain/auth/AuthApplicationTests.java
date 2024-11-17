@@ -1,4 +1,4 @@
-package com.tutorlink.student_domain.auth;
+package com.tutorlink.tutor_domain.auth;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
