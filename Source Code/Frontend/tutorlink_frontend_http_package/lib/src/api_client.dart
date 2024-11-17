@@ -4,12 +4,10 @@ import 'package:http/http.dart' as http;
 class ApiClient {
   final String baseUrl;
   final Map<String, String> defaultHeaders;
-  final String sessionToken;
   final http.Client httpClient;
 
   ApiClient({
     required this.baseUrl,
-    required this.sessionToken,
     this.defaultHeaders = const {},
     http.Client? httpClient,
   }) : httpClient = httpClient ?? http.Client();
@@ -17,7 +15,7 @@ class ApiClient {
   Map<String, String> _getHeaders(Map<String, String>? headers) {
     return {
       ...defaultHeaders,
-      'Authorization': 'Bearer $sessionToken',
+      'Authorization': 'Bearer fake_token',
       ...?headers,
     };
   }
