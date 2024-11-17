@@ -1,4 +1,20 @@
 Front-end:
+Dependency: google_sign_in: ^6.0.0
 
+1. Add Application ClientID to Flutter App
+- P
+
+2. Implement Google Sign-In in Flutter - TutorLink
+2.1 Initialize GoogleSignIn object from the google_sign_in.dart flutter package.
+2.2 Sign-in the googleUser
+2.3 Retrieve the google idToken from the googleUser.
+2.4 Send the idToken to the back-end '/auth/oauth2/google' to receive a sessionToken
 
 Back-end:
+1. Add Application ClientID to Authentication Microservice.
+
+2. Implement Google Token Validation
+2.1 Receive google idToken in '/auth/oauth2/google'.
+2.2 Initialize GoogleIdTokenVerifier from the com.google.api.client.googleapis.auth.oauth2 package.
+2.3 Verify that idToken exists in Google and retrieve user data (email and UUID) from response payload.
+2.4 Generate a sessionToken based on the user UUID.
