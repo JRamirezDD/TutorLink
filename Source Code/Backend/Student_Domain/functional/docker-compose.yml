@@ -23,6 +23,8 @@ services:
       SPRING_JPA_OPEN_IN_VIEW: "true"
     depends_on:
       - db
+    networks:
+      - TutorLink-Network
 
   db:
     image: postgres:13
@@ -34,6 +36,12 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - TutorLink-Network
 
 volumes:
   postgres_data:
+
+networks:
+  tutorlink-network:
+    driver: bridge

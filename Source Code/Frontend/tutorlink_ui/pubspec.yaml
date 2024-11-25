@@ -1,0 +1,37 @@
+name: tryflutter
+description: A new Flutter project for building a tutoring application
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.5.0 <4.0.0" # Ensure Dart SDK version is compatible
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Networking
+  http: ^1.2.2 # Add the HTTP package for making requests to the backend
+  flutter_dotenv: ^5.0.2 # Optional: Manage API URLs via environment variables
+
+  # Image Picker
+  image_picker: ^1.0.0 # Updated to a more stable and current version
+
+  # Cupertino Icons for iOS
+  cupertino_icons: ^1.0.8
+
+  # State Management (Optional, use this if needed)
+  provider: ^6.1.2 # Added provider for state management
+
+  tutorlink_frontend_http_package:
+    path: ../tutorlink_frontend_http_package
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0 # Recommended lints for the project
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/default_avatar.png

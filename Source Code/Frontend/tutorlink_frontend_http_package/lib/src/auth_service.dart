@@ -1,17 +1,14 @@
 import 'api_client.dart';
-import 'google_sign_in_helper.dart';
 import 'token_storage_web.dart';
 
 class AuthService {
   final ApiClient apiClient;
-  final GoogleSignInHelper googleSignInHelper;
+  // final GoogleSignInHelper googleSignInHelper;
   final TokenStorage tokenStorage;
 
-  AuthService(
-      {required this.apiClient,
-      required this.tokenStorage})
+  AuthService({required this.apiClient, required this.tokenStorage});
 
-    /*
+  /*
       {required this.apiClient,
       required this.tokenStorage,
       GoogleSignInHelper? googleSignInHelper})
