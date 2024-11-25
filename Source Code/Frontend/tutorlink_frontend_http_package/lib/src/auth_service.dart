@@ -9,9 +9,14 @@ class AuthService {
 
   AuthService(
       {required this.apiClient,
+      required this.tokenStorage})
+
+    /*
+      {required this.apiClient,
       required this.tokenStorage,
       GoogleSignInHelper? googleSignInHelper})
       : googleSignInHelper = googleSignInHelper ?? GoogleSignInHelper();
+      */
 
   /// Registers a user and returns the session token.
   Future<String> register(String email, String password) async {
@@ -45,6 +50,7 @@ class AuthService {
     }
   }
 
+  /*
   /// Logs in with Google, sends the Google Token to the Back-end, and Back-end returns a SessionToken.
   Future<String> loginWithGoogle(String idToken) async {
     final response = await apiClient.post('/auth/oauth2/google', {
@@ -59,4 +65,5 @@ class AuthService {
       throw Exception('Google login failed: ${response.body}');
     }
   }
+  */
 }
