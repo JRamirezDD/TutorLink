@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../fetch_data_page.dart';
+import 'saved_tutor_page.dart'; // Import the Saved Tutors Page
+import 'welcome_page.dart'; // Import the Welcome Page
 
 class UserSettingsPage extends StatelessWidget {
   @override
@@ -15,7 +16,7 @@ class UserSettingsPage extends StatelessWidget {
           },
         ),
         title: Text(
-          'Settings and activity',
+          'Settings and Activity',
           style: TextStyle(color: Colors.black),
         ),
       ),
@@ -25,16 +26,6 @@ class UserSettingsPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  prefixIcon: Icon(Icons.search),
-                ),
-              ),
-              SizedBox(height: 24),
               ListTile(
                 leading: Icon(Icons.account_circle, color: Colors.black),
                 title: Text('Accounts Centre'),
@@ -45,7 +36,7 @@ class UserSettingsPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: Text(
-                  'How you use the app',
+                  'Account Management',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -57,30 +48,32 @@ class UserSettingsPage extends StatelessWidget {
                 leading: Icon(Icons.bookmark_border),
                 title: Text('Saved'),
                 trailing: Icon(Icons.arrow_forward_ios),
-                onTap: () {},
+                onTap: () {
+                  // Navigate to Saved Tutors Page
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SavedTutorPage()),
+                  );
+                },
               ),
               ListTile(
-                leading: Icon(Icons.archive),
-                title: Text('Archive'),
+                leading: Icon(Icons.lock),
+                title: Text('Password'),
                 trailing: Icon(Icons.arrow_forward_ios),
-                onTap: () {},
-              ),
-              ListTile(
-                leading: Icon(Icons.notifications),
-                title: Text('Notifications'),
-                trailing: Icon(Icons.arrow_forward_ios),
-                onTap: () {},
+                onTap: () {
+                  // Navigate to Password Management Page (if needed)
+                },
               ),
               ListTile(
                 leading: Icon(Icons.access_time),
-                title: Text('Time management'),
+                title: Text('Time Management'),
                 trailing: Icon(Icons.arrow_forward_ios),
                 onTap: () {},
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: Text(
-                  'Who can see your content',
+                  'Privacy Settings',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -89,32 +82,31 @@ class UserSettingsPage extends StatelessWidget {
                 ),
               ),
               ListTile(
-                leading: Icon(Icons.lock),
-                title: Text('Account privacy'),
+                leading: Icon(Icons.lock_outline),
+                title: Text('Account Privacy'),
                 trailing: Text('Private', style: TextStyle(color: Colors.grey[600])),
                 onTap: () {},
               ),
-              ListTile(
-                leading: Icon(Icons.star_border),
-                title: Text('Close friends'),
-                trailing: Text('118', style: TextStyle(color: Colors.grey[600])),
-                onTap: () {},
-              ),
               SizedBox(height: 24),
-
-              // Integration of FetchDataPage with height constraints
               Text(
-                'Data fetched from server:',
+                'Actions',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: Colors.grey[700],
                 ),
               ),
-              SizedBox(height: 16),
-              Container(
-                height: 150, // Set a finite height for FetchDataPage
-                child: FetchDataPage(),
+              ListTile(
+                leading: Icon(Icons.logout),
+                title: Text('Logout'),
+                trailing: Icon(Icons.arrow_forward_ios),
+                onTap: () {
+                  // Navigate to Welcome Page
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => WelcomePage()),
+                  );
+                },
               ),
             ],
           ),
@@ -123,7 +115,3 @@ class UserSettingsPage extends StatelessWidget {
     );
   }
 }
-
-void main() => runApp(MaterialApp(
-      home: UserSettingsPage(),
-    ));

@@ -2,14 +2,49 @@ import 'package:flutter/material.dart';
 import 'catalog_subjects_page.dart';
 import 'messages_page.dart';
 import 'user_settings_page.dart';
+import 'chat_page.dart'; // Import ChatPage for messaging functionality
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+// Shared global list for saved tutors
+List<Map<String, dynamic>> savedTutors = [];
 
 class StudentHomePage extends StatelessWidget {
   final String username;
 
   // Constructor to accept the username
   StudentHomePage({required this.username});
+
+  final List<Map<String, dynamic>> tutors = [
+    {
+      'name': 'Marius T.',
+      'specialty': 'SEO Strategy / Content / Tech',
+      'rate': '\$70.00/hr',
+      'success': '100% Job Success',
+      'image': 'https://via.placeholder.com/150'
+    },
+    {
+      'name': 'Anna K.',
+      'specialty': 'Mathematics Expert',
+      'rate': '\$50.00/hr',
+      'success': '95% Job Success',
+      'image': 'https://via.placeholder.com/150'
+    },
+    {
+      'name': 'John D.',
+      'specialty': 'Physics Tutor',
+      'rate': '\$40.00/hr',
+      'success': '90% Job Success',
+      'image': 'https://via.placeholder.com/150'
+    },
+    {
+      'name': 'Sophia L.',
+      'specialty': 'Chemistry Teacher',
+      'rate': '\$45.00/hr',
+      'success': '98% Job Success',
+      'image': 'https://via.placeholder.com/150'
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +109,7 @@ class StudentHomePage extends StatelessWidget {
               ),
               SizedBox(height: 32),
               Text(
-                'Talent in Germany',
+                'Recently Viewed',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -82,64 +117,110 @@ class StudentHomePage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 16),
-              ElevatedButton.icon(
-                onPressed: () {},
-                icon: Icon(Icons.search, color: Colors.green),
-                label: Text('See more from this area'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  foregroundColor: Colors.green,
-                  side: BorderSide(color: Colors.green),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-              ),
-              SizedBox(height: 16),
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                elevation: 4,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CircleAvatar(
-                        radius: 30,
-                        backgroundImage: NetworkImage('https://via.placeholder.com/150'),
-                      ),
-                      SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Marius T.',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
+              // Horizontal Scrollable List of Tutors
+              SizedBox(
+                height: 180,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: tutors.length,
+                  itemBuilder: (context, index) {
+                    final tutor = tutors[index];
+                    return Container(
+                      width: 300,
+                      margin: EdgeInsets.only(right: 16),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        elevation: 4,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CircleAvatar(
+                                    radius: 30,
+                                    backgroundImage: NetworkImage(tutor['image']),
+                                  ),
+                                  SizedBox(width: 16),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          tutor['name'],
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(tutor['specialty']),
+                                      ],
+                                    ),
+                                  ),
+                                  Column(
+                                    children: [
+                                      IconButton(
+                                        icon: Icon(Icons.favorite_border, color: Colors.red),
+                                        onPressed: () {
+                                          if (!savedTutors.contains(tutor)) {
+                                            savedTutors.add(tutor);
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(
+                                                content: Text('${tutor['name']} added to Saved Tutors!'),
+                                              ),
+                                            );
+                                          } else {
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(
+                                                content: Text('${tutor['name']} is already in Saved Tutors!'),
+                                              ),
+                                            );
+                                          }
+                                        },
+                                      ),
+                                      IconButton(
+                                        icon: Icon(Icons.chat, color: Colors.blue),
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ChatPage(userName: tutor['name']),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
-                            ),
-                            Text('SEO Strategy / Content / Tech'),
-                            SizedBox(height: 8),
-                            Text('\$70.00/hr',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                )),
-                            Text('100% Job Success'),
-                          ],
+                              SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  Text(
+                                    tutor['rate'],
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  Spacer(),
+                                  Text(
+                                    tutor['success'],
+                                    style: TextStyle(color: Colors.grey),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      IconButton(
-                        icon: Icon(Icons.favorite_border),
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
               ),
+              SizedBox(height: 32),
             ],
           ),
         ),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'messages_page.dart';
 import 'student_home_page.dart' as student_page;
 import 'user_settings_page.dart';
+import 'top_rated_tutors_page.dart'; // Import the new page
 import '../fetch_data_page.dart';
-
 
 class CatalogSubjectsPage extends StatefulWidget {
   @override
@@ -112,7 +112,17 @@ class _CatalogSubjectsPageState extends State<CatalogSubjectsPage> {
                           style: TextStyle(fontSize: 18, color: Colors.green),
                         ),
                         trailing: Icon(Icons.arrow_forward_ios, color: Colors.green),
-                        onTap: () {},
+                        onTap: () {
+                          // Navigate to TopRatedTutorsPage
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TopRatedTutorsPage(
+                                subject: filteredSubjects[index],
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   );
