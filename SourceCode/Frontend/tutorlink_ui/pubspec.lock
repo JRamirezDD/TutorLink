@@ -488,9 +488,9 @@ packages:
   tutorlink_frontend_http_package:
     dependency: "direct main"
     description:
-      path: "Source%20Code/Frontend/tutorlink_frontend_http_package"
-      ref: master
-      resolved-ref: "126d8e02642650f6e55fcf516ace3e60cfd6d377"
+      path: "SourceCode/Frontend/tutorlink_frontend_http_package"
+      ref: main
+      resolved-ref: "44af1ae4cffe29291ae5a3a6995a04dd862a5670"
       url: "https://github.com/JRamirezDD/TutorLink.git"
     source: git
     version: "0.0.1"
