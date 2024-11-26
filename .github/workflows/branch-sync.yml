@@ -1,0 +1,31 @@
+name: Sync to branches on Push to MASTER
+
+on: 
+  push: 
+    branches:
+      - master
+
+jobs: 
+  branch-sync:
+    runs-on: ubuntu-latest 
+    steps: 
+      - name: Checkout code
+        uses: actions/checkout@v4     
+        with: 
+          fetch-depth: 0 
+
+      - name: Set up git 
+        run: | 
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"   
+          
+      - name: Synchronize development branches
+        if: github.ref == 'refs/heads/master' 
+        run: | 
+          git fetch origin 
+          for branch in gio_branch jorge_branch; do
+            git checkout $branch
+            git merge master -X theirs
+            git push origin $branch
+          done
+
