@@ -23,7 +23,7 @@ services:
 
   student-domain-functional:
     build:
-      context: '../../Source Code/Backend/Student_Domain/functional'
+      context: '../../SourceCode/Backend/Student_Domain/functional'
       dockerfile: dockerfile
     ports:
       - "10011:10011"
