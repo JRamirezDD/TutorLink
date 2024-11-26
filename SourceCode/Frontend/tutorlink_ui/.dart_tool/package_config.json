@@ -2,30 +2,6 @@
   "configVersion": 2,
   "packages": [
     {
-      "name": "_fe_analyzer_shared",
-      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/_fe_analyzer_shared-72.0.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.3"
-    },
-    {
-      "name": "_macros",
-      "rootUri": "file:///C:/dev/flutter/bin/cache/dart-sdk/pkg/_macros",
-      "packageUri": "lib/",
-      "languageVersion": "3.4"
-    },
-    {
-      "name": "analyzer",
-      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/analyzer-6.7.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.3"
-    },
-    {
-      "name": "args",
-      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/args-2.6.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.3"
-    },
-    {
       "name": "async",
       "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/async-2.11.0",
       "packageUri": "lib/",
@@ -36,24 +12,6 @@
       "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/boolean_selector-2.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.17"
-    },
-    {
-      "name": "build",
-      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/build-2.4.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.19"
-    },
-    {
-      "name": "built_collection",
-      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/built_collection-5.1.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "built_value",
-      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/built_value-8.9.2",
-      "packageUri": "lib/",
-      "languageVersion": "3.0"
     },
     {
       "name": "characters",
@@ -68,34 +26,22 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "code_builder",
-      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/code_builder-4.10.1",
-      "packageUri": "lib/",
-      "languageVersion": "3.5"
-    },
-    {
       "name": "collection",
       "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/collection-1.18.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
-      "name": "convert",
-      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/convert-3.1.2",
+      "name": "cross_file",
+      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/cross_file-0.3.4+2",
       "packageUri": "lib/",
-      "languageVersion": "3.4"
+      "languageVersion": "3.3"
     },
     {
-      "name": "crypto",
-      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/crypto-3.0.6",
+      "name": "cupertino_icons",
+      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/cupertino_icons-1.0.8",
       "packageUri": "lib/",
-      "languageVersion": "3.4"
-    },
-    {
-      "name": "dart_style",
-      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/dart_style-2.3.7",
-      "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "3.1"
     },
     {
       "name": "fake_async",
@@ -110,16 +56,28 @@
       "languageVersion": "3.3"
     },
     {
-      "name": "file",
-      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/file-7.0.1",
+      "name": "file_selector_linux",
+      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/file_selector_linux-0.9.3+1",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "file_selector_macos",
+      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/file_selector_macos-0.9.4+2",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "file_selector_platform_interface",
+      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/file_selector_platform_interface-2.6.2",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
-      "name": "fixnum",
-      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/fixnum-1.1.1",
+      "name": "file_selector_windows",
+      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/file_selector_windows-0.9.3+3",
       "packageUri": "lib/",
-      "languageVersion": "3.1"
+      "languageVersion": "3.3"
     },
     {
       "name": "flutter",
@@ -128,10 +86,22 @@
       "languageVersion": "3.3"
     },
     {
+      "name": "flutter_dotenv",
+      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_dotenv-5.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_lints",
       "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-4.0.0",
       "packageUri": "lib/",
       "languageVersion": "3.1"
+    },
+    {
+      "name": "flutter_plugin_android_lifecycle",
+      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.23",
+      "packageUri": "lib/",
+      "languageVersion": "3.5"
     },
     {
       "name": "flutter_secure_storage",
@@ -182,12 +152,6 @@
       "languageVersion": "3.2"
     },
     {
-      "name": "glob",
-      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/glob-2.1.2",
-      "packageUri": "lib/",
-      "languageVersion": "2.19"
-    },
-    {
       "name": "http",
       "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/http-1.2.2",
       "packageUri": "lib/",
@@ -198,6 +162,54 @@
       "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/http_parser-4.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "image_picker",
+      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker-1.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "image_picker_android",
+      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_android-0.8.12+17",
+      "packageUri": "lib/",
+      "languageVersion": "3.5"
+    },
+    {
+      "name": "image_picker_for_web",
+      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_for_web-2.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "image_picker_ios",
+      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_ios-0.8.12+1",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "image_picker_linux",
+      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_linux-0.2.1+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "image_picker_macos",
+      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_macos-0.2.1+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "image_picker_platform_interface",
+      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_platform_interface-2.10.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "image_picker_windows",
+      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_windows-0.2.1+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
     },
     {
       "name": "js",
@@ -230,18 +242,6 @@
       "languageVersion": "3.1"
     },
     {
-      "name": "logging",
-      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/logging-1.3.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.4"
-    },
-    {
-      "name": "macros",
-      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/macros-0.1.2-main.4",
-      "packageUri": "lib/",
-      "languageVersion": "3.4"
-    },
-    {
       "name": "matcher",
       "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/matcher-0.12.16+1",
       "packageUri": "lib/",
@@ -260,14 +260,14 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "mockito",
-      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/mockito-5.4.4",
+      "name": "mime",
+      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/mime-1.0.6",
       "packageUri": "lib/",
-      "languageVersion": "3.1"
+      "languageVersion": "3.2"
     },
     {
-      "name": "package_config",
-      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/package_config-2.1.0",
+      "name": "nested",
+      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/nested-1.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -326,22 +326,16 @@
       "languageVersion": "3.0"
     },
     {
-      "name": "pub_semver",
-      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/pub_semver-2.1.4",
+      "name": "provider",
+      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/provider-6.1.2",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.12"
     },
     {
       "name": "sky_engine",
       "rootUri": "file:///C:/dev/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
       "languageVersion": "3.2"
-    },
-    {
-      "name": "source_gen",
-      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/source_gen-1.5.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.0"
     },
     {
       "name": "source_span",
@@ -380,6 +374,12 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "tutorlink_frontend_http_package",
+      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/git/TutorLink-690bfb3ba61a7d58b3580f452e0137db0c6f086c/SourceCode/Frontend/tutorlink_frontend_http_package",
+      "packageUri": "lib/",
+      "languageVersion": "3.5"
+    },
+    {
       "name": "typed_data",
       "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/typed_data-1.4.0",
       "packageUri": "lib/",
@@ -396,12 +396,6 @@
       "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/vm_service-14.2.5",
       "packageUri": "lib/",
       "languageVersion": "3.3"
-    },
-    {
-      "name": "watcher",
-      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/watcher-1.1.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.0"
     },
     {
       "name": "web",
@@ -422,19 +416,13 @@
       "languageVersion": "3.3"
     },
     {
-      "name": "yaml",
-      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/hosted/pub.dev/yaml-3.1.2",
-      "packageUri": "lib/",
-      "languageVersion": "2.19"
-    },
-    {
-      "name": "tutorlink_frontend_http_package",
+      "name": "tryflutter",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2024-11-26T18:51:07.720449Z",
+  "generated": "2024-11-26T21:25:21.655596Z",
   "generator": "pub",
   "generatorVersion": "3.5.4",
   "flutterRoot": "file:///C:/dev/flutter",

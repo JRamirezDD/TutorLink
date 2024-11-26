@@ -28,8 +28,6 @@ LABEL authors="jorge"
 
 # Set environment variables
 ENV SPRING_APPLICATION_NAME=student-domain-functional
-ENV SERVER_ADDRESS=0.0.0.0
-ENV SERVER_PORT=10000
 
 # Expose application port
 EXPOSE $SERVER_PORT

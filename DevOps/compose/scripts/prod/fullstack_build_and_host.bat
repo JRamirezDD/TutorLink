@@ -1,10 +1,12 @@
 @echo off
 
-REM   Title: fullstack_build_and_host.bat
+REM   Title: backend_build_and_host.bat
 REM   Author: Ramirez de Diego, Jorge
 REM   Date: 2024
 REM   Code version: 1.0
 REM   Availability: https://github.com/JRamirezDD/TutorLink
+
+setlocal enabledelayedexpansion
 
 REM script directory
 set SCRIPT_DIR=%~dp0
@@ -31,6 +33,12 @@ if %ERRORLEVEL% NEQ 0 (
     exit /b 1
 )
 
+REM load the environment variables from the .env file
+for /f "usebackq tokens=1,* delims==" %%A in (`type "%ENV_FILE%"`) do (
+    echo Setting variable: %%A=%%B
+    set %%A=%%B
+)
+
 REM shut down compose node
 docker-compose -f ../../docker-compose-backend.yml down
 docker-compose -f ../../docker-compose-frontend.yml down
@@ -43,3 +51,5 @@ if %ERRORLEVEL% NEQ 0 (
     pause
     exit /b 1
 )
+
+endlocal
