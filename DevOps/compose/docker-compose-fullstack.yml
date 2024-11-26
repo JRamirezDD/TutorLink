@@ -7,7 +7,7 @@
 name: tutorlink-fullstack
 
 services:
-  db:
+  student-db:
     image: postgres:13
     environment:
       POSTGRES_DB: student_db
@@ -30,12 +30,24 @@ services:
     env_file:
       - ${ENV_FILE}
     depends_on:
-      - db
+      - student-db
     networks:
       - tutorlink-network
 
 ### Other backend services...
 
+  ui:
+    build:
+      context: '../../SourceCode/Frontend/tutorlink_ui'
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    env_file:
+      - ${ENV_FILE}
+    depends_on:
+      - student-domain-functional
+    networks:
+      - tutorlink-network
 
 
 volumes:
