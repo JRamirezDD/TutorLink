@@ -9,7 +9,6 @@ import com.tutorlink.student_domain.functional.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,27 +16,18 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CatalogService {
 
-    private final CourseRepository courseRepository;
+    private final CourseRepository courseRepository = null;
 
-    public List<CourseCatalogResp> getAllCourses(Double minPrice, Double maxPrice, String location, String subject, String sortField, String sortOrder) {
+    public List<CourseCatalogResp> getAllCourses() {
         return courseRepository.findAll().stream()
-                .filter(course -> (minPrice == null || course.getHourlyRate() >= minPrice))
-                .filter(course -> (maxPrice == null || course.getHourlyRate() <= maxPrice))
-                .filter(course -> (location == null || course.getLocation().equalsIgnoreCase(location)))
-                .filter(course -> (subject == null || course.getSubject().equalsIgnoreCase(subject)))
-                .sorted(getEntityComparator(sortField, sortOrder)) // Sort the entity first
                 .map(course -> new CourseCatalogResp(
                         course.getId(),
                         course.getCourseName(),
                         course.getTutor().getName(),
                         course.getTutor().getId(),
-                        course.getHourlyRate(),
-                        course.getLocation(),
-                        course.getSubject(),
-                        course.getDescription()))
+                        course.getHourlyRate()))
                 .collect(Collectors.toList());
     }
-
 
     public CourseDetailResp getCourseDetails(Long courseId) {
         Course course = courseRepository.findById(courseId)
@@ -55,42 +45,16 @@ public class CatalogService {
 
     public EnrollmentStatusResp enrollInCourse(Long courseId, EnrollmentReq enrollmentReq) {
         // TODO: enrollment logic
+
         return new EnrollmentStatusResp(courseId, enrollmentReq.studentId(), "ENROLLED");
     }
 
     public List<CourseCatalogResp> getEnrolledCourses(Long studentId) {
         // TODO: logic to get all enrolled courses
-        return List.of(); // Mocked for now
+
+        return List.of();
     }
-
-    private Comparator<Course> getEntityComparator(String sortField, String sortOrder) {
-        Comparator<Course> comparator;
-
-        switch (sortField.toLowerCase()) {
-            case "price":
-                comparator = Comparator.comparing(Course::getHourlyRate, Comparator.nullsLast(Double::compareTo));
-                break;
-            case "location":
-                comparator = Comparator.comparing(Course::getLocation, Comparator.nullsLast(String::compareTo));
-                break;
-            case "subject":
-                comparator = Comparator.comparing(Course::getSubject, Comparator.nullsLast(String::compareTo));
-                break;
-            default:
-                comparator = Comparator.comparing(Course::getId, Comparator.nullsLast(Long::compareTo)); // Default sorting
-        }
-
-        if ("desc".equalsIgnoreCase(sortOrder)) {
-            comparator = comparator.reversed();
-        }
-
-        return comparator;
-    }
-
-
-
 }
-
 
 
 

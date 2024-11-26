@@ -11,27 +11,33 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "users")
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "users_entity")
 public class UserEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @NotNull
+    @Size(min = 5, max = 30)
+    @Nationalized
     private String username;
 
-    @Column(nullable = false)
+    @NotBlank
     private String password;
 
-    @Column(nullable = false, unique = true)
+    @NotBlank
+    @Size(min = 5)
     private String email;
 
-}
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+}

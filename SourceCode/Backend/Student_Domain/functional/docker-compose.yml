@@ -4,7 +4,7 @@
 #   Code version: 1.0
 #   Availability: https://github.com/JRamirezDD/TutorLink
 
-name: student-domain-functional
+version: '3.8'
 
 services:
   student-domain-functional:
@@ -12,7 +12,7 @@ services:
       context: .
       dockerfile: dockerfile
     ports:
-      - "10011:10011"
+      - "10000:10000"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/student_db
       SPRING_DATASOURCE_USERNAME: main_user
@@ -23,8 +23,6 @@ services:
       SPRING_JPA_OPEN_IN_VIEW: "true"
     depends_on:
       - db
-    networks:
-      - TutorLink-Network
 
   db:
     image: postgres:13
@@ -36,12 +34,6 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    networks:
-      - TutorLink-Network
 
 volumes:
   postgres_data:
-
-networks:
-  tutorlink-network:
-    driver: bridge
