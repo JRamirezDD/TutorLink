@@ -4,14 +4,13 @@ description: A new Flutter project for building a tutoring application
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.5.0 <4.0.0" # Ensure Dart SDK version is compatible
+  sdk: ^3.5.3 # Ensure Dart SDK version is compatible
 
 dependencies:
   flutter:
     sdk: flutter
 
   # Networking
-  http: ^1.2.2 # Add the HTTP package for making requests to the backend
   flutter_dotenv: ^5.0.2 # Optional: Manage API URLs via environment variables
 
   # Image Picker
@@ -24,7 +23,10 @@ dependencies:
   provider: ^6.1.2 # Added provider for state management
 
   tutorlink_frontend_http_package:
-    path: ../tutorlink_frontend_http_package
+    git:
+      url: https://github.com/JRamirezDD/TutorLink.git
+      ref: master # Optional, specify a branch, tag, or commit
+      path: "SourceCode/Frontend/tutorlink_frontend_http_package" # Path within the repository
 
 dev_dependencies:
   flutter_test:

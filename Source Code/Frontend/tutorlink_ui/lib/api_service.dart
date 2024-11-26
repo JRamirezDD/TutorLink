@@ -1,7 +1,7 @@
 // api_service.dart
 
 import 'dart:convert';
-import 'api_client.dart';
+import 'package:tutorlink_frontend_http_package/frontend_http_package.dart';
 
 class ApiService {
   final ApiClient apiClient;

@@ -36,7 +36,8 @@ class _FetchDataPageState extends State<FetchDataPage> {
       // Fetching profile data using ApiService
       final profileData = await apiService.getStudentProfile();
 
-      if (!mounted) return; // Ensure the widget is still in the tree before calling setState()
+      if (!mounted)
+        return; // Ensure the widget is still in the tree before calling setState()
 
       if (profileData != null) {
         setState(() {
@@ -50,7 +51,8 @@ class _FetchDataPageState extends State<FetchDataPage> {
         });
       }
     } catch (e) {
-      if (!mounted) return; // Ensure the widget is still in the tree before calling setState()
+      if (!mounted)
+        return; // Ensure the widget is still in the tree before calling setState()
 
       setState(() {
         _errorMessage = 'Error: $e';

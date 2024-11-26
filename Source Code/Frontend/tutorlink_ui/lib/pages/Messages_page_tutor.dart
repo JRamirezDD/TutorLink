@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../fetch_data_page.dart';// Update this path as needed
+import '../fetch_data_page.dart'; // Update this path as needed
 
 class MessagesPageTutor extends StatelessWidget {
   @override
@@ -37,7 +37,8 @@ class MessagesPageTutor extends StatelessWidget {
                   title: Text('Student ${index + 1}'),
                   subtitle: Text('Last message snippet...'),
                   onTap: () {
-                    Navigator.pushNamed(context, '/chatDetail', arguments: 'Student ${index + 1}');
+                    Navigator.pushNamed(context, '/chatDetail',
+                        arguments: 'Student ${index + 1}');
                   },
                 );
               },

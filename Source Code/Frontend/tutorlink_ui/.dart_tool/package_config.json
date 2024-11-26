@@ -375,7 +375,7 @@
     },
     {
       "name": "tutorlink_frontend_http_package",
-      "rootUri": "../../tutorlink_frontend_http_package",
+      "rootUri": "file:///C:/Users/jorge/AppData/Local/Pub/Cache/git/TutorLink-126d8e02642650f6e55fcf516ace3e60cfd6d377/Source%2520Code/Frontend/tutorlink_frontend_http_package",
       "packageUri": "lib/",
       "languageVersion": "3.5"
     },
@@ -422,7 +422,7 @@
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2024-11-25T16:29:29.742591Z",
+  "generated": "2024-11-26T09:56:27.073182Z",
   "generator": "pub",
   "generatorVersion": "3.5.4",
   "flutterRoot": "file:///C:/dev/flutter",
