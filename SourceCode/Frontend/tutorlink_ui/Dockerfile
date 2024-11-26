@@ -39,7 +39,7 @@ COPY --from=build /app/build/web /usr/share/nginx/html
 # Copy custom NGINX configuration
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Expose flutter web port
+# Expose the default NGINX HTTP port
 EXPOSE 80
 
 # Start NGINX server

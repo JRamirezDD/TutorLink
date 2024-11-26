@@ -25,7 +25,7 @@ dependencies:
   tutorlink_frontend_http_package:
     git:
       url: https://github.com/JRamirezDD/TutorLink.git
-      ref: my-new-branch # Optional, specify a branch, tag, or commit
+      ref: main # Optional, specify a branch, tag, or commit
       path: "SourceCode/Frontend/tutorlink_frontend_http_package" # Path within the repository
 
 dev_dependencies:

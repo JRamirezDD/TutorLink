@@ -489,8 +489,8 @@ packages:
     dependency: "direct main"
     description:
       path: "SourceCode/Frontend/tutorlink_frontend_http_package"
-      ref: my-new-branch
-      resolved-ref: "0b597051f8d77a78e5c3587483fd3de70f5936f3"
+      ref: main
+      resolved-ref: "690bfb3ba61a7d58b3580f452e0137db0c6f086c"
       url: "https://github.com/JRamirezDD/TutorLink.git"
     source: git
     version: "0.0.1"
