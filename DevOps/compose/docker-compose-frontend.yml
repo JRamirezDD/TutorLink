@@ -4,42 +4,24 @@
 #   Code version: 1.0
 #   Availability: https://github.com/JRamirezDD/TutorLink
 
-name: tutorlink-fullstack
+name: tutorlink-frontend
 
 services:
-  db:
-    image: postgres:13
-    environment:
-      POSTGRES_DB: student_db
-      POSTGRES_USER: main_user
-      POSTGRES_PASSWORD: PassWord12@
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      - tutorlink-network
-
-
-  student-domain-functional:
+  ui:
     build:
-      context: '../../Source Code/Backend/Student_Domain/functional'
-      dockerfile: dockerfile
+      context: '../../SourceCode/Frontend/tutorlink_ui'
+      dockerfile: Dockerfile
     ports:
-      - "10011:10011"
+      - "80:80"
     env_file:
       - ${ENV_FILE}
-    depends_on:
-      - db
     networks:
       - tutorlink-network
-
-### Other backend services...
-
-
-
-volumes:
-  postgres_data:
+    volumes:
+      # Mount the NGINX configuration file for easy edits
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      # Persist NGINX logs on the host machine
+      - ./logs:/var/log/nginx
 
 networks:
   tutorlink-network:
