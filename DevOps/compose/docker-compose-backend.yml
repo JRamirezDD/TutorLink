@@ -23,7 +23,7 @@ services:
 
   student-domain-functional:
     build:
-      context: '../../Source Code/Backend/Student_Domain/functional'
+      context: '../../SourceCode/Backend/Student_Domain/functional'
       dockerfile: dockerfile
     ports:
       - "${STUDENT_DOMAIN_SERVICES_FUNCTIONAL_SERVICE_PORT}:${STUDENT_DOMAIN_SERVICES_FUNCTIONAL_SERVICE_PORT}"
