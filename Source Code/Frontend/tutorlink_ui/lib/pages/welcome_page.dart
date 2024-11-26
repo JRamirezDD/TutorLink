@@ -11,83 +11,108 @@ class WelcomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Welcome to TutorLink'),
+        centerTitle: true,
+        backgroundColor: Colors.blueAccent,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              // Login as Tutor button
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TutorLoginPage(),
-                    ),
-                  );
-                },
-                child: Text('Login as Tutor'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Text(
+              'Welcome to TutorLink',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.blueAccent,
               ),
-              SizedBox(height: 10),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 30),
 
-              // Login as Student button
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => StudentLoginPage()),
-                  );
-                },
-                child: Text('Login as Student'),
-              ),
-              SizedBox(height: 20),
-
-              // Register as Tutor button
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => TutorRegistrationPage()),
-                  );
-                },
-                child: Text('Register as Tutor'),
-              ),
-              SizedBox(height: 10),
-
-              // Register as Student button
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => StudentRegistrationPage()),
-                  );
-                },
-                child: Text('Register as Student'),
-              ),
-              SizedBox(height: 20),
-
-              // Adding FetchDataPage to utilize the import
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: Text(
-                  'Here is some fetched data to get you started:',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey[700],
+            // Login as Tutor button
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TutorLoginPage(),
                   ),
-                  textAlign: TextAlign.center,
-                ),
+                );
+              },
+              icon: Icon(Icons.person),
+              label: Text('Login as Tutor'),
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(vertical: 12),
               ),
-              Container(
-                height: 150, // Set a finite height for FetchDataPage
-                child: FetchDataPage(),
+            ),
+            SizedBox(height: 10),
+
+            // Login as Student button
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => StudentLoginPage()),
+                );
+              },
+              icon: Icon(Icons.school),
+              label: Text('Login as Student'),
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(vertical: 12),
               ),
-            ],
-          ),
+            ),
+            SizedBox(height: 20),
+
+            // Register as Tutor button
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TutorRegistrationPage()),
+                );
+              },
+              icon: Icon(Icons.app_registration),
+              label: Text('Register as Tutor'),
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(vertical: 12),
+              ),
+            ),
+            SizedBox(height: 10),
+
+            // Register as Student button
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => StudentRegistrationPage()),
+                );
+              },
+              icon: Icon(Icons.person_add),
+              label: Text('Register as Student'),
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(vertical: 12),
+              ),
+            ),
+            SizedBox(height: 30),
+
+            // Fetched Data Section
+            Text(
+              'Here is some fetched data to get you started:',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[700],
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 16),
+            Container(
+              height: 150, // Constrain FetchDataPage height
+              child: FetchDataPage(),
+            ),
+          ],
         ),
       ),
     );
@@ -97,4 +122,3 @@ class WelcomePage extends StatelessWidget {
 void main() => runApp(MaterialApp(
       home: WelcomePage(),
     ));
-

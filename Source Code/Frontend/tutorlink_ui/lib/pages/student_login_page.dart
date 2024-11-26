@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'student_home_page.dart'; // Import the StudentHomePage
-import '../fetch_data_page.dart';
+import '../fetch_data_page.dart'; // Include the FetchDataPage
+
 class StudentLoginPage extends StatefulWidget {
   @override
   _StudentLoginPageState createState() => _StudentLoginPageState();
@@ -10,24 +11,35 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void _login() {
-    String username = _usernameController.text;
-    String password = _passwordController.text;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-    // Dummy login check for simplicity
-    if (username == 'student' && password == 'password') {
-      // Navigate to StudentHomePage after successful login
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => StudentHomePage(username: username), // Pass the username to the home page
-        ),
-      );
-    } else {
-      // Show error if login fails
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Invalid username or password')),
-      );
+  // Dummy database for username and password validation
+  final Map<String, String> _dummyUsers = {
+    'student1': 'password1',
+    'student2': 'password2',
+    'student3': 'password3',
+  };
+
+  void _login() {
+    if (_formKey.currentState!.validate()) {
+      String username = _usernameController.text;
+      String password = _passwordController.text;
+
+      // Check credentials against the dummy database
+      if (_dummyUsers.containsKey(username) && _dummyUsers[username] == password) {
+        // Navigate to StudentHomePage after successful login
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => StudentHomePage(username: username), // Pass the username
+          ),
+        );
+      } else {
+        // Show error if login fails
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Invalid username or password')),
+        );
+      }
     }
   }
 
@@ -38,47 +50,77 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              TextField(
-                controller: _usernameController,
-                decoration: InputDecoration(
-                  labelText: 'Username',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 16),
-              TextField(
-                controller: _passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _login,
-                child: Text('Login'),
-              ),
-              SizedBox(height: 20),
-
-              // Include FetchDataPage below the login button to utilize the import and display fetched data
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: Text(
-                  'Additional Information:',
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Text(
+                  'Welcome Back, Student!',
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: Colors.grey[700],
                   ),
                 ),
-              ),
-              FetchDataPage(), // Display the FetchDataPage widget here
-            ],
+                SizedBox(height: 24),
+                TextFormField(
+                  controller: _usernameController,
+                  decoration: InputDecoration(
+                    labelText: 'Username',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your username';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 16),
+                TextFormField(
+                  controller: _passwordController,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your password';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: _login,
+                  child: Text('Login'),
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                  ),
+                ),
+                SizedBox(height: 20),
+
+                // Include FetchDataPage below the login button
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: Text(
+                    'Additional Information:',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[700],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 150, // Constrain the height of FetchDataPage
+                  child: FetchDataPage(), // Display the FetchDataPage widget here
+                ),
+              ],
+            ),
           ),
         ),
       ),

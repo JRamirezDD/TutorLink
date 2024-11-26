@@ -3,6 +3,7 @@ import 'student_home_page.dart' as student_page;
 import 'user_settings_page.dart';
 import 'catalog_subjects_page.dart';
 import '../fetch_data_page.dart';
+import 'chat_page.dart'; // Import the ChatPage
 
 class MessagesPage extends StatelessWidget {
   @override
@@ -30,7 +31,6 @@ class MessagesPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          // Adding the FetchDataPage with height constraints
           Container(
             height: 150, // Set a finite height for the FetchDataPage
             padding: const EdgeInsets.all(8.0),
@@ -47,7 +47,14 @@ class MessagesPage extends StatelessWidget {
                   title: Text('John Doe'),
                   subtitle: Text('Hey! How are you doing?'),
                   trailing: Text('2:30 PM'),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChatPage(userName: 'John Doe'),
+                      ),
+                    );
+                  },
                 ),
                 Divider(),
                 ListTile(
@@ -57,7 +64,14 @@ class MessagesPage extends StatelessWidget {
                   title: Text('Jane Smith'),
                   subtitle: Text('Can we schedule a session tomorrow?'),
                   trailing: Text('1:45 PM'),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChatPage(userName: 'Jane Smith'),
+                      ),
+                    );
+                  },
                 ),
                 Divider(),
                 ListTile(
@@ -67,7 +81,14 @@ class MessagesPage extends StatelessWidget {
                   title: Text('Alex Johnson'),
                   subtitle: Text('Thanks for your help!'),
                   trailing: Text('Yesterday'),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChatPage(userName: 'Alex Johnson'),
+                      ),
+                    );
+                  },
                 ),
                 Divider(),
                 ListTile(
@@ -77,7 +98,14 @@ class MessagesPage extends StatelessWidget {
                   title: Text('Emily Davis'),
                   subtitle: Text('Do you have any availability next week?'),
                   trailing: Text('Monday'),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChatPage(userName: 'Emily Davis'),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
@@ -92,7 +120,7 @@ class MessagesPage extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => student_page.StudentHomePage(username: 'Student'), // Replace 'Student' with the actual username if available
+                builder: (context) => student_page.StudentHomePage(username: 'Student'),
               ),
             );
           } else if (index == 1) {
@@ -100,8 +128,6 @@ class MessagesPage extends StatelessWidget {
               context,
               MaterialPageRoute(builder: (context) => CatalogSubjectsPage()),
             );
-          } else if (index == 2) {
-            // Stay on the same page
           }
         },
         items: [
