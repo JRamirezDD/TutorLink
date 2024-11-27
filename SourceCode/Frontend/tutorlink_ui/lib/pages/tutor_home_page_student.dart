@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class TutorHomePageStudent extends StatelessWidget {
   final Map<String, dynamic> tutor;
 
-  TutorHomePageStudent({required this.tutor});
+  const TutorHomePageStudent({super.key, required this.tutor});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class TutorHomePageStudent extends StatelessWidget {
         ),
         title: Text(
           tutor['name'],
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
           ),
@@ -36,11 +36,11 @@ class TutorHomePageStudent extends StatelessWidget {
                 backgroundImage: NetworkImage(tutor['image']),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Center(
               child: Text(
                 tutor['name'],
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                 ),
@@ -49,45 +49,45 @@ class TutorHomePageStudent extends StatelessWidget {
             Center(
               child: Text(
                 tutor['specialty'],
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                   color: Colors.grey,
                 ),
               ),
             ),
-            SizedBox(height: 16),
-            Text(
+            const SizedBox(height: 16),
+            const Text(
               'Hourly Rate:',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             Text(
               tutor['rate'],
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
-            SizedBox(height: 16),
-            Text(
+            const SizedBox(height: 16),
+            const Text(
               'Job Success:',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             Text(
               tutor['success'],
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
-            SizedBox(height: 16),
-            Text(
+            const SizedBox(height: 16),
+            const Text(
               'About the Tutor:',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            Text(
+            const Text(
               'This is a placeholder for the tutor\'s bio or description. You can fetch and display more details about the tutor from the backend here.',
               style: TextStyle(fontSize: 16),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
                 // Handle booking logic here
               },
-              child: Text('Book a Session'),
+              child: const Text('Book a Session'),
             ),
           ],
         ),

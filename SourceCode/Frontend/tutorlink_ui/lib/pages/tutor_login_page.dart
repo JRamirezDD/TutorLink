@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'tutor_home_page.dart';
 import '../fetch_data_page.dart';
 class TutorLoginPage extends StatefulWidget {
+  const TutorLoginPage({super.key});
+
   @override
   _TutorLoginPageState createState() => _TutorLoginPageState();
 }
@@ -34,7 +36,7 @@ class _TutorLoginPageState extends State<TutorLoginPage> {
     } else {
       // Show an error if login fails
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Invalid username or password')),
+        const SnackBar(content: Text('Invalid username or password')),
       );
     }
   }
@@ -43,7 +45,7 @@ class _TutorLoginPageState extends State<TutorLoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tutor Login'),
+        title: const Text('Tutor Login'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -54,26 +56,26 @@ class _TutorLoginPageState extends State<TutorLoginPage> {
             children: <Widget>[
               TextField(
                 controller: _usernameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Username',
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextField(
                 controller: _passwordController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Password',
                   border: OutlineInputBorder(),
                 ),
                 obscureText: true,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _login,
-                child: Text('Login'),
+                child: const Text('Login'),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Integration of FetchDataPage
               Padding(
@@ -88,7 +90,7 @@ class _TutorLoginPageState extends State<TutorLoginPage> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              Container(
+              SizedBox(
                 height: 150, // Set a finite height for FetchDataPage
                 child: FetchDataPage(),
               ),

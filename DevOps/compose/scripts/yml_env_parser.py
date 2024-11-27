@@ -10,10 +10,11 @@ import sys
 
 
 def flatten_dict(d, parent_key='', sep='_'):
-    """flattens nested dict"""
+    """Flattens nested dictionaries and replaces '-' with '_' in keys."""
     items = []
     for k, v in d.items():
-        new_key = f"{parent_key}{sep}{k}".upper() if parent_key else k.upper()
+        # Replace '-' with '_' in the key
+        new_key = f"{parent_key}{sep}{k}".replace('-', '_').upper() if parent_key else k.replace('-', '_').upper()
         if isinstance(v, dict):
             items.extend(flatten_dict(v, new_key, sep=sep).items())
         else:

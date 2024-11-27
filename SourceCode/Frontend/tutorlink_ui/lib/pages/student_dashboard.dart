@@ -4,11 +4,13 @@ import '../fetch_data_page.dart'; // Corrected import for FetchDataPage
 
 // Define the StudentDashboardPage class
 class StudentDashboardPage extends StatelessWidget {
+  const StudentDashboardPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Student Dashboard'),
+        title: const Text('Student Dashboard'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -16,14 +18,14 @@ class StudentDashboardPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Welcome message
-            ListTile(
+            const ListTile(
               title: Text('Welcome, Student!'),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             // Integrate FetchDataWidget to display fetched data
             FetchDataPage(),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             // Button to find a tutor
             ElevatedButton(
@@ -31,12 +33,12 @@ class StudentDashboardPage extends StatelessWidget {
                 // Add functionality for finding tutors here
                 // e.g., Navigating to a tutor search page or list of tutors
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Find a Tutor functionality coming soon!')),
+                  const SnackBar(content: Text('Find a Tutor functionality coming soon!')),
                 );
               },
-              child: Text('Find a Tutor'),
+              child: const Text('Find a Tutor'),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             // Button to view payment history
             ElevatedButton(
@@ -47,7 +49,7 @@ class StudentDashboardPage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => PaymentHistoryPage()),
                 );
               },
-              child: Text('View Payment History'),
+              child: const Text('View Payment History'),
             ),
           ],
         ),

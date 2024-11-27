@@ -6,7 +6,7 @@ class TopRatedTutorsPage extends StatelessWidget {
   final String subject;
 
   // Constructor to accept the subject name
-  TopRatedTutorsPage({required this.subject});
+  TopRatedTutorsPage({super.key, required this.subject});
 
   // Sample tutors data dynamically filtered by subject
   final Map<String, List<Map<String, dynamic>>> subjectTutors = {
@@ -67,16 +67,16 @@ class TopRatedTutorsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('$subject Tutors', style: TextStyle(color: Colors.black)),
+        title: Text('$subject Tutors', style: const TextStyle(color: Colors.black)),
         backgroundColor: Colors.white,
         elevation: 0,
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: tutors.isEmpty
           ? Center(
               child: Text(
                 'No tutors found for $subject.',
-                style: TextStyle(fontSize: 16, color: Colors.grey),
+                style: const TextStyle(fontSize: 16, color: Colors.grey),
               ),
             )
           : Padding(
@@ -96,14 +96,14 @@ class TopRatedTutorsPage extends StatelessWidget {
                         backgroundImage: NetworkImage(tutor['image']),
                         radius: 30,
                       ),
-                      title: Text(tutor['name'], style: TextStyle(fontSize: 18)),
+                      title: Text(tutor['name'], style: const TextStyle(fontSize: 18)),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(tutor['specialty']),
                           Text(
                             tutor['rate'],
-                            style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+                            style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -111,7 +111,7 @@ class TopRatedTutorsPage extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           IconButton(
-                            icon: Icon(Icons.chat, color: Colors.blue),
+                            icon: const Icon(Icons.chat, color: Colors.blue),
                             onPressed: () {
                               // Navigate to chat page
                               Navigator.push(
