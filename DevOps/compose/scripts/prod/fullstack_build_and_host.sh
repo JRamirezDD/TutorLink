@@ -35,8 +35,9 @@ fi
 
 # load the environment variables from the .env file
 while IFS='=' read -r VAR VAL; do
-    echo "Setting variable: $VAR=$VAL"
-    export "$VAR"="$VAL"
+   SANITIZED_VAR=$(echo "$VAR" | tr '.-' '__')
+    echo "Setting variable: $SANITIZED_VAR=$VAL"
+     export "$SANITIZED_VAR"="$VAL"
 done < "$ENV_FILE"
 
 # shut down compose node
@@ -45,7 +46,10 @@ docker-compose -f ../../docker-compose-frontend.yml down
 docker-compose -f ../../docker-compose-fullstack.yml down
 
 # build up compose node
-docker-compose --env-file "$ENV_FILE" -f ../../docker-compose-fullstack.yml up --build
+docker-compose --env-file "$ENV_FILE" -f "/Users/nadaelhaddad/Tutor_Link/DevOps/compose/docker-compose-fullstack.yml" up --build
+
+
+
 if [ $? -ne 0 ]; then
     echo "Docker Compose failed."
     exit 1
