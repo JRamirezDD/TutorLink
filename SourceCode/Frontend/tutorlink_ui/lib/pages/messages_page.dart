@@ -137,6 +137,9 @@ class MessagesPage extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
+            
+
+
             label: 'Catalog',
           ),
           BottomNavigationBarItem(

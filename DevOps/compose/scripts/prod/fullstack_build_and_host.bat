@@ -1,6 +1,6 @@
 @echo off
 
-REM   Title: backend_build_and_host.bat
+REM   Title: fullstack_build_and_host.bat
 REM   Author: Ramirez de Diego, Jorge
 REM   Date: 2024
 REM   Code version: 1.0
