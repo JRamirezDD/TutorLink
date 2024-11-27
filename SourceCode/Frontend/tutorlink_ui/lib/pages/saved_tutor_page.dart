@@ -3,6 +3,8 @@ import 'tutor_home_page_student.dart'; // Adjust the path if needed
 import 'student_home_page.dart'; // Access savedTutors list
 
 class SavedTutorPage extends StatelessWidget {
+  const SavedTutorPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,25 +12,25 @@ class SavedTutorPage extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
-        title: Text(
+        title: const Text(
           'Saved Tutors',
           style: TextStyle(color: Colors.black),
         ),
       ),
       body: savedTutors.isEmpty
-          ? Center(
+          ? const Center(
               child: Text(
                 'No tutors saved yet.',
                 style: TextStyle(fontSize: 16, color: Colors.grey),
               ),
             )
           : ListView.builder(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               itemCount: savedTutors.length,
               itemBuilder: (context, index) {
                 final tutor = savedTutors[index];

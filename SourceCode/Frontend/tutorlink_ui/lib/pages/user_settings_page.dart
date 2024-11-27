@@ -3,6 +3,8 @@ import 'saved_tutor_page.dart'; // Import the Saved Tutors Page
 import 'welcome_page.dart'; // Import the Welcome Page
 
 class UserSettingsPage extends StatelessWidget {
+  const UserSettingsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,12 +12,12 @@ class UserSettingsPage extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
-        title: Text(
+        title: const Text(
           'Settings and Activity',
           style: TextStyle(color: Colors.black),
         ),
@@ -27,10 +29,10 @@ class UserSettingsPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ListTile(
-                leading: Icon(Icons.account_circle, color: Colors.black),
-                title: Text('Accounts Centre'),
-                subtitle: Text('Password, security, personal details, ad preferences'),
-                trailing: Icon(Icons.arrow_forward_ios),
+                leading: const Icon(Icons.account_circle, color: Colors.black),
+                title: const Text('Accounts Centre'),
+                subtitle: const Text('Password, security, personal details, ad preferences'),
+                trailing: const Icon(Icons.arrow_forward_ios),
                 onTap: () {},
               ),
               Padding(
@@ -45,9 +47,9 @@ class UserSettingsPage extends StatelessWidget {
                 ),
               ),
               ListTile(
-                leading: Icon(Icons.bookmark_border),
-                title: Text('Saved'),
-                trailing: Icon(Icons.arrow_forward_ios),
+                leading: const Icon(Icons.bookmark_border),
+                title: const Text('Saved'),
+                trailing: const Icon(Icons.arrow_forward_ios),
                 onTap: () {
                   // Navigate to Saved Tutors Page
                   Navigator.push(
@@ -57,17 +59,17 @@ class UserSettingsPage extends StatelessWidget {
                 },
               ),
               ListTile(
-                leading: Icon(Icons.lock),
-                title: Text('Password'),
-                trailing: Icon(Icons.arrow_forward_ios),
+                leading: const Icon(Icons.lock),
+                title: const Text('Password'),
+                trailing: const Icon(Icons.arrow_forward_ios),
                 onTap: () {
                   // Navigate to Password Management Page (if needed)
                 },
               ),
               ListTile(
-                leading: Icon(Icons.access_time),
-                title: Text('Time Management'),
-                trailing: Icon(Icons.arrow_forward_ios),
+                leading: const Icon(Icons.access_time),
+                title: const Text('Time Management'),
+                trailing: const Icon(Icons.arrow_forward_ios),
                 onTap: () {},
               ),
               Padding(
@@ -82,12 +84,12 @@ class UserSettingsPage extends StatelessWidget {
                 ),
               ),
               ListTile(
-                leading: Icon(Icons.lock_outline),
-                title: Text('Account Privacy'),
+                leading: const Icon(Icons.lock_outline),
+                title: const Text('Account Privacy'),
                 trailing: Text('Private', style: TextStyle(color: Colors.grey[600])),
                 onTap: () {},
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               Text(
                 'Actions',
                 style: TextStyle(
@@ -97,9 +99,9 @@ class UserSettingsPage extends StatelessWidget {
                 ),
               ),
               ListTile(
-                leading: Icon(Icons.logout),
-                title: Text('Logout'),
-                trailing: Icon(Icons.arrow_forward_ios),
+                leading: const Icon(Icons.logout),
+                title: const Text('Logout'),
+                trailing: const Icon(Icons.arrow_forward_ios),
                 onTap: () {
                   // Navigate to Welcome Page
                   Navigator.pushReplacement(

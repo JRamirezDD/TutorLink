@@ -6,6 +6,8 @@ import 'top_rated_tutors_page.dart'; // Import the new page
 import '../fetch_data_page.dart';
 
 class CatalogSubjectsPage extends StatefulWidget {
+  const CatalogSubjectsPage({super.key});
+
   @override
   _CatalogSubjectsPageState createState() => _CatalogSubjectsPageState();
 }
@@ -56,22 +58,22 @@ class _CatalogSubjectsPageState extends State<CatalogSubjectsPage> {
             );
           },
         ),
-        title: Text('Project Catalog', style: TextStyle(color: Colors.black)),
+        title: const Text('Project Catalog', style: TextStyle(color: Colors.black)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             // Adding the FetchDataPage with height constraints
-            Container(
+            SizedBox(
               height: 150, // Set a finite height for the FetchDataPage
               child: FetchDataPage(),
             ),
 
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             TextField(
               onChanged: (value) => _filterSubjects(value),
@@ -80,12 +82,12 @@ class _CatalogSubjectsPageState extends State<CatalogSubjectsPage> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: const Icon(Icons.search),
               ),
             ),
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
 
-            Text(
+            const Text(
               'Popular Subjects',
               style: TextStyle(
                 fontSize: 20,
@@ -93,7 +95,7 @@ class _CatalogSubjectsPageState extends State<CatalogSubjectsPage> {
                 color: Colors.black,
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             Expanded(
               child: ListView.builder(
@@ -109,9 +111,9 @@ class _CatalogSubjectsPageState extends State<CatalogSubjectsPage> {
                       child: ListTile(
                         title: Text(
                           filteredSubjects[index],
-                          style: TextStyle(fontSize: 18, color: Colors.green),
+                          style: const TextStyle(fontSize: 18, color: Colors.green),
                         ),
-                        trailing: Icon(Icons.arrow_forward_ios, color: Colors.green),
+                        trailing: const Icon(Icons.arrow_forward_ios, color: Colors.green),
                         onTap: () {
                           // Navigate to TopRatedTutorsPage
                           Navigator.push(
@@ -150,7 +152,7 @@ class _CatalogSubjectsPageState extends State<CatalogSubjectsPage> {
             );
           }
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard),
             label: 'Dashboard',

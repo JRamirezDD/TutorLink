@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tryflutter/fetch_data_page.dart';
 
 class SearchPage extends StatefulWidget {
+  const SearchPage({super.key});
+
   @override
   _SearchPageState createState() => _SearchPageState();
 }
@@ -19,23 +21,23 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Search for Tutors'),
+        title: const Text('Search for Tutors'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // FetchDataPage wrapped in a Container with fixed height
-              Container(
+              SizedBox(
                 height: 200, // Provide a fixed height for the FetchDataPage widget
                 child: FetchDataPage(),
               ),
-              SizedBox(height: 16),
-              Text('Select Subject:'),
+              const SizedBox(height: 16),
+              const Text('Select Subject:'),
               DropdownButton<String>(
-                hint: Text('Select Subject'),
+                hint: const Text('Select Subject'),
                 value: _selectedSubject,
                 onChanged: (newValue) {
                   setState(() {
@@ -49,8 +51,8 @@ class _SearchPageState extends State<SearchPage> {
                   );
                 }).toList(),
               ),
-              SizedBox(height: 16),
-              Text('Select Rating:'),
+              const SizedBox(height: 16),
+              const Text('Select Rating:'),
               Slider(
                 value: _selectedRating,
                 min: 0,
@@ -63,8 +65,8 @@ class _SearchPageState extends State<SearchPage> {
                   });
                 },
               ),
-              SizedBox(height: 16),
-              Text('Select Hourly Rate:'),
+              const SizedBox(height: 16),
+              const Text('Select Hourly Rate:'),
               Slider(
                 value: _selectedHourlyRate,
                 min: 0,
@@ -77,10 +79,10 @@ class _SearchPageState extends State<SearchPage> {
                   });
                 },
               ),
-              SizedBox(height: 16),
-              Text('Select Location:'),
+              const SizedBox(height: 16),
+              const Text('Select Location:'),
               DropdownButton<String>(
-                hint: Text('Select Location'),
+                hint: const Text('Select Location'),
                 value: _selectedLocation,
                 onChanged: (newValue) {
                   setState(() {
@@ -94,15 +96,15 @@ class _SearchPageState extends State<SearchPage> {
                   );
                 }).toList(),
               ),
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
               ElevatedButton(
                 onPressed: () {
                   // Handle the search logic here
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Searching for tutors...')),
+                    const SnackBar(content: Text('Searching for tutors...')),
                   );
                 },
-                child: Text('Search'),
+                child: const Text('Search'),
               ),
             ],
           ),

@@ -9,11 +9,13 @@ class PaymentHistoryPage extends StatelessWidget {
     {'date': '2024-10-10', 'amount': '\$50', 'status': 'Pending'},
   ];
 
+  const PaymentHistoryPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Payment History'),
+        title: const Text('Payment History'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,11 +35,11 @@ class PaymentHistoryPage extends StatelessWidget {
           Expanded(
             child: FetchDataPage(),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
 
           // Payment History Section
-          Padding(
-            padding: const EdgeInsets.all(16.0),
+          const Padding(
+            padding: EdgeInsets.all(16.0),
             child: Text(
               'Your Payment History:',
               style: TextStyle(
@@ -52,7 +54,7 @@ class PaymentHistoryPage extends StatelessWidget {
               itemCount: payments.length,
               itemBuilder: (context, index) {
                 return Card(
-                  margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: ListTile(
                     title: Text('Date: ${payments[index]['date']}'),
                     subtitle: Text('Amount: ${payments[index]['amount']}'),

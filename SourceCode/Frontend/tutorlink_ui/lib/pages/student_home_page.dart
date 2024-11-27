@@ -13,7 +13,7 @@ class StudentHomePage extends StatelessWidget {
   final String username;
 
   // Constructor to accept the username
-  StudentHomePage({required this.username});
+  StudentHomePage({super.key, required this.username});
 
   final List<Map<String, dynamic>> tutors = [
     {
@@ -75,7 +75,7 @@ class StudentHomePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
 
               // Wrapping FetchDataWidget with SizedBox to give a finite height.
               SizedBox(
@@ -83,32 +83,32 @@ class StudentHomePage extends StatelessWidget {
                 child: FetchDataWidget(),
               ),
 
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextField(
                 decoration: InputDecoration(
                   hintText: 'Search',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  prefixIcon: Icon(Icons.search),
+                  prefixIcon: const Icon(Icons.search),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                hint: Text('Discover'),
+                hint: const Text('Discover'),
                 onChanged: (String? value) {},
-                items: [
+                items: const [
                   DropdownMenuItem(value: 'Option 1', child: Text('Option 1')),
                   DropdownMenuItem(value: 'Option 2', child: Text('Option 2')),
                 ],
               ),
-              SizedBox(height: 32),
-              Text(
+              const SizedBox(height: 32),
+              const Text(
                 'Recently Viewed',
                 style: TextStyle(
                   fontSize: 20,
@@ -116,7 +116,7 @@ class StudentHomePage extends StatelessWidget {
                   color: Colors.black,
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               // Horizontal Scrollable List of Tutors
               SizedBox(
                 height: 180,
@@ -127,7 +127,7 @@ class StudentHomePage extends StatelessWidget {
                     final tutor = tutors[index];
                     return Container(
                       width: 300,
-                      margin: EdgeInsets.only(right: 16),
+                      margin: const EdgeInsets.only(right: 16),
                       child: Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
@@ -145,14 +145,14 @@ class StudentHomePage extends StatelessWidget {
                                     radius: 30,
                                     backgroundImage: NetworkImage(tutor['image']),
                                   ),
-                                  SizedBox(width: 16),
+                                  const SizedBox(width: 16),
                                   Expanded(
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           tutor['name'],
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -164,7 +164,7 @@ class StudentHomePage extends StatelessWidget {
                                   Column(
                                     children: [
                                       IconButton(
-                                        icon: Icon(Icons.favorite_border, color: Colors.red),
+                                        icon: const Icon(Icons.favorite_border, color: Colors.red),
                                         onPressed: () {
                                           if (!savedTutors.contains(tutor)) {
                                             savedTutors.add(tutor);
@@ -183,7 +183,7 @@ class StudentHomePage extends StatelessWidget {
                                         },
                                       ),
                                       IconButton(
-                                        icon: Icon(Icons.chat, color: Colors.blue),
+                                        icon: const Icon(Icons.chat, color: Colors.blue),
                                         onPressed: () {
                                           Navigator.push(
                                             context,
@@ -198,17 +198,17 @@ class StudentHomePage extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               Row(
                                 children: [
                                   Text(
                                     tutor['rate'],
-                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                  Spacer(),
+                                  const Spacer(),
                                   Text(
                                     tutor['success'],
-                                    style: TextStyle(color: Colors.grey),
+                                    style: const TextStyle(color: Colors.grey),
                                   ),
                                 ],
                               ),
@@ -220,7 +220,7 @@ class StudentHomePage extends StatelessWidget {
                   },
                 ),
               ),
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
             ],
           ),
         ),
@@ -263,6 +263,8 @@ class StudentHomePage extends StatelessWidget {
 }
 
 class FetchDataWidget extends StatefulWidget {
+  const FetchDataWidget({super.key});
+
   @override
   _FetchDataWidgetState createState() => _FetchDataWidgetState();
 }
@@ -300,7 +302,7 @@ class _FetchDataWidgetState extends State<FetchDataWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.blue[100],
         borderRadius: BorderRadius.circular(8),

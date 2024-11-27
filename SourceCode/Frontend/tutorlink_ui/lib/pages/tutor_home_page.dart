@@ -6,16 +6,16 @@ class TutorHomePage extends StatelessWidget {
   final String subjects;
   final String hourlyRate;
 
-  TutorHomePage({required this.tutorName, required this.subjects, required this.hourlyRate});
+  const TutorHomePage({super.key, required this.tutorName, required this.subjects, required this.hourlyRate});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tutor Home'),
+        title: const Text('Tutor Home'),
         actions: [
           IconButton(
-            icon: Icon(Icons.account_circle),
+            icon: const Icon(Icons.account_circle),
             onPressed: () {
               Navigator.pushNamed(context, '/userSettings');
             },
@@ -31,21 +31,21 @@ class TutorHomePage extends StatelessWidget {
               title: Text('Welcome, $tutorName!'),
               subtitle: Text('Subjects: $subjects\nHourly Rate: \$ $hourlyRate'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/tutorProfile');
               },
-              child: Text('View Profile'),
+              child: const Text('View Profile'),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/studentList');
               },
-              child: Text('View Students'),
+              child: const Text('View Students'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             
             // Wrapping FetchDataPage inside Expanded to prevent infinite size issues
             Expanded(
