@@ -35,4 +35,3 @@ tutorlink/target/
 **/ios/*
 **/android/*
 *.pubspec.lock
-*.pubspec.yaml
