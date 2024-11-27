@@ -28,7 +28,7 @@ services:
     ports:
       - "${STUDENT_DOMAIN_SERVICES_FUNCTIONAL_SERVICE_PORT}:${STUDENT_DOMAIN_SERVICES_FUNCTIONAL_SERVICE_PORT}"
     env_file:
-      - ${ENV_FILE}
+       - /Users/nadaelhaddad/Tutor_Link/DevOps/compose/env/.env.prod
     depends_on:
       - student-db
     networks:
@@ -43,7 +43,7 @@ services:
     ports:
       - "80:80"
     env_file:
-      - ${ENV_FILE}
+      - /Users/nadaelhaddad/Tutor_Link/DevOps/compose/env/.env.prod
     depends_on:
       - student-domain-functional
     networks:
