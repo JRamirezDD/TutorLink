@@ -10,6 +10,7 @@ RUN ls -al /app
 COPY pubspec.yaml ./
 COPY lib ./lib
 COPY assets ./assets 
+COPY web ./web
 
 # fix folder permissions (can't read pubspec.lock otherwise)
 USER root
