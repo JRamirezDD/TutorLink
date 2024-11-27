@@ -28,7 +28,6 @@ tutorlink/target/
 *.flutter-plugins
 *.flutter-plugins-dependencies
 **/.dart_tool/*
-**/web/*
 **/windows/*
 **/macos/*
 **/linux/*
