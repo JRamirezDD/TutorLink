@@ -3,6 +3,8 @@ import 'tutor_home_page.dart'; // Import TutorHomePage
 import '../fetch_data_page.dart';
 
 class TutorRegistrationPage extends StatefulWidget {
+  const TutorRegistrationPage({super.key});
+
   @override
   _TutorRegistrationPageState createState() => _TutorRegistrationPageState();
 }
@@ -31,7 +33,7 @@ class _TutorRegistrationPageState extends State<TutorRegistrationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Register as Tutor'),
+        title: const Text('Register as Tutor'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -44,34 +46,34 @@ class _TutorRegistrationPageState extends State<TutorRegistrationPage> {
               // Name TextField
               TextFormField(
                 controller: _nameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Name',
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Email TextField
               TextFormField(
                 controller: _emailController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.emailAddress,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Password TextField
               TextFormField(
                 controller: _passwordController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Password',
                   border: OutlineInputBorder(),
                 ),
                 obscureText: true,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Subject Dropdown
               DropdownButtonFormField<String>(
@@ -87,23 +89,23 @@ class _TutorRegistrationPageState extends State<TutorRegistrationPage> {
                     child: Text(subject),
                   );
                 }).toList(),
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Select Subject',
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Hourly Rate TextField
               TextFormField(
                 controller: _hourlyRateController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Hourly Rate',
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.number,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Register button
               ElevatedButton(
@@ -124,19 +126,19 @@ class _TutorRegistrationPageState extends State<TutorRegistrationPage> {
                     }
                   }
                 },
-                child: Text('Register'),
+                child: const Text('Register'),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Adding the FetchDataPage to display fetched data
-              Text(
+              const Text(
                 'Some Data from the Fetch Data Page:',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               // Wrap FetchDataPage in a Container with height constraint
-              Container(
+              SizedBox(
                 height: 200.0, // Set a fixed height
                 child: FetchDataPage(),
               ),

@@ -6,6 +6,8 @@ import 'api_service.dart';
 import 'config.dart'; // Import the config file
 
 class FetchDataPage extends StatefulWidget {
+  const FetchDataPage({super.key});
+
   @override
   _FetchDataPageState createState() => _FetchDataPageState();
 }
@@ -36,8 +38,9 @@ class _FetchDataPageState extends State<FetchDataPage> {
       // Fetching profile data using ApiService
       final profileData = await apiService.getStudentProfile();
 
-      if (!mounted)
+      if (!mounted) {
         return; // Ensure the widget is still in the tree before calling setState()
+      }
 
       if (profileData != null) {
         setState(() {
@@ -51,8 +54,9 @@ class _FetchDataPageState extends State<FetchDataPage> {
         });
       }
     } catch (e) {
-      if (!mounted)
+      if (!mounted) {
         return; // Ensure the widget is still in the tree before calling setState()
+      }
 
       setState(() {
         _errorMessage = 'Error: $e';
@@ -65,15 +69,15 @@ class _FetchDataPageState extends State<FetchDataPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Fetch Student Profile'),
+        title: const Text('Fetch Student Profile'),
       ),
       body: _isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : _errorMessage.isNotEmpty
               ? Center(
                   child: Text(
                     _errorMessage,
-                    style: TextStyle(color: Colors.red, fontSize: 16),
+                    style: const TextStyle(color: Colors.red, fontSize: 16),
                   ),
                 )
               : Center(

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'student_home_page.dart';
 import '../fetch_data_page.dart';
 class StudentRegistrationPage extends StatefulWidget {
+  const StudentRegistrationPage({super.key});
+
   @override
   _StudentRegistrationPageState createState() => _StudentRegistrationPageState();
 }
@@ -43,11 +45,11 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text('Password Mismatch'),
-            content: Text('The passwords you entered do not match.'),
+            title: const Text('Password Mismatch'),
+            content: const Text('The passwords you entered do not match.'),
             actions: <Widget>[
               TextButton(
-                child: Text('OK'),
+                child: const Text('OK'),
                 onPressed: () {
                   Navigator.pop(context);
                 },
@@ -61,11 +63,11 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Missing Fields'),
-          content: Text('Please fill in all fields to complete registration.'),
+          title: const Text('Missing Fields'),
+          content: const Text('Please fill in all fields to complete registration.'),
           actions: <Widget>[
             TextButton(
-              child: Text('OK'),
+              child: const Text('OK'),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -80,7 +82,7 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Register as Student'),
+        title: const Text('Register as Student'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -89,39 +91,39 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
           children: <Widget>[
             TextField(
               controller: _firstNameController,
-              decoration: InputDecoration(labelText: 'First Name'),
+              decoration: const InputDecoration(labelText: 'First Name'),
             ),
             TextField(
               controller: _lastNameController,
-              decoration: InputDecoration(labelText: 'Last Name'),
+              decoration: const InputDecoration(labelText: 'Last Name'),
             ),
             TextField(
               controller: _emailController,
-              decoration: InputDecoration(labelText: 'Email'),
+              decoration: const InputDecoration(labelText: 'Email'),
             ),
             TextField(
               controller: _usernameController,
-              decoration: InputDecoration(labelText: 'Username'),
+              decoration: const InputDecoration(labelText: 'Username'),
             ),
             TextField(
               controller: _passwordController,
               obscureText: true,
-              decoration: InputDecoration(labelText: 'Password'),
+              decoration: const InputDecoration(labelText: 'Password'),
             ),
             TextField(
               controller: _repeatPasswordController,
               obscureText: true,
-              decoration: InputDecoration(labelText: 'Repeat Password'),
+              decoration: const InputDecoration(labelText: 'Repeat Password'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _registerStudent,
-              child: Text('Register'),
+              child: const Text('Register'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Adding the FetchDataPage to display fetched data after registration
-            Container(
+            SizedBox(
               height: 200.0, // Set a fixed height to avoid infinite constraints
               child: FetchDataPage(),
             ),

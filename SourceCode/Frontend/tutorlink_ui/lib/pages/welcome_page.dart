@@ -6,11 +6,13 @@ import 'student_registration_page.dart';
 import '../fetch_data_page.dart';
 
 class WelcomePage extends StatelessWidget {
+  const WelcomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Welcome to TutorLink'),
+        title: const Text('Welcome to TutorLink'),
         centerTitle: true,
         backgroundColor: Colors.blueAccent,
       ),
@@ -20,7 +22,7 @@ class WelcomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text(
+            const Text(
               'Welcome to TutorLink',
               style: TextStyle(
                 fontSize: 24,
@@ -29,7 +31,7 @@ class WelcomePage extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
 
             // Login as Tutor button
             ElevatedButton.icon(
@@ -41,13 +43,13 @@ class WelcomePage extends StatelessWidget {
                   ),
                 );
               },
-              icon: Icon(Icons.person),
-              label: Text('Login as Tutor'),
+              icon: const Icon(Icons.person),
+              label: const Text('Login as Tutor'),
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: 12),
+                padding: const EdgeInsets.symmetric(vertical: 12),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
 
             // Login as Student button
             ElevatedButton.icon(
@@ -57,13 +59,13 @@ class WelcomePage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => StudentLoginPage()),
                 );
               },
-              icon: Icon(Icons.school),
-              label: Text('Login as Student'),
+              icon: const Icon(Icons.school),
+              label: const Text('Login as Student'),
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: 12),
+                padding: const EdgeInsets.symmetric(vertical: 12),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Register as Tutor button
             ElevatedButton.icon(
@@ -73,13 +75,13 @@ class WelcomePage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => TutorRegistrationPage()),
                 );
               },
-              icon: Icon(Icons.app_registration),
-              label: Text('Register as Tutor'),
+              icon: const Icon(Icons.app_registration),
+              label: const Text('Register as Tutor'),
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: 12),
+                padding: const EdgeInsets.symmetric(vertical: 12),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
 
             // Register as Student button
             ElevatedButton.icon(
@@ -89,13 +91,13 @@ class WelcomePage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => StudentRegistrationPage()),
                 );
               },
-              icon: Icon(Icons.person_add),
-              label: Text('Register as Student'),
+              icon: const Icon(Icons.person_add),
+              label: const Text('Register as Student'),
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: 12),
+                padding: const EdgeInsets.symmetric(vertical: 12),
               ),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
 
             // Fetched Data Section
             Text(
@@ -107,8 +109,8 @@ class WelcomePage extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 16),
-            Container(
+            const SizedBox(height: 16),
+            SizedBox(
               height: 150, // Constrain FetchDataPage height
               child: FetchDataPage(),
             ),

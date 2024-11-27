@@ -6,6 +6,8 @@ import '../fetch_data_page.dart';
 import 'chat_page.dart'; // Import the ChatPage
 
 class MessagesPage extends StatelessWidget {
+  const MessagesPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +23,7 @@ class MessagesPage extends StatelessWidget {
             );
           },
         ),
-        title: Text(
+        title: const Text(
           'Messages',
           style: TextStyle(
             color: Colors.black,
@@ -38,15 +40,15 @@ class MessagesPage extends StatelessWidget {
           ),
           Expanded(
             child: ListView(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               children: [
                 ListTile(
-                  leading: CircleAvatar(
+                  leading: const CircleAvatar(
                     backgroundImage: NetworkImage('https://via.placeholder.com/150'),
                   ),
-                  title: Text('John Doe'),
-                  subtitle: Text('Hey! How are you doing?'),
-                  trailing: Text('2:30 PM'),
+                  title: const Text('John Doe'),
+                  subtitle: const Text('Hey! How are you doing?'),
+                  trailing: const Text('2:30 PM'),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -56,14 +58,14 @@ class MessagesPage extends StatelessWidget {
                     );
                   },
                 ),
-                Divider(),
+                const Divider(),
                 ListTile(
-                  leading: CircleAvatar(
+                  leading: const CircleAvatar(
                     backgroundImage: NetworkImage('https://via.placeholder.com/150'),
                   ),
-                  title: Text('Jane Smith'),
-                  subtitle: Text('Can we schedule a session tomorrow?'),
-                  trailing: Text('1:45 PM'),
+                  title: const Text('Jane Smith'),
+                  subtitle: const Text('Can we schedule a session tomorrow?'),
+                  trailing: const Text('1:45 PM'),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -73,14 +75,14 @@ class MessagesPage extends StatelessWidget {
                     );
                   },
                 ),
-                Divider(),
+                const Divider(),
                 ListTile(
-                  leading: CircleAvatar(
+                  leading: const CircleAvatar(
                     backgroundImage: NetworkImage('https://via.placeholder.com/150'),
                   ),
-                  title: Text('Alex Johnson'),
-                  subtitle: Text('Thanks for your help!'),
-                  trailing: Text('Yesterday'),
+                  title: const Text('Alex Johnson'),
+                  subtitle: const Text('Thanks for your help!'),
+                  trailing: const Text('Yesterday'),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -90,14 +92,14 @@ class MessagesPage extends StatelessWidget {
                     );
                   },
                 ),
-                Divider(),
+                const Divider(),
                 ListTile(
-                  leading: CircleAvatar(
+                  leading: const CircleAvatar(
                     backgroundImage: NetworkImage('https://via.placeholder.com/150'),
                   ),
-                  title: Text('Emily Davis'),
-                  subtitle: Text('Do you have any availability next week?'),
-                  trailing: Text('Monday'),
+                  title: const Text('Emily Davis'),
+                  subtitle: const Text('Do you have any availability next week?'),
+                  trailing: const Text('Monday'),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -130,7 +132,7 @@ class MessagesPage extends StatelessWidget {
             );
           }
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard),
             label: 'Dashboard',

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'payment_history.dart'; // Import Payment History page
 import '../fetch_data_page.dart';
 class TutorDashboardPage extends StatelessWidget {
+  const TutorDashboardPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tutor Dashboard'),
+        title: const Text('Tutor Dashboard'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -14,10 +16,10 @@ class TutorDashboardPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Welcome message
-            ListTile(
+            const ListTile(
               title: Text('Welcome, Tutor!'),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             // Button to manage availability
             ElevatedButton(
@@ -25,12 +27,12 @@ class TutorDashboardPage extends StatelessWidget {
                 // Add functionality for managing availability here
                 // e.g., Add or edit availability slots for tutoring
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Manage Availability functionality coming soon!')),
+                  const SnackBar(content: Text('Manage Availability functionality coming soon!')),
                 );
               },
-              child: Text('Manage Availability'),
+              child: const Text('Manage Availability'),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             // Button to view payment history
             ElevatedButton(
@@ -41,19 +43,19 @@ class TutorDashboardPage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => PaymentHistoryPage()),
                 );
               },
-              child: Text('View Payment History'),
+              child: const Text('View Payment History'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Title for fetched data section
-            Text(
+            const Text(
               'Fetched Data from Backend',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             // Integration of FetchDataPage to display fetched data
             Expanded(

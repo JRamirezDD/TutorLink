@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import '../fetch_data_page.dart'; // Update this path as needed
 
 class MessagesPageTutor extends StatelessWidget {
+  const MessagesPageTutor({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Messages'),
+        title: const Text('Messages'),
         actions: [
           IconButton(
-            icon: Icon(Icons.account_circle),
+            icon: const Icon(Icons.account_circle),
             onPressed: () {
               Navigator.pushNamed(context, '/userSettings');
             },
@@ -24,7 +26,7 @@ class MessagesPageTutor extends StatelessWidget {
             child: Column(
               children: [
                 FetchDataPage(),
-                SizedBox(height: 16), // Add spacing between widgets
+                const SizedBox(height: 16), // Add spacing between widgets
               ],
             ),
           ),
@@ -33,9 +35,9 @@ class MessagesPageTutor extends StatelessWidget {
               itemCount: 10, // Replace with the actual number of messages
               itemBuilder: (context, index) {
                 return ListTile(
-                  leading: Icon(Icons.person),
+                  leading: const Icon(Icons.person),
                   title: Text('Student ${index + 1}'),
-                  subtitle: Text('Last message snippet...'),
+                  subtitle: const Text('Last message snippet...'),
                   onTap: () {
                     Navigator.pushNamed(context, '/chatDetail',
                         arguments: 'Student ${index + 1}');

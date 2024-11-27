@@ -3,6 +3,8 @@ import 'student_home_page.dart'; // Import the StudentHomePage
 import '../fetch_data_page.dart'; // Include the FetchDataPage
 
 class StudentLoginPage extends StatefulWidget {
+  const StudentLoginPage({super.key});
+
   @override
   _StudentLoginPageState createState() => _StudentLoginPageState();
 }
@@ -37,7 +39,7 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
       } else {
         // Show error if login fails
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Invalid username or password')),
+          const SnackBar(content: Text('Invalid username or password')),
         );
       }
     }
@@ -46,7 +48,7 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Student Login')),
+      appBar: AppBar(title: const Text('Student Login')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
@@ -56,7 +58,7 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Text(
+                const Text(
                   'Welcome Back, Student!',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -64,10 +66,10 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
                 TextFormField(
                   controller: _usernameController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Username',
                     border: OutlineInputBorder(),
                   ),
@@ -78,11 +80,11 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
                     return null;
                   },
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 TextFormField(
                   controller: _passwordController,
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Password',
                     border: OutlineInputBorder(),
                   ),
@@ -93,15 +95,15 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
                     return null;
                   },
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: _login,
-                  child: Text('Login'),
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: 16),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
+                  child: Text('Login'),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
 
                 // Include FetchDataPage below the login button
                 Padding(

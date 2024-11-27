@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class PasswordsPage extends StatelessWidget {
+  const PasswordsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -8,12 +10,12 @@ class PasswordsPage extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
-        title: Text(
+        title: const Text(
           'Manage Passwords',
           style: TextStyle(color: Colors.black),
         ),
@@ -23,8 +25,8 @@ class PasswordsPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 16),
-            Text(
+            const SizedBox(height: 16),
+            const Text(
               'Passwords',
               style: TextStyle(
                 fontSize: 20,
@@ -32,7 +34,7 @@ class PasswordsPage extends StatelessWidget {
                 color: Colors.black,
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ElevatedButton.icon(
               onPressed: () {
                 // Implement Reset Password Functionality
@@ -40,25 +42,25 @@ class PasswordsPage extends StatelessWidget {
                   context: context,
                   builder: (context) {
                     return AlertDialog(
-                      title: Text('Reset Password'),
-                      content: Text('Password reset functionality goes here.'),
+                      title: const Text('Reset Password'),
+                      content: const Text('Password reset functionality goes here.'),
                       actions: [
                         TextButton(
                           onPressed: () => Navigator.of(context).pop(),
-                          child: Text('Close'),
+                          child: const Text('Close'),
                         ),
                       ],
                     );
                   },
                 );
               },
-              icon: Icon(Icons.refresh),
-              label: Text('Reset Password'),
+              icon: const Icon(Icons.refresh),
+              label: const Text('Reset Password'),
               style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 50), // Full-width button
+                minimumSize: const Size(double.infinity, 50), // Full-width button
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ElevatedButton.icon(
               onPressed: () {
                 // Implement Update Password Functionality
@@ -66,22 +68,22 @@ class PasswordsPage extends StatelessWidget {
                   context: context,
                   builder: (context) {
                     return AlertDialog(
-                      title: Text('Update Password'),
-                      content: Text('Password update functionality goes here.'),
+                      title: const Text('Update Password'),
+                      content: const Text('Password update functionality goes here.'),
                       actions: [
                         TextButton(
                           onPressed: () => Navigator.of(context).pop(),
-                          child: Text('Close'),
+                          child: const Text('Close'),
                         ),
                       ],
                     );
                   },
                 );
               },
-              icon: Icon(Icons.update),
-              label: Text('Update Password'),
+              icon: const Icon(Icons.update),
+              label: const Text('Update Password'),
               style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 50), // Full-width button
+                minimumSize: const Size(double.infinity, 50), // Full-width button
               ),
             ),
           ],
@@ -90,3 +92,4 @@ class PasswordsPage extends StatelessWidget {
     );
   }
 }
+

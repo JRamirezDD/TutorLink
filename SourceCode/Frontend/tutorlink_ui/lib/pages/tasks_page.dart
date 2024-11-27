@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../fetch_data_page.dart';
 class TasksPage extends StatefulWidget {
+  const TasksPage({super.key});
+
   @override
   _TasksPageState createState() => _TasksPageState();
 }
@@ -13,10 +15,10 @@ class _TasksPageState extends State<TasksPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tasks'),
+        title: const Text('Tasks'),
         actions: [
           IconButton(
-            icon: Icon(Icons.account_circle),
+            icon: const Icon(Icons.account_circle),
             onPressed: () {
               Navigator.pushNamed(context, '/userSettings');
             },
@@ -32,7 +34,7 @@ class _TasksPageState extends State<TasksPage> {
             Expanded(
               child: FetchDataPage(),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             // Row to display "Done Tasks" and "To-Do Tasks" lists
             Expanded(
@@ -47,7 +49,7 @@ class _TasksPageState extends State<TasksPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
+                            const Text(
                               'Done Tasks',
                               style: TextStyle(
                                 fontSize: 20,
@@ -55,7 +57,7 @@ class _TasksPageState extends State<TasksPage> {
                               ),
                             ),
                             IconButton(
-                              icon: Icon(Icons.add),
+                              icon: const Icon(Icons.add),
                               onPressed: () {
                                 setState(() {
                                   doneTasks.add('New Task to be Done');
@@ -69,7 +71,7 @@ class _TasksPageState extends State<TasksPage> {
                             itemCount: doneTasks.length, // Number of done tasks
                             itemBuilder: (context, index) {
                               return ListTile(
-                                leading: Icon(Icons.check_box_outline_blank),
+                                leading: const Icon(Icons.check_box_outline_blank),
                                 title: Text(doneTasks[index]),
                               );
                             },
@@ -78,7 +80,7 @@ class _TasksPageState extends State<TasksPage> {
                       ],
                     ),
                   ),
-                  SizedBox(width: 16),
+                  const SizedBox(width: 16),
 
                   // "To-Do Tasks" Column
                   Expanded(
@@ -88,7 +90,7 @@ class _TasksPageState extends State<TasksPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
+                            const Text(
                               'To-Do',
                               style: TextStyle(
                                 fontSize: 20,
@@ -96,7 +98,7 @@ class _TasksPageState extends State<TasksPage> {
                               ),
                             ),
                             IconButton(
-                              icon: Icon(Icons.add),
+                              icon: const Icon(Icons.add),
                               onPressed: () {
                                 setState(() {
                                   toDoTasks.add('New To-Do Task');
@@ -110,11 +112,11 @@ class _TasksPageState extends State<TasksPage> {
                             itemCount: toDoTasks.length, // Number of to-do tasks
                             itemBuilder: (context, index) {
                               return ListTile(
-                                leading: Icon(Icons.radio_button_unchecked),
+                                leading: const Icon(Icons.radio_button_unchecked),
                                 title: Text(toDoTasks[index]),
                                 onTap: () {
                                   setState(() {
-                                    doneTasks.add(toDoTasks[index] + ' (Done)');
+                                    doneTasks.add('${toDoTasks[index]} (Done)');
                                     toDoTasks.removeAt(index);
                                   });
                                 },

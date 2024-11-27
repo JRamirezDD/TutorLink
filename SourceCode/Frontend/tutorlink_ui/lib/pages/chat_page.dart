@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ChatPage extends StatefulWidget {
   final String userName;
 
-  ChatPage({required this.userName});
+  const ChatPage({super.key, required this.userName});
 
   @override
   _ChatPageState createState() => _ChatPageState();
@@ -22,7 +22,7 @@ class _ChatPageState extends State<ChatPage> {
       _messageController.clear();
 
       // Simulate receiving a response (you can replace this with backend integration)
-      Future.delayed(Duration(seconds: 1), () {
+      Future.delayed(const Duration(seconds: 1), () {
         setState(() {
           _messages.add({"type": "received", "message": "Thanks for your message!"});
         });
@@ -44,7 +44,7 @@ class _ChatPageState extends State<ChatPage> {
         ),
         title: Text(
           widget.userName,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
           ),
@@ -89,9 +89,9 @@ class _ChatPageState extends State<ChatPage> {
                     ),
                   ),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 IconButton(
-                  icon: Icon(Icons.send, color: Colors.green),
+                  icon: const Icon(Icons.send, color: Colors.green),
                   onPressed: _sendMessage,
                 ),
               ],

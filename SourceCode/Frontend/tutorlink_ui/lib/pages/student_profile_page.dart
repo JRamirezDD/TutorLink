@@ -6,7 +6,7 @@ class StudentProfilePage extends StatelessWidget {
   final String email;
   final String subjects;
 
-  StudentProfilePage({
+  const StudentProfilePage({super.key, 
     required this.studentName,
     required this.email,
     required this.subjects,
@@ -25,28 +25,28 @@ class StudentProfilePage extends StatelessWidget {
           children: <Widget>[
             Text(
               'Name: $studentName',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               'Email: $email',
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               'Subjects: $subjects',
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Changes saved!')),
+                  const SnackBar(content: Text('Changes saved!')),
                 );
               },
-              child: Text('Save Changes'),
+              child: const Text('Save Changes'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             // Add the FetchDataWidget to display fetched data below the profile info
             FetchDataPage(),
           ],

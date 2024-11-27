@@ -7,7 +7,7 @@ WORKDIR /app
 RUN ls -al /app 
 
 # Copy project files
-COPY pubspec.yaml pubspec.lock ./
+COPY pubspec.yaml ./
 COPY lib ./lib
 COPY assets ./assets 
 COPY web ./web
@@ -17,12 +17,11 @@ USER root
 RUN chown -R flutter: /app
 USER flutter
 
-
 # Enable Flutter web support
 RUN flutter doctor -v && flutter config --enable-web
 
-# Clean the project (to avoid conflicts)
-RUN flutter clean
+# Initialize web project
+RUN flutter create . --platforms web
 
 # Ensure dependencies are resolved
 RUN flutter pub get
