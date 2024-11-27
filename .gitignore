@@ -34,3 +34,6 @@ tutorlink/target/
 **/ios/*
 **/android/*
 *.pubspec.lock
+
+**/.idea/*
+**/build/*
