@@ -26,9 +26,9 @@ services:
       context: '../../SourceCode/Backend/Student_Domain/functional'
       dockerfile: dockerfile
     ports:
-      - "${STUDENT_DOMAIN_SERVICES_FUNCTIONAL_SERVICE_PORT}:${STUDENT_DOMAIN_SERVICES_FUNCTIONAL_SERVICE_PORT}"
+      - "10011:10011"
     env_file:
-       - /Users/nadaelhaddad/Tutor_Link/DevOps/compose/env/.env.prod
+       - ${ENV_FILE}
     depends_on:
       - student-db
     networks:
@@ -43,7 +43,7 @@ services:
     ports:
       - "80:80"
     env_file:
-      - /Users/nadaelhaddad/Tutor_Link/DevOps/compose/env/.env.prod
+      - ${ENV_FILE}
     depends_on:
       - student-domain-functional
     networks:
