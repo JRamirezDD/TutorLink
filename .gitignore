@@ -24,3 +24,14 @@ hs_err_pid*
 replay_pid*
 
 tutorlink/target/
+
+*.flutter-plugins
+*.flutter-plugins-dependencies
+**/.dart_tool/*
+**/web/*
+**/windows/*
+**/macos/*
+**/linux/*
+**/ios/*
+**/android/*
+*.pubspec.lock
