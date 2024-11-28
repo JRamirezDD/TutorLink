@@ -3,6 +3,7 @@ import 'catalog_subjects_page.dart';
 import 'messages_page.dart';
 import 'user_settings_page.dart';
 import 'chat_page.dart'; // Import ChatPage for messaging functionality
+import 'tutor_profile_page.dart'; // Import TutorProfilePage for detailed tutor profiles
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -125,94 +126,70 @@ class StudentHomePage extends StatelessWidget {
                   itemCount: tutors.length,
                   itemBuilder: (context, index) {
                     final tutor = tutors[index];
-                    return Container(
-                      width: 300,
-                      margin: const EdgeInsets.only(right: 16),
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        elevation: 4,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  CircleAvatar(
-                                    radius: 30,
-                                    backgroundImage: NetworkImage(tutor['image']),
-                                  ),
-                                  const SizedBox(width: 16),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          tutor['name'],
-                                          style: const TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Text(tutor['specialty']),
-                                      ],
+                    return GestureDetector(
+                      onTap: () {
+                        print('Tutor tapped: ${tutor['name']}'); // Debugging statement
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TutorProfilePage(tutor: tutor),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        width: 300,
+                        margin: const EdgeInsets.only(right: 16),
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          elevation: 4,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 30,
+                                      backgroundImage: NetworkImage(tutor['image']),
                                     ),
-                                  ),
-                                  Column(
-                                    children: [
-                                      IconButton(
-                                        icon: const Icon(Icons.favorite_border, color: Colors.red),
-                                        onPressed: () {
-                                          if (!savedTutors.contains(tutor)) {
-                                            savedTutors.add(tutor);
-                                            ScaffoldMessenger.of(context).showSnackBar(
-                                              SnackBar(
-                                                content: Text('${tutor['name']} added to Saved Tutors!'),
-                                              ),
-                                            );
-                                          } else {
-                                            ScaffoldMessenger.of(context).showSnackBar(
-                                              SnackBar(
-                                                content: Text('${tutor['name']} is already in Saved Tutors!'),
-                                              ),
-                                            );
-                                          }
-                                        },
-                                      ),
-                                      IconButton(
-                                        icon: const Icon(Icons.chat, color: Colors.blue),
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ChatPage(userName: tutor['name']),
+                                    const SizedBox(width: 16),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            tutor['name'],
+                                            style: const TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                          );
-                                        },
+                                          ),
+                                          Text(tutor['specialty']),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
-                                children: [
-                                  Text(
-                                    tutor['rate'],
-                                    style: const TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    tutor['success'],
-                                    style: const TextStyle(color: Colors.grey),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
+                                Row(
+                                  children: [
+                                    Text(
+                                      tutor['rate'],
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    const Spacer(),
+                                    Text(
+                                      tutor['success'],
+                                      style: const TextStyle(color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
