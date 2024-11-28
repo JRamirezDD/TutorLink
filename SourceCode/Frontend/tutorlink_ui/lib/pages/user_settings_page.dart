@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'saved_tutor_page.dart'; // Import the Saved Tutors Page
 import 'welcome_page.dart'; // Import the Welcome Page
+import 'subscription_page.dart'; // Import the Subscription Page
 
 class UserSettingsPage extends StatelessWidget {
   const UserSettingsPage({super.key});
@@ -67,10 +68,16 @@ class UserSettingsPage extends StatelessWidget {
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.access_time),
-                title: const Text('Time Management'),
+                leading: const Icon(Icons.upgrade),
+                title: const Text('Subscription Upgrade'),
                 trailing: const Icon(Icons.arrow_forward_ios),
-                onTap: () {},
+                onTap: () {
+                  // Navigate to Subscription Page
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SubscriptionPage()),
+                  );
+                },
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -117,3 +124,4 @@ class UserSettingsPage extends StatelessWidget {
     );
   }
 }
+

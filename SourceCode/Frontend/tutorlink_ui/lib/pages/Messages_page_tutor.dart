@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import '../fetch_data_page.dart'; // Update this path as needed
+import 'tutor_home_page.dart'; // Update to tutor home page
+import 'user_settings_page.dart';
+import 'catalog_subjects_page.dart';
+import '../fetch_data_page.dart';
+import 'chat_page.dart'; // Import the ChatPage
 
 class MessagesPageTutor extends StatelessWidget {
   const MessagesPageTutor({super.key});
@@ -8,42 +12,104 @@ class MessagesPageTutor extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Messages'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.account_circle),
-            onPressed: () {
-              Navigator.pushNamed(context, '/userSettings');
-            },
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.account_circle, color: Colors.grey[800]),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => UserSettingsPage()),
+            );
+          },
+        ),
+        title: const Text(
+          'Messages',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
           ),
-        ],
+        ),
       ),
       body: Column(
         children: [
-          // Adding FetchDataWidget at the top to fetch data from the backend
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                FetchDataPage(),
-                const SizedBox(height: 16), // Add spacing between widgets
-              ],
-            ),
+          Container(
+            height: 150, // Set a finite height for the FetchDataPage
+            padding: const EdgeInsets.all(8.0),
+            child: FetchDataPage(),
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: 10, // Replace with the actual number of messages
-              itemBuilder: (context, index) {
-                return ListTile(
-                  leading: const Icon(Icons.person),
-                  title: Text('Student ${index + 1}'),
-                  subtitle: const Text('Last message snippet...'),
+            child: ListView(
+              padding: const EdgeInsets.all(16.0),
+              children: [
+                ListTile(
+                  leading: const CircleAvatar(
+                    backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+                  ),
+                  title: const Text('John Doe'),
+                  subtitle: const Text('Hey! How are you doing?'),
+                  trailing: const Text('2:30 PM'),
                   onTap: () {
-                    Navigator.pushNamed(context, '/chatDetail',
-                        arguments: 'Student ${index + 1}');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChatPage(userName: 'John Doe'),
+                      ),
+                    );
                   },
-                );
-              },
+                ),
+                const Divider(),
+                ListTile(
+                  leading: const CircleAvatar(
+                    backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+                  ),
+                  title: const Text('Jane Smith'),
+                  subtitle: const Text('Can we schedule a session tomorrow?'),
+                  trailing: const Text('1:45 PM'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChatPage(userName: 'Jane Smith'),
+                      ),
+                    );
+                  },
+                ),
+                const Divider(),
+                ListTile(
+                  leading: const CircleAvatar(
+                    backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+                  ),
+                  title: const Text('Alex Johnson'),
+                  subtitle: const Text('Thanks for your help!'),
+                  trailing: const Text('Yesterday'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChatPage(userName: 'Alex Johnson'),
+                      ),
+                    );
+                  },
+                ),
+                const Divider(),
+                ListTile(
+                  leading: const CircleAvatar(
+                    backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+                  ),
+                  title: const Text('Emily Davis'),
+                  subtitle: const Text('Do you have any availability next week?'),
+                  trailing: const Text('Monday'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChatPage(userName: 'Emily Davis'),
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
           ),
         ],
@@ -64,11 +130,19 @@ class MessagesPageTutor extends StatelessWidget {
           ),
         ],
         currentIndex: 1, // Set this dynamically as per requirement
+        selectedItemColor: Colors.blueAccent,
         onTap: (int index) {
           // Handle bottom bar navigation here
           switch (index) {
             case 0:
-              Navigator.pushNamed(context, '/tutorHome');
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TutorHomePage(
+                  tutorName: 'Tutor Name',
+                  subjects: 'Subjects',
+                  hourlyRate: 'Hourly Rate',
+                )),
+              );
               break;
             case 1:
               // Stay on the current page
