@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tryflutter/fetch_data_page.dart';
 
 class SubscriptionPage extends StatefulWidget {
   const SubscriptionPage({super.key});

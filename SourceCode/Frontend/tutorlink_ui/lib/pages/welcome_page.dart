@@ -39,7 +39,7 @@ class WelcomePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => TutorLoginPage(),
+                    builder: (context) => const TutorLoginPage(),
                   ),
                 );
               },
@@ -56,7 +56,7 @@ class WelcomePage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => StudentLoginPage()),
+                  MaterialPageRoute(builder: (context) => const StudentLoginPage()),
                 );
               },
               icon: const Icon(Icons.school),
@@ -72,7 +72,7 @@ class WelcomePage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => TutorRegistrationPage()),
+                  MaterialPageRoute(builder: (context) => const TutorRegistrationPage()),
                 );
               },
               icon: const Icon(Icons.app_registration),
@@ -88,7 +88,7 @@ class WelcomePage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => StudentRegistrationPage()),
+                  MaterialPageRoute(builder: (context) => const StudentRegistrationPage()),
                 );
               },
               icon: const Icon(Icons.person_add),
@@ -110,7 +110,7 @@ class WelcomePage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
-            SizedBox(
+            const SizedBox(
               height: 150, // Constrain FetchDataPage height
               child: FetchDataPage(),
             ),
@@ -121,6 +121,6 @@ class WelcomePage extends StatelessWidget {
   }
 }
 
-void main() => runApp(MaterialApp(
+void main() => runApp(const MaterialApp(
       home: WelcomePage(),
     ));

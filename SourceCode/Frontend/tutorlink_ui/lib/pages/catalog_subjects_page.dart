@@ -54,7 +54,7 @@ class _CatalogSubjectsPageState extends State<CatalogSubjectsPage> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => UserSettingsPage()),
+              MaterialPageRoute(builder: (context) => const UserSettingsPage()),
             );
           },
         ),
@@ -68,7 +68,7 @@ class _CatalogSubjectsPageState extends State<CatalogSubjectsPage> {
             const SizedBox(height: 16),
 
             // Adding the FetchDataPage with height constraints
-            SizedBox(
+            const SizedBox(
               height: 150, // Set a finite height for the FetchDataPage
               child: FetchDataPage(),
             ),
@@ -148,7 +148,7 @@ class _CatalogSubjectsPageState extends State<CatalogSubjectsPage> {
           } else if (index == 2) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => MessagesPage()),
+              MaterialPageRoute(builder: (context) => const MessagesPage()),
             );
           }
         },

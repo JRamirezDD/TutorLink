@@ -57,7 +57,7 @@ class StudentHomePage extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => UserSettingsPage()),
+              MaterialPageRoute(builder: (context) => const UserSettingsPage()),
             );
           },
         ),
@@ -78,7 +78,7 @@ class StudentHomePage extends StatelessWidget {
               const SizedBox(height: 16),
 
               // Wrapping FetchDataWidget with SizedBox to give a finite height.
-              SizedBox(
+              const SizedBox(
                 height: 100,
                 child: FetchDataWidget(),
               ),
@@ -234,12 +234,12 @@ class StudentHomePage extends StatelessWidget {
           } else if (index == 1) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => CatalogSubjectsPage()),
+              MaterialPageRoute(builder: (context) => const CatalogSubjectsPage()),
             );
           } else if (index == 2) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => MessagesPage()),
+              MaterialPageRoute(builder: (context) => const MessagesPage()),
             );
           }
         },

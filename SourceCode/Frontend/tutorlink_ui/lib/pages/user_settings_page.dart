@@ -55,7 +55,7 @@ class UserSettingsPage extends StatelessWidget {
                   // Navigate to Saved Tutors Page
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => SavedTutorPage()),
+                    MaterialPageRoute(builder: (context) => const SavedTutorPage()),
                   );
                 },
               ),
@@ -75,7 +75,7 @@ class UserSettingsPage extends StatelessWidget {
                   // Navigate to Subscription Page
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => SubscriptionPage()),
+                    MaterialPageRoute(builder: (context) => const SubscriptionPage()),
                   );
                 },
               ),
@@ -113,7 +113,7 @@ class UserSettingsPage extends StatelessWidget {
                   // Navigate to Welcome Page
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => WelcomePage()),
+                    MaterialPageRoute(builder: (context) => const WelcomePage()),
                   );
                 },
               ),

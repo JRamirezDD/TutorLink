@@ -19,7 +19,7 @@ class MessagesPageTutor extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => UserSettingsPage()),
+              MaterialPageRoute(builder: (context) => const UserSettingsPage()),
             );
           },
         ),
@@ -36,7 +36,7 @@ class MessagesPageTutor extends StatelessWidget {
           Container(
             height: 150, // Set a finite height for the FetchDataPage
             padding: const EdgeInsets.all(8.0),
-            child: FetchDataPage(),
+            child: const FetchDataPage(),
           ),
           Expanded(
             child: ListView(
@@ -53,7 +53,7 @@ class MessagesPageTutor extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ChatPage(userName: 'John Doe'),
+                        builder: (context) => const ChatPage(userName: 'John Doe'),
                       ),
                     );
                   },
@@ -70,7 +70,7 @@ class MessagesPageTutor extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ChatPage(userName: 'Jane Smith'),
+                        builder: (context) => const ChatPage(userName: 'Jane Smith'),
                       ),
                     );
                   },
@@ -87,7 +87,7 @@ class MessagesPageTutor extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ChatPage(userName: 'Alex Johnson'),
+                        builder: (context) => const ChatPage(userName: 'Alex Johnson'),
                       ),
                     );
                   },
@@ -104,7 +104,7 @@ class MessagesPageTutor extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ChatPage(userName: 'Emily Davis'),
+                        builder: (context) => const ChatPage(userName: 'Emily Davis'),
                       ),
                     );
                   },

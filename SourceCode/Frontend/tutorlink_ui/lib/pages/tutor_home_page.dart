@@ -6,7 +6,7 @@ class TutorHomePage extends StatefulWidget {
   final String subjects;
   final String hourlyRate;
 
-  TutorHomePage({required this.tutorName, required this.subjects, required this.hourlyRate});
+  const TutorHomePage({super.key, required this.tutorName, required this.subjects, required this.hourlyRate});
 
   @override
   _TutorHomePageState createState() => _TutorHomePageState();
@@ -50,10 +50,10 @@ class _TutorHomePageState extends State<TutorHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent, // Updated color to match brand identity
-        title: Text('Tutor Home'),
+        title: const Text('Tutor Home'),
         actions: [
           IconButton(
-            icon: Icon(Icons.account_circle),
+            icon: const Icon(Icons.account_circle),
             onPressed: () {
               Navigator.pushNamed(context, '/userSettings');
             },
@@ -71,53 +71,53 @@ class _TutorHomePageState extends State<TutorHomePage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                       radius: 50,
                       backgroundImage: NetworkImage('https://via.placeholder.com/150'),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
                       tutorName,
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 10),
-                    Text(
+                    const SizedBox(height: 10),
+                    const Text(
                       '97% Job Success',
                       style: TextStyle(fontSize: 18, color: Colors.green),
                     ),
-                    Text(
+                    const Text(
                       'Total Jobs Done: 51',
                       style: TextStyle(fontSize: 18),
                     ),
-                    SizedBox(height: 20),
-                    Text(
+                    const SizedBox(height: 20),
+                    const Text(
                       'Tutor Description',
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
                       'Professional tutor specializing in $subjects. Experienced in delivering high-quality lessons to help students excel.',
-                      style: TextStyle(fontSize: 16),
+                      style: const TextStyle(fontSize: 16),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
                       'Hourly Rate: €$hourlyRate',
-                      style: TextStyle(fontSize: 18),
+                      style: const TextStyle(fontSize: 18),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: _editProfile,
-                      child: Text('Edit Profile Information'),
+                      child: const Text('Edit Profile Information'),
                     ),
                   ],
                 ),
 
-                SizedBox(height: 20),
-                Text(
+                const SizedBox(height: 20),
+                const Text(
                   'Recent Work Done',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -126,8 +126,8 @@ class _TutorHomePageState extends State<TutorHomePage> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
+                      child: const Padding(
+                        padding: EdgeInsets.all(16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -144,14 +144,14 @@ class _TutorHomePageState extends State<TutorHomePage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Card(
                       elevation: 4,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
+                      child: const Padding(
+                        padding: EdgeInsets.all(16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -168,14 +168,14 @@ class _TutorHomePageState extends State<TutorHomePage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Card(
                       elevation: 4,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
+                      child: const Padding(
+                        padding: EdgeInsets.all(16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -240,7 +240,7 @@ class EditProfilePage extends StatelessWidget {
   final String hourlyRate;
   final Function(String, String, String) onSave;
 
-  EditProfilePage({
+  const EditProfilePage({super.key, 
     required this.tutorName,
     required this.subjects,
     required this.hourlyRate,
@@ -255,21 +255,21 @@ class EditProfilePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Profile Information'),
+        title: const Text('Edit Profile Information'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             TextField(
-              decoration: InputDecoration(labelText: 'Name'),
+              decoration: const InputDecoration(labelText: 'Name'),
               controller: TextEditingController(text: tutorName),
               onChanged: (value) {
                 newName = value;
               },
             ),
             DropdownButtonFormField<String>(
-              decoration: InputDecoration(labelText: 'Subjects'),
+              decoration: const InputDecoration(labelText: 'Subjects'),
               value: subjects,
               items: <String>['Mathematics', 'Physics', 'Chemistry', 'Biology', 'English']
                   .map((String value) {
@@ -283,19 +283,19 @@ class EditProfilePage extends StatelessWidget {
               },
             ),
             TextField(
-              decoration: InputDecoration(labelText: 'Hourly Rate (€)'),
+              decoration: const InputDecoration(labelText: 'Hourly Rate (€)'),
               controller: TextEditingController(text: hourlyRate),
               onChanged: (value) {
                 newHourlyRate = value;
               },
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 onSave(newName, newSubjects, newHourlyRate);
                 Navigator.of(context).pop();
               },
-              child: Text('Save'),
+              child: const Text('Save'),
             ),
           ],
         ),

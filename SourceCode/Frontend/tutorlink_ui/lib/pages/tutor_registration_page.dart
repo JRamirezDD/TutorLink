@@ -138,7 +138,7 @@ class _TutorRegistrationPageState extends State<TutorRegistrationPage> {
               const SizedBox(height: 10),
 
               // Wrap FetchDataPage in a Container with height constraint
-              SizedBox(
+              const SizedBox(
                 height: 200.0, // Set a fixed height
                 child: FetchDataPage(),
               ),

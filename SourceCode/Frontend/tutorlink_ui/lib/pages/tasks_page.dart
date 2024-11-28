@@ -58,7 +58,7 @@ class _TasksPageState extends State<TasksPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             // Fetch Data Widget added at the top to display important data
-            Expanded(
+            const Expanded(
               child: FetchDataPage(),
             ),
             const SizedBox(height: 16),

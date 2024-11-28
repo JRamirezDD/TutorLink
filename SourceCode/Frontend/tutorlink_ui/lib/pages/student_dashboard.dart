@@ -24,7 +24,7 @@ class StudentDashboardPage extends StatelessWidget {
             const SizedBox(height: 16),
 
             // Integrate FetchDataWidget to display fetched data
-            FetchDataPage(),
+            const FetchDataPage(),
             const SizedBox(height: 16),
 
             // Button to find a tutor

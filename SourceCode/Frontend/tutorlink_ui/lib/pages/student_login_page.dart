@@ -101,7 +101,7 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
-                  child: Text('Login'),
+                  child: const Text('Login'),
                 ),
                 const SizedBox(height: 20),
 
@@ -117,7 +117,7 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 150, // Constrain the height of FetchDataPage
                   child: FetchDataPage(), // Display the FetchDataPage widget here
                 ),
@@ -130,6 +130,6 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
   }
 }
 
-void main() => runApp(MaterialApp(
+void main() => runApp(const MaterialApp(
       home: StudentLoginPage(),
     ));

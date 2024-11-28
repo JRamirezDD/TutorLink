@@ -123,7 +123,7 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
             const SizedBox(height: 20),
 
             // Adding the FetchDataPage to display fetched data after registration
-            SizedBox(
+            const SizedBox(
               height: 200.0, // Set a fixed height to avoid infinite constraints
               child: FetchDataPage(),
             ),

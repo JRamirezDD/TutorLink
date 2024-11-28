@@ -58,7 +58,7 @@ class TutorDashboardPage extends StatelessWidget {
             const SizedBox(height: 16),
 
             // Integration of FetchDataPage to display fetched data
-            Expanded(
+            const Expanded(
               child: FetchDataPage(),
             ),
           ],
