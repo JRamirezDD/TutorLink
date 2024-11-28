@@ -28,6 +28,7 @@ ext {
 }
 
 dependencies {
+	implementation project(':CrossDomainInteractions')
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
@@ -39,7 +40,7 @@ dependencies {
 	implementation 'com.graphql-java:graphql-java-extended-scalars:17.0'
 	//implementation 'com.graphql-java-kickstart:graphql-spring-boot-starter:11.1.0'
 	// implementation 'org.springdoc:springdoc-openapi-ui:1.8.0'
-    implementation 'org.postgresql:postgresql:42.2.24'
+    implementation 'org.postgresql:postgresql:42.7.2'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
