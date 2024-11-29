@@ -2,11 +2,11 @@ package com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.cont
 
 
 import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.controller.APIs.API_ConnectionController;
-import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.model.dto.req.CreateConnectionReq;
-import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.model.dto.resp.ConnectionResp;
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.model.dto.CreateConnectionRequest.req.CreateConnectionReq;
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.model.dto.CreateConnectionRequest.req.RespondConnectionReq;
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.model.dto.GetConnection.resp.ConnectionResp;
 import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.service.ConnectionService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,5 +36,13 @@ public class ConnectionController implements API_ConnectionController  {
         List<ConnectionResp> connections = connectionService.getConnectionsForTutor(tutorId);
         return ResponseEntity.ok(connections);
     }
+
+    //respondconnection
+    public void getRespondConnection(@RequestBody RespondConnectionReq connectionRequestResponse) {
+        connectionService.respondToConnection(connectionRequestResponse);
+    }
 }
+
+
+
 

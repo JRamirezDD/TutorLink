@@ -8,7 +8,6 @@ import java.util.List;
 
 @Repository
 public interface ConnectionRepository extends JpaRepository<Connection, Long> {
-
     List<Connection> findByStudentId(Long studentId);
 
     List<Connection> findByTutorId(Long tutorId);

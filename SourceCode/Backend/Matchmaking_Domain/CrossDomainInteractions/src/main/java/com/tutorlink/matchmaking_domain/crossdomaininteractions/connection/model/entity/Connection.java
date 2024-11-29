@@ -23,6 +23,7 @@ public class Connection {
     private Long tutorId;
 
     @Column(nullable = false)
-    private String status; // PENDING, ACCEPTED, REJECTED
+    private String status;
 }
+
 

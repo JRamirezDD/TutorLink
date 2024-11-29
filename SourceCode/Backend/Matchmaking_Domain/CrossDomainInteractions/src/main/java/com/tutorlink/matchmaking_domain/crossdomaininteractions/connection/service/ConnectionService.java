@@ -1,7 +1,9 @@
 package com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.service;
 
-import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.model.dto.req.CreateConnectionReq;
-import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.model.dto.resp.ConnectionResp;
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.model.dto.CreateConnectionRequest.req.ConnectionReqResponseTypes;
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.model.dto.CreateConnectionRequest.req.CreateConnectionReq;
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.model.dto.CreateConnectionRequest.req.RespondConnectionReq;
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.model.dto.GetConnection.resp.ConnectionResp;
 import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.model.entity.Connection;
 import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.publisher.ConnectionPublisher;
 import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.repository.ConnectionRepository;
@@ -54,6 +56,19 @@ public class ConnectionService {
         if (!isConnected(senderId, receiverId)) {
             throw new RuntimeException("Users are not connected. Messaging impossible.");
         }
+    }
+
+    public void respondToConnection(RespondConnectionReq connectionRequestResponse) {
+        Connection connection = connectionRepository.findById(connectionRequestResponse.connectionId())
+                .orElseThrow(() -> new RuntimeException("Connection not found"));
+
+        String status = switch (connectionRequestResponse.responseType()) {
+            case ACCEPT -> "ACCEPTED";
+            case REJECT -> "REJECTED";
+        };
+
+        connection.setStatus(status);
+        connectionRepository.save(connection);
     }
 
 }
