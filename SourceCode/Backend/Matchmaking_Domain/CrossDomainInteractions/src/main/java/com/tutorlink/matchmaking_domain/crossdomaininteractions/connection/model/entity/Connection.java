@@ -23,7 +23,7 @@ public class Connection {
     private Long tutorId;
 
     @Column(nullable = false)
-    private String status;
+    private ConnectionStatus status;
 }
 
 

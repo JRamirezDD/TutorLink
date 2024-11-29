@@ -5,12 +5,14 @@ import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.model
 import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.model.dto.CreateConnectionRequest.req.RespondConnectionReq;
 import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.model.dto.GetConnection.resp.ConnectionResp;
 import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.model.entity.Connection;
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.model.entity.ConnectionStatus;
 import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.publisher.ConnectionPublisher;
 import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.repository.ConnectionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,10 +23,19 @@ public class ConnectionService {
     private final ConnectionPublisher connectionPublisher;
 
     public ConnectionResp createConnection(CreateConnectionReq request) {
+        //check if a connection already exists
+        Optional<Connection> existingConnection = connectionRepository.findByStudentIdAndTutorId(
+                request.studentId(), request.tutorId());
+
+        if (existingConnection.isPresent()) {
+            throw new RuntimeException("Connection already exists.");
+        }
+
+        //create a new connection
         Connection connection = Connection.builder()
                 .studentId(request.studentId())
                 .tutorId(request.tutorId())
-                .status("PENDING") //default status
+                .status(ConnectionStatus.valueOf("PENDING")) // default status
                 .build();
 
         connectionRepository.save(connection);
@@ -67,9 +78,9 @@ public class ConnectionService {
             case REJECT -> "REJECTED";
         };
 
-        connection.setStatus(status);
-        connectionRepository.save(connection);
+        connection.setStatus(ConnectionStatus.valueOf(status));
+        connectionRepository.save(connection); // Save the updated status
     }
-
 }
+
 
