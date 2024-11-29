@@ -16,9 +16,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-public interface API_Profile extends API_StudentProfileRetrieval {
+public interface API_Profile {
 
-    //view the student’s own profile
+    // View a student profile by ID
+    @Operation(summary = "View a student's profile by ID", description = "Retrieves the profile of a student by their ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Profile retrieved successfully",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = StudentProfileResp.class),
+                            examples = @ExampleObject(value = "{\"id\": 1, \"name\": \"Gio Kandelaki\", \"email\": \"giokandelaki@something.com\", \"subscriptionLevel\": \"Gold\"}")
+                    )),
+            @ApiResponse(responseCode = "404", description = "Student profile not found")
+    })
+    @GetMapping("/{id}")
+    ResponseEntity<StudentProfileResp> getStudentProfile(@PathVariable Long id);
+
+    // View the student’s own profile
     @Operation(summary = "View the student’s own profile", description = "Retrieves the profile of the currently authenticated student.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Own profile retrieved successfully",
@@ -29,23 +42,23 @@ public interface API_Profile extends API_StudentProfileRetrieval {
             @ApiResponse(responseCode = "401", description = "Unauthorized access")
     })
     @GetMapping
-    public ResponseEntity<StudentProfileResp> getOwnProfile();
+    ResponseEntity<StudentProfileResp> getOwnProfile();
 
-    //update the student’s own profile
+    // Update the student’s own profile
     @Operation(summary = "Update the student’s own profile", description = "Allows the student to update their profile details.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Profile updated successfully",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = StudentProfileResp.class),
-                            examples = @ExampleObject(value = "{\"id\": 1, \"name\": \"Gio Kandelaki\", \"email\": \"v\", \"subscriptionLevel\": \"Gold\"}")
+                            examples = @ExampleObject(value = "{\"id\": 1, \"name\": \"Gio Kandelaki\", \"email\": \"giokandelaki_updated@something.com\", \"subscriptionLevel\": \"Gold\"}")
                     )),
             @ApiResponse(responseCode = "400", description = "Invalid update request"),
             @ApiResponse(responseCode = "401", description = "Unauthorized access")
     })
     @PutMapping
-    public ResponseEntity<StudentProfileResp> updateOwnProfile(@RequestBody UpdateProfileReq req);
+    ResponseEntity<StudentProfileResp> updateOwnProfile(@RequestBody UpdateProfileReq req);
 
-    //view the student's subscription status (only accessible by the student)
+    // View the student's subscription status (only accessible by the student)
     @Operation(summary = "View the student's subscription status", description = "Retrieves the subscription status of the currently authenticated student.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Subscription status retrieved successfully",
@@ -56,7 +69,6 @@ public interface API_Profile extends API_StudentProfileRetrieval {
             @ApiResponse(responseCode = "401", description = "Unauthorized access")
     })
     @GetMapping("/subscription")
-    public ResponseEntity<SubscriptionStatusResp> getSubscriptionStatus();
-
-    public Long getCurrentStudentId();
+    ResponseEntity<SubscriptionStatusResp> getSubscriptionStatus();
 }
+

@@ -1,21 +1,24 @@
 package com.tutorlink.matchmaking_domain.crossdomaininteractions.payment.controller.APIs;
 
-import com.tutorlink.matchmaking_domain.crossdomaininteractions.payment.model.dto.req.PaymentReq;
-import com.tutorlink.matchmaking_domain.crossdomaininteractions.payment.model.dto.resp.PaymentResp;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import com.tutorlink.student_domain.functional.model.dto.response.PaymentConfirmationResp;
+import com.tutorlink.student_domain.functional.model.dto.response.PaymentResp;
+import org.springframework.web.bind.annotation.*;
 
 public interface API_Payment {
+
     @PostMapping
-    public ResponseEntity<PaymentResp> createPaymentRequest(@RequestBody PaymentReq request);
+    PaymentResp createPaymentRequest(@RequestBody com.tutorlink.student_domain.functional.model.dto.request.PaymentReq req);
 
-    //accept payment request
-    @PostMapping("/{paymentId}/accept")
-    public ResponseEntity<String> acceptPayment(@PathVariable Long paymentId);
+    @PostMapping("/{paymentId}/pay")
+    void payRequest(@PathVariable Long paymentId);
 
-    //reject payment request
-    @PostMapping("/{paymentId}/reject")
-    public ResponseEntity<String> rejectPayment(@PathVariable Long paymentId);
+    @PostMapping("/{paymentId}/decline")
+    void declineRequest(@PathVariable Long paymentId);
+
+    @PostMapping("/{paymentRequestId}/accept")
+    PaymentConfirmationResp confirmAcceptPayment(@PathVariable Long paymentRequestId);
+
+    @PostMapping("/{paymentRequestId}/reject")
+    PaymentConfirmationResp confirmRejectPayment(@PathVariable Long paymentRequestId);
 }
+

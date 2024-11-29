@@ -32,7 +32,7 @@ public class ProfileController implements API_Profile {
 
     //view a student profile by ID
     public ResponseEntity<StudentProfileResp> getStudentProfile(@PathVariable Long id) {
-        // StudentProfileResp profile = profileService.getStudentProfile(id);
+        //studentProfileResp profile = profileService.getStudentProfile(id);
         StudentProfileResp profile = StudentProfileResp.mock();
         return ResponseEntity.ok(profile);
     }
