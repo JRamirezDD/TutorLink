@@ -3,6 +3,8 @@ package com.tutorlink.matchmaking_domain.crossdomaininteractions.payment.model.e
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "payments")
 @Getter
@@ -27,5 +29,13 @@ public class Payment {
 
     @Column(nullable = false)
     private String status; // PENDING, ACCEPTED, REJECTED
+
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime requestDate; //timestamp of when the payment request was created
+
+    @Column
+    private LocalDateTime paymentDate; //timestamp of when the payment was processed
 }
+
+
 

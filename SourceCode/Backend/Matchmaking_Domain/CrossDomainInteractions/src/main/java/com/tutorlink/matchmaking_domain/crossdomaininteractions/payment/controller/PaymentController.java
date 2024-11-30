@@ -8,6 +8,8 @@ import com.tutorlink.matchmaking_domain.crossdomaininteractions.payment.service.
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.payment.model.dto.resp.PaymentConfirmationResp;
+
 
 @RestController
 @RequestMapping("/payments")
@@ -16,22 +18,31 @@ public class PaymentController implements API_Payment {
 
     private final PaymentService paymentService;
 
-    //create payment request
-    public ResponseEntity<PaymentResp> createPaymentRequest(@RequestBody PaymentReq request) {
-        PaymentResp payment = paymentService.createPaymentRequest(request);
+    //Create a payment request
+    public ResponseEntity<PaymentResp> createPaymentRequest(@RequestBody PaymentReq req) {
+        PaymentResp payment = paymentService.createPaymentRequest(req);
         return ResponseEntity.ok(payment);
     }
 
-    //accept payment request
-    public ResponseEntity<String> acceptPayment(@PathVariable Long paymentId) {
-        paymentService.acceptPayment(paymentId);
-        return ResponseEntity.ok("Payment accepted.");
+    //Pay a payment request
+    public void payRequest(@PathVariable Long paymentId) {
+        paymentService.payRequest(paymentId);
     }
 
-    //reject payment request
-    public ResponseEntity<String> rejectPayment(@PathVariable Long paymentId) {
-        paymentService.rejectPayment(paymentId);
-        return ResponseEntity.ok("Payment rejected.");
+    //Decline a payment request
+    public void declineRequest(@PathVariable Long paymentId) {
+        paymentService.declineRequest(paymentId);
+    }
+
+    //Confirm and accept a payment request
+    public PaymentConfirmationResp confirmAcceptPayment(@PathVariable Long paymentRequestId) {
+        return paymentService.confirmAcceptPayment(paymentRequestId);
+    }
+
+    //Confirm and reject a payment request
+    public PaymentConfirmationResp confirmRejectPayment(@PathVariable Long paymentRequestId) {
+        return paymentService.confirmRejectPayment(paymentRequestId);
     }
 }
+
 

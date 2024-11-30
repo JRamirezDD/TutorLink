@@ -1,13 +1,16 @@
 package com.tutorlink.matchmaking_domain.crossdomaininteractions.payment.controller.APIs;
 
-import com.tutorlink.student_domain.functional.model.dto.response.PaymentConfirmationResp;
-import com.tutorlink.student_domain.functional.model.dto.response.PaymentResp;
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.payment.model.dto.req.PaymentReq;
+
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.payment.model.dto.resp.PaymentConfirmationResp;
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.payment.model.dto.resp.PaymentResp;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 public interface API_Payment {
 
     @PostMapping
-    PaymentResp createPaymentRequest(@RequestBody com.tutorlink.student_domain.functional.model.dto.request.PaymentReq req);
+    ResponseEntity<PaymentResp> createPaymentRequest(@RequestBody PaymentReq req);
 
     @PostMapping("/{paymentId}/pay")
     void payRequest(@PathVariable Long paymentId);
