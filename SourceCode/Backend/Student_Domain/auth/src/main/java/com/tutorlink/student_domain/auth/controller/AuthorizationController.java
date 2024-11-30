@@ -10,22 +10,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/auth")
+@RequestMapping("/authorization")
 public class
 AuthorizationController {
 
     private final UserAuthorizationService authorizationService;
-
-    @PostMapping("/authorize")
-    public ResponseEntity<Void> authorize(@RequestBody UserCredentialsReq req, HttpServletResponse response) {
-        authorizationService.createSession(req, response);
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/validate")
-    public ResponseEntity<Void> validateToken(@RequestHeader("X-Session-Token") String token) {
-        authorizationService.verifyToken(token);
-        return ResponseEntity.ok().build();
-    }
 }
 

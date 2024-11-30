@@ -1,10 +1,10 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.3.5'
+	id 'org.springframework.boot' version '3.3.6'
 	id 'io.spring.dependency-management' version '1.1.6'
 }
 
-group = 'com.tutorlink.tutor_domain'
+group = 'com.tutorlink.student_domain'
 version = '0.0.1-SNAPSHOT'
 
 java {
@@ -31,7 +31,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'com.google.api-client:google-api-client:2.7.0'
-	implementation 'com.google.http-client:google-http-client-jackson2:1.45.6'
+	implementation 'com.google.http-client:google-http-client-jackson2:1.45.0'
 
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'

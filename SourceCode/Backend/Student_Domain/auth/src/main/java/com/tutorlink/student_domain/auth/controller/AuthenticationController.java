@@ -2,10 +2,8 @@ package com.tutorlink.student_domain.auth.controller;
 
 import com.tutorlink.student_domain.auth.model.dto.request.RegisterUserReq;
 import com.tutorlink.student_domain.auth.model.dto.request.UserLoginReq;
-import com.tutorlink.student_domain.auth.model.entity.UserEntity;
 import com.tutorlink.student_domain.auth.service.AuthenticationService;
 import com.tutorlink.student_domain.auth.service.GoogleOAuthService;
-import com.tutorlink.student_domain.auth.service.SessionTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/auth")
+@RequestMapping("/authentication")
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
@@ -25,7 +23,7 @@ public class AuthenticationController {
     public ResponseEntity<String> login(@RequestBody UserLoginReq loginRequest) {
         try {
             String sessionToken = authenticationService.login(loginRequest);
-            ResponseCookie cookie = ResponseCookie.from("token", sessionToken)
+            ResponseCookie cookie = ResponseCookie.from("SESSIONTOKEN", sessionToken)
                     .path("/")
                     .maxAge(900)
                     .build();
@@ -42,7 +40,7 @@ public class AuthenticationController {
     public ResponseEntity<String> googleLogin(@RequestParam("access_token") String accessToken) {
         try {
             String sessionToken = googleOAuthService.login(accessToken);
-            ResponseCookie cookie = ResponseCookie.from("token", sessionToken)
+            ResponseCookie cookie = ResponseCookie.from("SESSIONTOKEN", sessionToken)
                     .path("/")
                     .maxAge(900)
                     .build();
@@ -67,7 +65,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<String> logout(@CookieValue("token") String token) {
+    public ResponseEntity<String> logout(@CookieValue("SESSIONTOKEN") String token) {
         try {
             authenticationService.invalidateSessionToken(token);
         }
@@ -75,6 +73,11 @@ public class AuthenticationController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/validate-session")
+    public boolean validateSession(@RequestHeader("SESSIONTOKEN") String sessionToken) {
+        return authenticationService.isSessionTokenValid(sessionToken);
     }
 }
 

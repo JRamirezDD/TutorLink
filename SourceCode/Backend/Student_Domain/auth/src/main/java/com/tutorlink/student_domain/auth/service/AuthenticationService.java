@@ -58,6 +58,14 @@ public class AuthenticationService {
     public void invalidateSessionToken(String token) throws Exception {
         sessionTokenService.invalidateSessionToken(token);
     }
+
+    public boolean isSessionTokenValid(String token) {
+        try {
+            return sessionTokenService.validateSessionToken(token).is_valid();
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
 
 
