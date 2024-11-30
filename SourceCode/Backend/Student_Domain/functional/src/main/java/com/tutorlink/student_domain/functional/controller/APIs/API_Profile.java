@@ -1,6 +1,5 @@
 package com.tutorlink.student_domain.functional.controller.APIs;
 
-import com.tutorlink.matchmaking_domain.studentdomainmanager.controller.APIs.API_StudentProfileRetrieval;
 import com.tutorlink.student_domain.functional.model.dto.request.UpdateProfileReq;
 import com.tutorlink.student_domain.functional.model.dto.response.StudentProfileResp;
 import com.tutorlink.student_domain.functional.model.dto.response.SubscriptionStatusResp;
