@@ -34,6 +34,19 @@ services:
     networks:
       - tutorlink-network
   
+  student-domain-gateway:
+    build:
+      context: '../../SourceCode/Backend/Student_Domain'
+      dockerfile: gateway/dockerfile
+    ports:
+      - "${STUDENT_DOMAIN_SERVICES_GATEWAY_PORT}:${STUDENT_DOMAIN_SERVICES_GATEWAY_PORT}"
+    env_file:
+      - ${ENV_FILE}
+    depends_on:
+      - student-db
+    networks:
+      - tutorlink-network
+  
 ### Other backend services...
 
 

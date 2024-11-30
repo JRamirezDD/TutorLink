@@ -468,7 +468,7 @@ dist/
 # Flycheck
 flycheck_*.el
 
-# server auth directory
+# server functional directory
 /server/
 
 # projectiles files
