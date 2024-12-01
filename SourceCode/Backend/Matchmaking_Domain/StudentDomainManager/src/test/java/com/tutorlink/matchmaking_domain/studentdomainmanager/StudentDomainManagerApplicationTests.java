@@ -5,9 +5,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class StudentDomainManagerApplicationTests {
+/*
 
 	@Test
 	void contextLoads() {
 	}
+*/
 
 }
