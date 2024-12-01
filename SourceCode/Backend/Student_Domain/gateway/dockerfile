@@ -4,36 +4,26 @@
 #   Code version: 1.0
 #   Availability: https://github.com/JRamirezDD/TutorLink
 
-# Use compilation image
-FROM openjdk:21-slim AS build
+FROM gradle:8.10.2-jdk21-alpine AS build
 
-# Working directory of container
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy Gradle wrapper and settings
-COPY ./settings.gradle ./
-COPY ./gradlew ./
-COPY ./gradle ./gradle
+# Copy the entire root context as defined in docker-compose.yml
+COPY . .
 
-# Copy required files
-COPY ./auth ./auth
-COPY ./gateway ./gateway
-
-# Build the gateway project along with dependencies
-RUN ./gradlew :gateway:build --no-daemon -x test
+# Explicitly run Gradle from the root project directory
+RUN ./gradlew :Student_Domain:gateway:build --no-daemon -x test
 
 # Use separate image for runtime
 FROM openjdk:21-slim
 LABEL authors="jorge"
 
-# Create new image with just JAR
-FROM openjdk:21-slim
-WORKDIR /app
-COPY --from=build /app/gateway/build/libs/gateway-0.0.1-SNAPSHOT.jar app.jar
+# Copy the built JAR
+COPY --from=build /app/Student_Domain/gateway/build/libs/gateway-*.jar app.jar
 
-
-# Expose application port
+# Expose the app port
 EXPOSE $SERVER_PORT
 
-# Run application
+# Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
