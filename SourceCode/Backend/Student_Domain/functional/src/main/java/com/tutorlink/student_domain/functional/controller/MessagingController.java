@@ -1,19 +1,8 @@
 package com.tutorlink.student_domain.functional.controller;
 
-import java.util.List;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.tutorlink.student_domain.functional.model.dto.request.SendMessageReq;
-import com.tutorlink.student_domain.functional.model.dto.response.MessageResp;
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.messaging.model.dto.req.SendMessageReq;
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.messaging.model.dto.resp.MessageResp;
 import com.tutorlink.student_domain.functional.service.MessagingService;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -21,6 +10,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/messages")
@@ -29,7 +22,6 @@ public class MessagingController {
 
     private final MessagingService messagingService;
 
-    //send a message from one user to another
     @Operation(summary = "Send a message", description = "Allows a user to send a message to another user.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Message sent successfully",
@@ -41,12 +33,10 @@ public class MessagingController {
     })
     @PostMapping("/send")
     public ResponseEntity<MessageResp> sendMessage(@RequestBody SendMessageReq sendMessageReq) {
-        // MessageResp message = messagingService.sendMessage(sendMessageReq);
-        MessageResp message = MessageResp.mock();
+        MessageResp message = messagingService.sendMessage(sendMessageReq);
         return ResponseEntity.ok(message);
     }
 
-    //get all messages between 2 users
     @Operation(summary = "Get all messages between two users", description = "Retrieves all messages exchanged between two users.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "List of messages between two users",
@@ -59,9 +49,10 @@ public class MessagingController {
     @GetMapping("/conversation/{userId}/{otherUserId}")
     public ResponseEntity<List<MessageResp>> getMessagesBetweenUsers(
             @PathVariable Long userId, @PathVariable Long otherUserId) {
-        // List<MessageResp> messages = messagingService.getMessagesBetweenUsers(userId, otherUserId);
-        List<MessageResp> messages = List.of(MessageResp.mock());
+        List<MessageResp> messages = messagingService.getMessagesBetweenUsers(userId, otherUserId);
         return ResponseEntity.ok(messages);
     }
 }
+
+
 

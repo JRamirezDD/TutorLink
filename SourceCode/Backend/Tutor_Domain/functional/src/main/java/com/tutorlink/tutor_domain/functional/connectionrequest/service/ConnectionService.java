@@ -1,10 +1,12 @@
 package com.tutorlink.tutor_domain.functional.connectionrequest.service;
 
-
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.publisher.ConnectionPublisher;
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.repository.ConnectionRepository;
 import com.tutorlink.tutor_domain.functional.connectionrequest.model.dto.req.CreateConnectionReq;
 import com.tutorlink.tutor_domain.functional.connectionrequest.model.dto.req.UpdateConnectionStatusReq;
 import com.tutorlink.tutor_domain.functional.connectionrequest.model.dto.resp.ConnectionResp;
 import com.tutorlink.tutor_domain.functional.connectionrequest.model.entity.Connection;
+import com.tutorlink.tutor_domain.functional.connectionrequest.service.feignclient.Client_CrossDomainInteractions_Connection;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,70 +19,40 @@ public class ConnectionService {
 
     private final ConnectionRepository connectionRepository;
     private final ConnectionPublisher connectionPublisher;
+    private final Client_CrossDomainInteractions_Connection connectionClient; // Inject Feign Client
 
     public ConnectionResp createConnection(CreateConnectionReq request) {
-        Connection connection = Connection.builder()
-                .studentId(request.studentId())
-                .tutorId(request.tutorId())
-                .status("PENDING")
-                .build();
-
-        connectionRepository.save(connection);
-        connectionPublisher.publishConnectionEvent(connection);
-
-        return ConnectionResp.builder()
-                .connectionId(connection.getId())
-                .studentId(connection.getStudentId())
-                .tutorId(connection.getTutorId())
-                .status(connection.getStatus())
-                .build();
+        // Delegate to Feign Client
+        return connectionClient.createConnection(request);
     }
 
     public List<ConnectionResp> getConnectionsForStudent(Long studentId) {
-        return connectionRepository.findByStudentId(studentId).stream()
-                .map(conn -> ConnectionResp.builder()
-                        .connectionId(conn.getId())
-                        .studentId(conn.getStudentId())
-                        .tutorId(conn.getTutorId())
-                        .status(conn.getStatus())
-                        .build())
-                .collect(Collectors.toList());
+        // Delegate to Feign Client
+        return connectionClient.getConnectionsForStudent(studentId);
     }
 
     public List<ConnectionResp> getConnectionsForTutor(Long tutorId) {
-        return connectionRepository.findByTutorId(tutorId).stream()
-                .map(conn -> ConnectionResp.builder()
-                        .connectionId(conn.getId())
-                        .studentId(conn.getStudentId())
-                        .tutorId(conn.getTutorId())
-                        .status(conn.getStatus())
-                        .build())
-                .collect(Collectors.toList());
+        // Delegate to Feign Client
+        return connectionClient.getConnectionsForTutor(tutorId);
     }
 
     public ConnectionResp updateConnectionStatus(UpdateConnectionStatusReq request) {
-        Connection connection = connectionRepository.findById(request.connectionId())
-                .orElseThrow(() -> new RuntimeException("Connection not found"));
-
-        connection.setStatus(request.status());
-        connectionRepository.save(connection);
-
-        return ConnectionResp.builder()
-                .connectionId(connection.getId())
-                .studentId(connection.getStudentId())
-                .tutorId(connection.getTutorId())
-                .status(connection.getStatus())
-                .build();
+        // Delegate to Feign Client
+        return connectionClient.updateConnectionStatus(request);
     }
 
-    //process pending connection logic
     public void processConnection(Connection connection) {
         if ("PENDING".equalsIgnoreCase(connection.getStatus())) {
-            connection.setStatus("ACCEPTED"); //default to accepted rn
+            connection.setStatus("ACCEPTED"); // Default to accepted for now
             connectionRepository.save(connection);
-
             connectionPublisher.publishConnectionEvent(connection);
+
+            // Inform remote service of status change (optional)
+            UpdateConnectionStatusReq req = new UpdateConnectionStatusReq(
+                    connection.getId(),
+                    connection.getStatus()
+            );
+            connectionClient.updateConnectionStatus(req);
         }
     }
 }
-

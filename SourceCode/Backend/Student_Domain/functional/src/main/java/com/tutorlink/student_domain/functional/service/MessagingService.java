@@ -1,52 +1,29 @@
 package com.tutorlink.student_domain.functional.service;
 
-import com.tutorlink.student_domain.functional.model.dto.request.SendMessageReq;
-import com.tutorlink.student_domain.functional.model.dto.response.MessageResp;
-import com.tutorlink.student_domain.functional.model.entity.Message;
-import com.tutorlink.student_domain.functional.repository.MessagingRepository;
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.messaging.model.dto.req.SendMessageReq;
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.messaging.model.dto.resp.MessageResp;
+import com.tutorlink.student_domain.functional.service.feignclients.Client_CrossDomainInteractions_Messaging;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class MessagingService {
 
-    private final MessagingRepository messagingRepository = null;
+    private final Client_CrossDomainInteractions_Messaging messagingClient;
 
     public MessageResp sendMessage(SendMessageReq req) {
-        Message message = Message.builder()
-                .senderId(req.senderId())
-                .recipientId(req.recipientId())
-                .content(req.content())
-                .timestamp(LocalDateTime.now())
-                .build();
-
-        messagingRepository.save(message);
-
-        return new MessageResp(
-                message.getId(),
-                message.getSenderId(),
-                message.getRecipientId(),
-                message.getContent(),
-                message.getTimestamp()
-        );
+        // Delegate the sending of the message to the CrossDomainInteractions API
+        return messagingClient.sendMessage(req).getBody();
     }
 
     public List<MessageResp> getMessagesBetweenUsers(Long userId, Long otherUserId) {
-        return messagingRepository.findMessagesBetweenUsers(userId, otherUserId).stream()
-                .map(message -> new MessageResp(
-                        message.getId(),
-                        message.getSenderId(),
-                        message.getRecipientId(),
-                        message.getContent(),
-                        message.getTimestamp()
-                ))
-                .collect(Collectors.toList());
+        // Delegate the retrieval of messages to the CrossDomainInteractions API
+        return (List<MessageResp>) messagingClient.getMessagesBetweenUsers(userId, otherUserId);
     }
 }
+
 
 
