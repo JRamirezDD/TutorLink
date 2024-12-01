@@ -1,8 +1,9 @@
 package com.tutorlink.student_domain.functional.service;
 
-import com.tutorlink.student_domain.functional.model.dto.request.PaymentReq;
-import com.tutorlink.student_domain.functional.model.dto.response.PaymentConfirmationResp;
-import com.tutorlink.student_domain.functional.model.dto.response.PaymentResp;
+
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.payment.model.dto.req.PaymentReq;
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.payment.model.dto.resp.PaymentConfirmationResp;
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.payment.model.dto.resp.PaymentResp;
 import com.tutorlink.student_domain.functional.service.feignclients.Client_CrossDomainInteractions_Payment;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public class PaymentService {
 
     //Creates a new payment request
     public PaymentResp createPaymentRequest(PaymentReq req) {
-        return paymentClient.createPaymentRequest(req);
+        return paymentClient.createPaymentRequest(req).getBody();
     }
 
     //Processes the payment
