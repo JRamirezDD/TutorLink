@@ -6,6 +6,7 @@ import com.tutorlink.matchmaking_domain.studentdomainmanager.model.proxy.Student
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+
 @Service
 @RequiredArgsConstructor
 public class StudentProfileRetrievalService {

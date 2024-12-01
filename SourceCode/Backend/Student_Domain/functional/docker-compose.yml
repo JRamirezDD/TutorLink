@@ -12,7 +12,7 @@ services:
       context: .
       dockerfile: dockerfile
     ports:
-      - "10000:10000"
+      - "10011:10011"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/student_db
       SPRING_DATASOURCE_USERNAME: main_user
