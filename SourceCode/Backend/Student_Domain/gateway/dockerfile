@@ -1,0 +1,39 @@
+#   Title: dockerfile
+#   Author: Ramirez de Diego, Jorge
+#   Date: 2024
+#   Code version: 1.0
+#   Availability: https://github.com/JRamirezDD/TutorLink
+
+# Use compilation image
+FROM openjdk:21-slim AS build
+
+# Working directory of container
+WORKDIR /app
+
+# Copy Gradle wrapper and settings
+COPY ./settings.gradle ./
+COPY ./gradlew ./
+COPY ./gradle ./gradle
+
+# Copy required files
+COPY ./auth ./auth
+COPY ./gateway ./gateway
+
+# Build the gateway project along with dependencies
+RUN ./gradlew :gateway:build --no-daemon -x test
+
+# Use separate image for runtime
+FROM openjdk:21-slim
+LABEL authors="jorge"
+
+# Create new image with just JAR
+FROM openjdk:21-slim
+WORKDIR /app
+COPY --from=build /app/gateway/build/libs/gateway-0.0.1-SNAPSHOT.jar app.jar
+
+
+# Expose application port
+EXPOSE $SERVER_PORT
+
+# Run application
+ENTRYPOINT ["java", "-jar", "app.jar"]

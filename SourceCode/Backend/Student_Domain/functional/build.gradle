@@ -40,7 +40,7 @@ dependencies {
 	implementation 'com.graphql-java:graphql-java-extended-scalars:17.0'
 	//implementation 'com.graphql-java-kickstart:graphql-spring-boot-starter:11.1.0'
 	// implementation 'org.springdoc:springdoc-openapi-ui:1.8.0'
-    implementation 'org.postgresql:postgresql:42.7.2'
+    implementation 'org.postgresql:postgresql'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

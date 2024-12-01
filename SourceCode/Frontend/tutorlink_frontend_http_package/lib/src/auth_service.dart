@@ -17,7 +17,7 @@ class AuthService {
 
   /// Registers a user and returns the session token.
   Future<String> register(String email, String password) async {
-    final response = await apiClient.post('/auth/register', {
+    final response = await apiClient.post('/functional/register', {
       'email': email,
       'password': password,
     });
@@ -33,7 +33,7 @@ class AuthService {
 
   /// Logs in a user and returns the session token.
   Future<String> login(String email, String password) async {
-    final response = await apiClient.post('/auth/login', {
+    final response = await apiClient.post('/functional/login', {
       'email': email,
       'password': password,
     });
@@ -50,7 +50,7 @@ class AuthService {
   /*
   /// Logs in with Google, sends the Google Token to the Back-end, and Back-end returns a SessionToken.
   Future<String> loginWithGoogle(String idToken) async {
-    final response = await apiClient.post('/auth/oauth2/google', {
+    final response = await apiClient.post('/functional/oauth2/google', {
       'idToken': idToken,
     });
 

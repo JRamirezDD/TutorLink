@@ -1,0 +1,4 @@
+rootProject.name = 'Student_Domain'
+include ':auth',
+        ':functional',
+        ':gateway'

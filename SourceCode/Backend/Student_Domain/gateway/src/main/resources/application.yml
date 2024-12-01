@@ -1,0 +1,39 @@
+server:
+  address: 0.0.0.0
+  port: 10010
+
+spring:
+  application:
+    name: ${SPRING_APPLICATION_NAME:gateway}
+
+  auth:
+    check-authentication: false
+    authenticationserviceurl: "http://localhost:10019/authentication"
+    authorizationserviceurl: "http://localhost:10019/authorization"
+
+  cloud:
+    gateway:
+      routes:
+        - id: authentication-service
+          uri: http://localhost:10019/authentication
+          predicates:
+            - Path=/gateway/authentication/**
+          filters:
+            - RewritePath=/gateway/authentication/(?<segment>.*), /authentication/${segment}
+        - id: functional-service
+          uri: ${STUDENT_DOMAIN_SERVICES_FUNCTIONAL_SERVICE_URL:http://localhost}:${STUDENT_DOMAIN_SERVICES_FUNCTIONAL_SERVICE_PORT:10011}
+          predicates:
+            - Path=/gateway/functional/**
+          filters:
+            - RewritePath=/gateway/functional/(?<segment>.*), /${segment}
+      discovery:
+        locator:
+          enabled: false
+    config:
+      enabled: false
+
+logging:
+  level:
+    web: debug
+    root: INFO
+

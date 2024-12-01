@@ -1,6 +1,6 @@
 @echo off
 
-REM   Title: backend_build_and_host.bat
+REM   Title: fullstack_build_and_host.bat
 REM   Author: Ramirez de Diego, Jorge
 REM   Date: 2024
 REM   Code version: 1.0
@@ -45,7 +45,7 @@ docker-compose -f ../../docker-compose-frontend.yml down
 docker-compose -f ../../docker-compose-fullstack.yml down
 
 REM build up compose node
-docker-compose --env-file "%ENV_FILE%" -f ../../docker-compose-fullstack.yml up --build
+docker-compose --env-file "%ENV_FILE%" -f ../../docker-compose-backend.yml up --build
 if %ERRORLEVEL% NEQ 0 (
     echo Docker Compose failed.
     pause
