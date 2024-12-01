@@ -15,8 +15,15 @@ COPY . /app
 # Debugging step to list files before running Gradle
 RUN ls -la
 
+# Install dos2unix to convert line endings
+RUN apk add --no-cache dos2unix
+# Convert gradlew line endings (in case there are Windows-style line endings)
+RUN dos2unix gradlew
+# Ensure gradlew is executable
+RUN chmod +x gradlew
+
 # Build the functional project from the root context
-RUN ./gradlew :Student_Domain:functional:build --no-daemon -x test
+RUN ./gradlew --project-dir /app :Student_Domain:functional:build --no-daemon -x test
 
 # Use separate image for runtime
 FROM openjdk:21-slim
