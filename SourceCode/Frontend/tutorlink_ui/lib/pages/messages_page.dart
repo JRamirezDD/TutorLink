@@ -4,6 +4,7 @@ import 'user_settings_page.dart';
 import 'catalog_subjects_page.dart';
 import '../fetch_data_page.dart';
 import 'chat_page.dart'; // Import the ChatPage
+import 'your_tutors_page.dart'; // Import the "My Tutors" page
 
 class MessagesPage extends StatelessWidget {
   const MessagesPage({super.key});
@@ -116,20 +117,37 @@ class MessagesPage extends StatelessWidget {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        currentIndex: 2,
+        currentIndex: 2, // "Messages" tab index
         onTap: (index) {
-          if (index == 0) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => student_page.StudentHomePage(username: 'Student'),
-              ),
-            );
-          } else if (index == 1) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const CatalogSubjectsPage()),
-            );
+          switch (index) {
+            case 0:
+              // Navigate to Dashboard
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      student_page.StudentHomePage(username: 'Student'),
+                ),
+              );
+              break;
+            case 1:
+              // Navigate to Catalog
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const CatalogSubjectsPage()),
+              );
+              break;
+            case 2:
+              // Stay on Messages
+              break;
+            case 3:
+              // Navigate to My Tutors
+              Navigator.pushReplacement(
+                context,
+               MaterialPageRoute(builder: (context) => YourTutorsPage()),
+
+              );
+              break;
           }
         },
         items: const [
@@ -139,14 +157,15 @@ class MessagesPage extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
-            
-
-
             label: 'Catalog',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.message),
             label: 'Messages',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            label: 'My Tutors',
           ),
         ],
       ),

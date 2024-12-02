@@ -4,6 +4,8 @@ import 'messages_page.dart';
 import 'user_settings_page.dart';
 import 'chat_page.dart'; // Import ChatPage for messaging functionality
 import 'tutor_profile_page.dart'; // Import TutorProfilePage for detailed tutor profiles
+import 'subscription_page.dart'; // Import SubscriptionPage for subscribing to Gold membership
+import 'your_tutors_page.dart';
 
 // Shared global list for saved tutors
 List<Map<String, dynamic>> savedTutors = [];
@@ -27,7 +29,8 @@ class _StudentHomePageState extends State<StudentHomePage> {
       'verified': true,
       'location': 'New York',
       'rating': 4.9,
-      'image': 'https://via.placeholder.com/150'
+      'image': 'https://via.placeholder.com/150',
+      'isConnected': false,
     },
     {
       'name': 'Anna K.',
@@ -37,7 +40,8 @@ class _StudentHomePageState extends State<StudentHomePage> {
       'verified': true,
       'location': 'Los Angeles',
       'rating': 4.8,
-      'image': 'https://via.placeholder.com/150'
+      'image': 'https://via.placeholder.com/150',
+      'isConnected': false,
     },
     {
       'name': 'John D.',
@@ -47,7 +51,8 @@ class _StudentHomePageState extends State<StudentHomePage> {
       'verified': false,
       'location': 'Chicago',
       'rating': 4.5,
-      'image': 'https://via.placeholder.com/150'
+      'image': 'https://via.placeholder.com/150',
+      'isConnected': true,
     },
     {
       'name': 'Sophia L.',
@@ -57,9 +62,12 @@ class _StudentHomePageState extends State<StudentHomePage> {
       'verified': true,
       'location': 'Houston',
       'rating': 4.7,
-      'image': 'https://via.placeholder.com/150'
+      'image': 'https://via.placeholder.com/150',
+      'isConnected': false,
     },
   ];
+
+  bool isGoldSubscriber = false;
 
   String? selectedSubject;
   double maxRate = 100.0;
@@ -100,6 +108,44 @@ class _StudentHomePageState extends State<StudentHomePage> {
         );
       }
     });
+  }
+
+  void _showSubscriptionDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Gold Membership Required'),
+        content: const Text(
+            'To message tutors, connect with them, or view their profiles, you need to subscribe to the Gold membership.'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context); // Close the dialog
+            },
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context); // Close the dialog
+              _navigateToSubscriptionPage();
+            },
+            child: const Text('Subscribe Now'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _navigateToSubscriptionPage() async {
+    final subscribed = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const SubscriptionPage()),
+    );
+    if (subscribed == true) {
+      setState(() {
+        isGoldSubscriber = true; // Update subscription status
+      });
+    }
   }
 
   @override
@@ -165,7 +211,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
                   });
                 },
                 items: tutors
-                    .map((tutor) => tutor['specialty'] as String) // Ensure type safety
+                    .map((tutor) => tutor['specialty'] as String)
                     .toSet()
                     .toList()
                     .map((subject) => DropdownMenuItem<String>(
@@ -235,91 +281,84 @@ class _StudentHomePageState extends State<StudentHomePage> {
                 itemCount: filteredTutors.length,
                 itemBuilder: (context, index) {
                   final tutor = filteredTutors[index];
-                  return Card(
-                    elevation: 4,
-                    margin: const EdgeInsets.symmetric(vertical: 8),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CircleAvatar(
-                            radius: 30,
-                            backgroundImage: NetworkImage(tutor['image']),
+                  return GestureDetector(
+                    onTap: () {
+                      if (isGoldSubscriber) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TutorProfilePage(tutor: tutor),
                           ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  tutor['name'],
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
+                        );
+                      } else {
+                        _showSubscriptionDialog();
+                      }
+                    },
+                    child: Card(
+                      elevation: 4,
+                      margin: const EdgeInsets.symmetric(vertical: 8),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CircleAvatar(
+                              radius: 30,
+                              backgroundImage: NetworkImage(tutor['image']),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    tutor['name'],
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    tutor['specialty'],
+                                    style: const TextStyle(fontSize: 14, color: Colors.grey),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Column(
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.message, color: Colors.blue),
+                                  onPressed: () {
+                                    if (isGoldSubscriber) {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ChatPage(userName: tutor['name']),
+                                        ),
+                                      );
+                                    } else {
+                                      _showSubscriptionDialog();
+                                    }
+                                  },
                                 ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  tutor['specialty'],
-                                  style: const TextStyle(fontSize: 14, color: Colors.grey),
-                                ),
-                                const SizedBox(height: 8),
-                                Row(
-                                  children: [
-                                    Text(
-                                      '\$${tutor['rate']}/hr',
-                                      style: const TextStyle(fontWeight: FontWeight.bold),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Icon(
-                                      tutor['verified'] ? Icons.verified : Icons.error,
-                                      size: 16,
-                                      color: tutor['verified'] ? Colors.green : Colors.red,
-                                    ),
-                                    const SizedBox(width: 4),
-                                    Text(
-                                      tutor['verified'] ? 'Verified' : 'Not Verified',
-                                      style: const TextStyle(fontSize: 12, color: Colors.grey),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  tutor['success'],
-                                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                                IconButton(
+                                  icon: Icon(
+                                    savedTutors.contains(tutor)
+                                        ? Icons.bookmark
+                                        : Icons.bookmark_border,
+                                    color: savedTutors.contains(tutor) ? Colors.green : Colors.grey,
+                                  ),
+                                  onPressed: () => _saveTutor(tutor),
                                 ),
                               ],
                             ),
-                          ),
-                          Column(
-                            children: [
-                              IconButton(
-                                icon: const Icon(Icons.message, color: Colors.blue),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ChatPage(userName: tutor['name']),
-                                    ),
-                                  );
-                                },
-                              ),
-                              IconButton(
-                                icon: Icon(
-                                  savedTutors.contains(tutor)
-                                      ? Icons.bookmark
-                                      : Icons.bookmark_border,
-                                  color: savedTutors.contains(tutor) ? Colors.green : Colors.grey,
-                                ),
-                                onPressed: () => _saveTutor(tutor),
-                              ),
-                            ],
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   );
@@ -329,6 +368,52 @@ class _StudentHomePageState extends State<StudentHomePage> {
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+  type: BottomNavigationBarType.fixed,
+  currentIndex: 0,
+  onTap: (index) {
+    if (index == 0) {
+      // Stay on the Dashboard
+    } else if (index == 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const CatalogSubjectsPage()),
+      );
+    } else if (index == 2) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const MessagesPage()),
+      );
+    } else if (index == 3) {
+      Navigator.push(
+       context,
+       MaterialPageRoute(builder: (context) => YourTutorsPage()), // My Tutors Page
+
+);
+
+    }
+  },
+  items: const [
+    BottomNavigationBarItem(
+      icon: Icon(Icons.dashboard),
+      label: 'Dashboard',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.list),
+      label: 'Catalog',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.message),
+      label: 'Messages',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.people),
+      label: 'My Tutors',
+    ),
+  ],
+),
+
     );
   }
 }
+
