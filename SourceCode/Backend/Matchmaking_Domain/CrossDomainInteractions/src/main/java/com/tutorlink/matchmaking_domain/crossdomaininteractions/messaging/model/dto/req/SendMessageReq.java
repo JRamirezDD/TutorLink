@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 public record SendMessageReq(
         @NotNull Long senderId,
         @NotNull Long receiverId,
-        @NotBlank String content
+        @NotBlank String content,
+        @NotBlank Long timestamp
 ) {}
 
