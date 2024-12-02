@@ -15,6 +15,8 @@ COPY . .
 # Explicitly run Gradle from the root project directory
 RUN ./gradlew :Student_Domain:gateway:build --no-daemon -x test
 
+RUN ls -R -la
+
 # Use separate image for runtime
 FROM openjdk:21-slim
 LABEL authors="jorge"

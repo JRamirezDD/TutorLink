@@ -25,6 +25,8 @@ RUN chmod +x gradlew
 # Build the functional project from the root context
 RUN ./gradlew --project-dir /app :Student_Domain:functional:build --no-daemon -x test
 
+RUN ls -R -la
+
 # Use separate image for runtime
 FROM openjdk:21-slim
 LABEL authors="jorge"

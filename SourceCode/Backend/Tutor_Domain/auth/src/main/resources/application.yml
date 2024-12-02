@@ -1,0 +1,50 @@
+server:
+  address: ${TUTOR_DOMAIN_SERVICES_AUTH_SERVICE_ADDRESS:localhost}
+  port: ${TUTOR_DOMAIN_SERVICES_AUTH_SERVICE_PORT:30019}
+
+spring:
+    application:
+      name: tutor-domain-auth
+    security:
+      oauth2:
+        client:
+          registration:
+            google:
+              client-id: ''
+              client-secret: ''
+              scope:
+                - profile
+                - email
+              redirect-uri: ${TUTOR_DOMAIN_SERVICES_GATEWAY_URL:http://localhost}:${TUTOR_DOMAIN_SERVICES_GATEWAY_PORT:30010}/gateway/authentication/google-login
+              client-name: Google
+              authorization-grant-type: authorization_code
+          provider:
+            google:
+              authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
+              token-uri: https://oauth2.googleapis.com/token
+              user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+              user-name-attribute: id
+
+    datasource:
+      url: ${TUTOR_DOMAIN_DATASOURCE_URL:jdbc:postgresql://localhost:5432}/${TUTOR_DOMAIN_SPRING_DATASOURCE_DATABASE:tutor_db}
+      username: ${TUTOR_DOMAIN_DATASOURCE_USERNAME:main_user}
+      password: ${TUTOR_DOMAIN_DATASOURCE_PASSWORD:PassWord12@}
+      driver-class-name: ${TUTOR_DOMAIN_DATASOURCE_DRIVER_CLASS_NAME:org.postgresql.Driver}
+    jpa:
+      hibernate:
+        ddl-auto: ${TUTOR_DOMAIN_JPA_HIBERNATE_DDL_AUTO:update}
+      show-sql: true
+      properties:
+        hibernate:
+          default_schema: ${TUTOR_DOMAIN_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA:tutor_auth_schema}
+      open-in-view: ${TUTOR_DOMAIN_JPA_OPEN_IN_VIEW:true}
+
+
+session:
+  token-expiry: 1800
+
+logging:
+  level:
+    org:
+      springframework:
+        web: ${LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_WEB:DEBUG}
