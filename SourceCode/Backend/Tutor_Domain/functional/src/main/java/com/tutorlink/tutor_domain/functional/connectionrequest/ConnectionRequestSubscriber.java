@@ -1,6 +1,8 @@
 package com.tutorlink.tutor_domain.functional.connectionrequest;
 
-import com.tutorlink.tutor_domain.functional.connectionrequest.model.entity.Connection;
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.model.dto.GetConnection.resp.ConnectionResp;
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.model.dto.CreateConnectionRequest.req.RespondConnectionReq;
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.model.dto.CreateConnectionRequest.req.ConnectionReqResponseTypes;
 import com.tutorlink.tutor_domain.functional.connectionrequest.service.ConnectionService;
 import com.tutorlink.tutor_domain.functional.notification.service.NotificationService;
 import lombok.RequiredArgsConstructor;
@@ -15,13 +17,32 @@ public class ConnectionRequestSubscriber {
     private final ConnectionService connectionService;
     private final NotificationService notificationService;
 
-    public void processConnectionRequest(Connection connection) {
-        log.info("Processing connection request: {}", connection);
-        connectionService.processConnection(connection);
+    public void processConnectionRequest(ConnectionResp connectionResp) {
+        log.info("Processing connection request: {}", connectionResp);
 
-        //notify about the connection request
-        String notificationMessage = String.format("You have a new connection request from User %d", connection.getStudentId());
-        notificationService.notifyConnectionRequest(connection.getTutorId(), notificationMessage);
+        //check connection status and handle it
+        if ("PENDING".equalsIgnoreCase(String.valueOf(connectionResp.status()))) {
+            RespondConnectionReq responseReq = new RespondConnectionReq(
+                    connectionResp.connectionId(),
+                    ConnectionReqResponseTypes.ACCEPT
+            );
+
+            //respond to the connection request
+            connectionService.respondToConnection(responseReq);
+
+            //notify about the connection request processing
+            String notificationMessage = String.format(
+                    "Connection request to Tutor %d processed. Status: %s",
+                    connectionResp.tutorId(),
+                    responseReq.responseType()
+            );
+            notificationService.notifyConnectionRequest(connectionResp.studentId(), notificationMessage);
+
+            log.info("Connection request processed and notification sent.");
+        } else {
+            log.warn("Connection request is not in 'PENDING' status: {}", connectionResp.status());
+        }
     }
 }
+
 

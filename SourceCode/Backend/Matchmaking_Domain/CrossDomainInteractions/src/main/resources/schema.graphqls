@@ -1,0 +1,41 @@
+type Query {
+    # Connections queries
+    getAcceptedConnectionsForTutor(tutorId: ID!): [Connection]
+    getPendingConnectionsForTutor(tutorId: ID!): [Connection]
+
+    # Courses queries
+    courses(filter: CourseFilterInput, sortKey: SortKeyInput): [CourseCatalogResp]
+}
+
+# Connections schema
+type Connection {
+    id: ID!
+    studentId: ID!
+    tutorId: ID!
+    status: String!
+}
+
+# Courses schema
+type CourseCatalogResp {
+    courseId: ID
+    courseName: String
+    tutorName: String
+    tutorId: ID
+    hourlyRate: Float
+    location: String
+    subject: String
+    description: String
+}
+
+input CourseFilterInput {
+    minPrice: Float
+    maxPrice: Float
+    location: String
+    subject: String
+}
+
+input SortKeyInput {
+    field: String
+    order: String
+}
+

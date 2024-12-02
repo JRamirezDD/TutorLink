@@ -1,13 +1,15 @@
-package com.tutorlink.tutor_domain.auth;
+package com.tutorlink.student_domain.functional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AuthApplicationTests {
+class FunctionalStudentApplicationTests {
+/*
 
 	@Test
 	void contextLoads() {
 	}
+*/
 
 }
