@@ -34,5 +34,6 @@ tutorlink/target/
 **/android/*
 *.pubspec.lock
 
+**/.gradle/*
 **/.idea/*
 **/build/*

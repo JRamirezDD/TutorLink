@@ -6,6 +6,5 @@ include ':Student_Domain:auth',
         ':Tutor_Domain:functional',
         ':Tutor_Domain:gateway',
         ':Matchmaking_Domain:CrossDomainInteractions',
-        ':Matchmaking_Domain:CrossDomainServices',
         ':Matchmaking_Domain:StudentDomainManager',
         ':Matchmaking_Domain:TutorDomainManager'

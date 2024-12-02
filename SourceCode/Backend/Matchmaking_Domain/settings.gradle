@@ -1,5 +1,4 @@
 rootProject.name = 'Matchmaking_Domain'
 include ':CrossDomainInteractions',
-        ':CrossDomainServices',
         ':StudentDomainManager',
         ':TutorDomainManager'
