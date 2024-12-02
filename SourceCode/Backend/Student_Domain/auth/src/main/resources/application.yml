@@ -1,8 +1,10 @@
 server:
-  port: 10019
-  address: "http://localhost"
+  address: ${STUDENT_DOMAIN_SERVICES_AUTH_SERVICE_ADDRESS:localhost}
+  port: ${STUDENT_DOMAIN_SERVICES_AUTH_SERVICE_PORT:10019}
 
 spring:
+    application:
+      name: student-domain-auth
     security:
       oauth2:
         client:
@@ -13,7 +15,7 @@ spring:
               scope:
                 - profile
                 - email
-              redirect-uri: http://localhost:10010/authentication/google-login
+              redirect-uri: ${STUDENT_DOMAIN_SERVICES_GATEWAY_URL:http://localhost}:${STUDENT_DOMAIN_SERVICES_GATEWAY_PORT:10010}/gateway/authentication/google-login
               client-name: Google
               authorization-grant-type: authorization_code
           provider:
@@ -24,20 +26,25 @@ spring:
               user-name-attribute: id
 
     datasource:
-      url: ${STUDENT_DOMAIN_SPRING_DATASOURCE_URL:jdbc:postgresql://student-db:5432/student_db}
-      username: ${STUDENT_DOMAIN_SPRING_DATASOURCE_USERNAME:main_user}
-      password: ${STUDENT_DOMAIN_SPRING_DATASOURCE_PASSWORD:PassWord12@}
-      driver-class-name: ${STUDENT_DOMAIN_SPRING_DATASOURCE_DRIVER_CLASS_NAME:org.postgresql.Driver}
+      url: ${STUDENT_DOMAIN_DATASOURCE_URL:jdbc:postgresql://localhost:5432}/${STUDENT_DOMAIN_SPRING_DATASOURCE_DATABASE:student_db}
+      username: ${STUDENT_DOMAIN_DATASOURCE_USERNAME:main_user}
+      password: ${STUDENT_DOMAIN_DATASOURCE_PASSWORD:PassWord12@}
+      driver-class-name: ${STUDENT_DOMAIN_DATASOURCE_DRIVER_CLASS_NAME:org.postgresql.Driver}
     jpa:
       hibernate:
-        ddl-auto: ${STUDENT_DOMAIN_SPRING_JPA_HIBERNATE_DDL_AUTO:update}
-      show-sql: ${STUDENT_DOMAIN_SPRING_JPA_SHOW_SQL:true}
+        ddl-auto: ${STUDENT_DOMAIN_JPA_HIBERNATE_DDL_AUTO:update}
+      show-sql: true
       properties:
         hibernate:
-          default_schema: ${STUDENT_DOMAIN_SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA:student_schema}
-      open-in-view: ${STUDENT_DOMAIN_SPRING_JPA_OPEN_IN_VIEW:true}
+          default_schema: ${STUDENT_DOMAIN_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA:student_auth_schema}
+      open-in-view: ${STUDENT_DOMAIN_JPA_OPEN_IN_VIEW:true}
 
 
 session:
   token-expiry: 1800
 
+logging:
+  level:
+    org:
+      springframework:
+        web: ${LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_WEB:DEBUG}

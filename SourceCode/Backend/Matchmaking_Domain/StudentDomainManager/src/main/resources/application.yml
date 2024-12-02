@@ -1,0 +1,59 @@
+# MATCHMAKING DOMAIN
+# MATCHMAKING_DOMAIN_SERVICES_TUTOR_DOMAIN_MAANGER
+server:
+  address: ${MATCHMAKING_DOMAIN_SERVICES_STUDENT_DOMAIN_MANAGER_ADDRESS:localhost}
+  port: ${MATCHMAKING_DOMAIN_SERVICES_STUDENT_DOMAIN_MANAGER_PORT:20012}
+
+logging:
+  level:
+    org:
+      springframework:
+        web: ${LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_WEB:DEBUG}
+
+spring:
+  application:
+    name: matchmaking-domain-student-domain-manager
+
+student_domain:
+  services:
+    gateway:
+      address: ${STUDENT_DOMAIN_SERVICES_GATEWAY_ADDRESS:0.0.0.0}
+      url: ${STUDENT_DOMAIN_SERVICES_GATEWAY_URL:http://student-domain-gateway}
+      port: ${STUDENT_DOMAIN_SERVICES_GATEWAY_PORT:10010}
+    functional_service:
+      address: ${STUDENT_DOMAIN_SERVICES_FUNCTIONAL_SERVICE_ADDRESS:0.0.0.0}
+      url: ${STUDENT_DOMAIN_SERVICES_FUNCTIONAL_SERVICE_URL:http://student-domain-functional}
+      port: ${STUDENT_DOMAIN_SERVICES_FUNCTIONAL_SERVICE_PORT:10011}
+    auth_service:
+      url: ${STUDENT_DOMAIN_SERVICES_AUTH_SERVICE_URL:http://student-domain-auth}
+      port: ${STUDENT_DOMAIN_SERVICES_AUTH_SERVICE_PORT:10019}
+
+
+# Tutor domain configuration, including services and database setup
+tutor_domain:
+  services:
+    gateway:
+      url: ${TUTOR_DOMAIN_SERVICES_GATEWAY_URL:http://tutor-domain-gateway}
+      port: ${TUTOR_DOMAIN_SERVICES_GATEWAY_PORT:30010}
+    functional_service:
+      url: ${TUTOR_DOMAIN_SERVICES_FUNCTIONAL_SERVICE_URL:http://tutor-domain-functional}
+      port: ${TUTOR_DOMAIN_SERVICES_FUNCTIONAL_SERVICE_PORT:30011}
+    auth_service:
+      url: ${TUTOR_DOMAIN_SERVICES_AUTH_SERVICE_URL:http://student-domain-auth}
+      port: ${TUTOR_DOMAIN_SERVICES_AUTH_SERVICE_PORT:30019}
+
+# Matchmaking domain configuration, including services and database setup
+matchmaking_domain_services:
+  services:
+    gateway:
+      url: ${MATCHMAKING_DOMAIN_SERVICES_GATEWAY_URL:http://matchmaking-domain-gateway}
+      port: ${MATCHMAKING_DOMAIN_SERVICES_GATEWAY_PORT:20010}
+    cross_domain_interactions:
+      url: ${MATCHMAKING_DOMAIN_SERVICES_CROSS_DOMAIN_INTERACTIONS_URL:http://cross-domain-interactions/connections}
+      port: ${MATCHMAKING_DOMAIN_SERVICES_CROSS_DOMAIN_INTERACTIONS_PORT:20011}
+    student_domain_manager:
+      url: ${MATCHMAKING_DOMAIN_SERVICES_STUDENT_DOMAIN_MANAGER_URL:http://student-domain-manager}
+      port: ${MATCHMAKING_DOMAIN_SERVICES_STUDENT_DOMAIN_MANAGER_PORT:20012}
+    tutor_domain_manager:
+      url: ${MATCHMAKING_DOMAIN_SERVICES_TUTOR_DOMAIN_MANAGER_URL:http://tutor-domain-manager}
+      port: ${MATCHMAKING_DOMAIN_SERVICES_TUTOR_DOMAIN_MANAGER_PORT:20013}
