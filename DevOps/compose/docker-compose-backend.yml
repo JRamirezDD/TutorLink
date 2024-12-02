@@ -23,8 +23,8 @@ services:
 
   student-domain-functional:
     build:
-      context: '../../SourceCode/Backend/Student_Domain/functional'
-      dockerfile: dockerfile
+      context: '../../SourceCode/Backend'
+      dockerfile: Student_Domain/functional/dockerfile
     ports:
       - "${STUDENT_DOMAIN_SERVICES_FUNCTIONAL_SERVICE_PORT}:${STUDENT_DOMAIN_SERVICES_FUNCTIONAL_SERVICE_PORT}"
     env_file:
@@ -33,6 +33,8 @@ services:
       - student-db
     networks:
       - tutorlink-network
+  
+  
   
 ### Other backend services...
 

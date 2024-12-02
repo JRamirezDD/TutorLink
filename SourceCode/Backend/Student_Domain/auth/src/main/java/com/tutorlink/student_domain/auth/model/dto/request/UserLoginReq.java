@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 public record UserLoginReq(
         @NotNull
-        Long userId,
+        String username,
 
         @NotBlank
         String password

@@ -1,0 +1,4 @@
+rootProject.name = 'Tutor_Domain'
+include ':auth',
+        ':functional',
+        ':gateway'
