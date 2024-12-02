@@ -1,8 +1,5 @@
 package com.tutorlink.student_domain.functional.repository;
 
-
-
-
 import com.tutorlink.student_domain.functional.model.entity.StudentProfile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,4 +8,3 @@ import org.springframework.stereotype.Repository;
 public interface ProfileRepository extends JpaRepository<StudentProfile, Long> {
 
 }
-

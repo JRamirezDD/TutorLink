@@ -14,7 +14,7 @@ spring:
   application:
     name: student-domain-functional
   datasource:
-    url: ${STUDENT_DOMAIN_SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432}/${STUDENT_DOMAIN_SPRING_DATASOURCE_DATABASE:student_db}
+    url: ${STUDENT_DOMAIN_DATASOURCE_URL:jdbc:postgresql://localhost:5432}/${STUDENT_DOMAIN_DATASOURCE_DATABASE:student_db}
     username: ${STUDENT_DOMAIN_DATASOURCE_USERNAME:main_user}
     password: ${STUDENT_DOMAIN_DATASOURCE_PASSWORD:PassWord12@}
     driver-class-name: ${STUDENT_DOMAIN_DATASOURCE_DRIVER_CLASS_NAME:org.postgresql.Driver}
