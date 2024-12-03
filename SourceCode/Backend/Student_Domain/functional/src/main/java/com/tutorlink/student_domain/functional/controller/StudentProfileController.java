@@ -1,7 +1,7 @@
 package com.tutorlink.student_domain.functional.controller;
 
-import com.tutorlink.matchmaking_domain.studentdomainmanager.model.dto.req.UpdateStudentProfileReq;
-import com.tutorlink.matchmaking_domain.studentdomainmanager.model.dto.resp.StudentProfileResp;
+import com.tutorlink.student_domain.functional.model.dto.request.UpdateStudentProfileReq;
+import com.tutorlink.student_domain.functional.model.dto.response.StudentProfileResp;
 import com.tutorlink.student_domain.functional.service.StudentProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,5 +28,3 @@ public class StudentProfileController {
         return ResponseEntity.ok(profile);
     }
 }
-
-
