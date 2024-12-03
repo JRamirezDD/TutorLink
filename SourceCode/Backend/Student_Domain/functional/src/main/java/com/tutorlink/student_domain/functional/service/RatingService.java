@@ -1,18 +1,19 @@
 package com.tutorlink.student_domain.functional.service;
 
-import com.tutorlink.matchmaking_domain.tutordomainmanager.servicemanagement.repository.RatingRepository;
-import com.tutorlink.student_domain.functional.model.enums.Rating;
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.rating.model.dto.req.SubmitRatingReq;
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.rating.model.dto.resp.RatingResp;
+import com.tutorlink.student_domain.functional.service.feignclients.Client_CrossDomainInteractions_Rating;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.OptionalDouble;
 
 @Service
 public class RatingService {
 
+<<<<<<< HEAD
     @Autowired
     private final RatingRepository ratingRepository;
 
@@ -41,3 +42,17 @@ public class RatingService {
         return average.orElse(0.0);
     }
 }
+=======
+    private final Client_CrossDomainInteractions_Rating ratingClient;
+
+    public RatingResp submitRating(SubmitRatingReq request) {
+        return ratingClient.submitRating(request).getBody();
+    }
+
+    public List<RatingResp> getRatingsForTutor(Long tutorId) {
+        return ratingClient.getRatingsForTutor(tutorId).getBody();
+    }
+}
+
+
+>>>>>>> new-gio-branch

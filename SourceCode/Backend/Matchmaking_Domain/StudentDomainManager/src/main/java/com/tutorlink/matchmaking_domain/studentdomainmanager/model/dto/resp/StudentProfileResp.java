@@ -1,4 +1,4 @@
-package com.tutorlink.matchmaking_domain.studentdomainmanager.model.dto;
+package com.tutorlink.matchmaking_domain.studentdomainmanager.model.dto.resp;
 
 import lombok.Builder;
 
