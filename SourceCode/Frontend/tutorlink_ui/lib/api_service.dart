@@ -1,9 +1,7 @@
 // api_service.dart
 
 import 'dart:convert';
-import 'package:tryflutter/config.dart';
 import 'package:tutorlink_frontend_http_package/frontend_http_package.dart';
-
 
 class ApiService {
   final ApiClient apiClient;
@@ -12,7 +10,7 @@ class ApiService {
 
   Future<Map<String, dynamic>?> getStudentProfile() async {
     try {
-      final response = await apiClient.get(STUDENT_BASE_ENDPOINT + Student_Profile_Endpoint);
+      final response = await apiClient.get('/profile');
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
       } else {

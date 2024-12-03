@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../fetch_data_page.dart';
+import 'tutor_home_page.dart'; // Import TutorHomePage
+import 'tutor_requests_page.dart'; // Import TutorRequestsPage
+import 'messages_page_tutor.dart'; // Import MessagesPage
 
 class TasksPage extends StatefulWidget {
   const TasksPage({super.key});
@@ -62,7 +65,6 @@ class _TasksPageState extends State<TasksPage> {
               child: FetchDataPage(),
             ),
             const SizedBox(height: 16),
-
             // Row to display "Done Tasks" and "To-Do Tasks" lists
             Expanded(
               child: Row(
@@ -113,7 +115,6 @@ class _TasksPageState extends State<TasksPage> {
                     ),
                   ),
                   const SizedBox(width: 16),
-
                   // "To-Do Tasks" Column
                   Expanded(
                     child: Column(
@@ -237,31 +238,44 @@ class _TasksPageState extends State<TasksPage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
+            icon: Icon(Icons.dashboard, color: Colors.grey),
             label: 'Dashboard',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.message),
+            icon: Icon(Icons.message, color: Colors.grey),
             label: 'Messages',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.task),
+            icon: Icon(Icons.task, color: Colors.grey),
             label: 'Tasks',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_add, color: Colors.grey),
+            label: 'Requests',
+          ),
         ],
-        currentIndex: 2, // Set this dynamically as per requirement
-        selectedItemColor: Colors.blueAccent,
+        currentIndex: 2,
+        selectedItemColor: Colors.blueAccent, // Blue color when selected
+        showSelectedLabels: true, // Ensure label is always visible
+        showUnselectedLabels: true, // Ensure label is always visible
         onTap: (int index) {
-          // Handle bottom bar navigation here
           switch (index) {
             case 0:
               Navigator.pushNamed(context, '/tutorHome');
               break;
             case 1:
-              Navigator.pushNamed(context, '/messagesPage');
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MessagesPageTutor()),
+              );
               break;
             case 2:
-              // Stay on the current page
+              break;
+            case 3:
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TutorRequestsPage()),
+              );
               break;
           }
         },

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'edit_profile_page.dart'; // Make sure this path matches the location of EditProfilePage in your project
+import 'edit_profile_page.dart';
+import 'messages_page_tutor.dart';
+import 'tasks_page.dart';
+import 'user_settings_page.dart';
+import 'tutor_requests_page.dart'; // Import the TutorRequestsPage
+
 class TutorHomePage extends StatefulWidget {
   final String tutorName;
   final String subjects;
@@ -21,6 +26,8 @@ class _TutorHomePageState extends State<TutorHomePage> {
   late String subjects;
   late String hourlyRate;
   late String profilePictureUrl;
+
+  int _currentIndex = 0; // Track the current selected tab
 
   @override
   void initState() {
@@ -51,6 +58,33 @@ class _TutorHomePageState extends State<TutorHomePage> {
         ),
       ),
     );
+  }
+
+  void _onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+
+    // Handle navigation based on the selected tab
+    switch (index) {
+      case 0:
+        break; // Stay on the current page
+      case 1:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => MessagesPageTutor()),
+        );
+        break;
+      case 2:
+        Navigator.pushNamed(context, '/tasks');
+        break;
+      case 3:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => TutorRequestsPage()),
+        );
+        break;
+    }
   }
 
   @override
@@ -208,38 +242,27 @@ class _TutorHomePageState extends State<TutorHomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
+            icon: Icon(Icons.dashboard, color: Colors.grey),
             label: 'Dashboard',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.message),
+            icon: Icon(Icons.message, color: Colors.grey),
             label: 'Messages',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.task),
+            icon: Icon(Icons.task, color: Colors.grey),
             label: 'Tasks',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_add),
+            icon: Icon(Icons.person_add, color: Colors.grey),
             label: 'Requests',
           ),
         ],
-        currentIndex: 0,
-        onTap: (int index) {
-          switch (index) {
-            case 0:
-              break;
-            case 1:
-              Navigator.pushNamed(context, '/messagesPage');
-              break;
-            case 2:
-              Navigator.pushNamed(context, '/tasks');
-              break;
-            case 3:
-              Navigator.pushNamed(context, '/requestsPage');
-              break;
-          }
-        },
+        currentIndex: _currentIndex,
+        selectedItemColor: Colors.blueAccent, // Blue color when selected
+        showSelectedLabels: true, // Ensure label is always visible
+        showUnselectedLabels: true, // Ensure label is always visible
+        onTap: _onTabTapped,
       ),
     );
   }

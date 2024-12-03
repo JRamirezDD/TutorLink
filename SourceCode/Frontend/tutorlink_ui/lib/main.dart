@@ -27,7 +27,7 @@ const String userSettingsRoute = '/userSettings';
 const String fetchDataRoute = '/fetchData';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -42,30 +42,30 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: welcomeRoute, // Set initial route to welcome page
       routes: {
-        welcomeRoute: (context) => const WelcomePage(), // Route for welcome page
+        welcomeRoute: (context) => WelcomePage(), // Route for welcome page
         loginStudentRoute: (context) =>
-            const StudentLoginPage(), // Route for student login page
+            StudentLoginPage(), // Route for student login page
         loginTutorRoute: (context) =>
-            const TutorLoginPage(), // Route for tutor login page
+            TutorLoginPage(), // Route for tutor login page
         registerStudentRoute: (context) =>
-            const StudentRegistrationPage(), // Route for student registration page
+            StudentRegistrationPage(), // Route for student registration page
         registerTutorRoute: (context) =>
-            const TutorRegistrationPage(), // Route for tutor registration page
+            TutorRegistrationPage(), // Route for tutor registration page
         studentHomeRoute: (context) =>
             StudentHomePage(username: 'Guest'), // Home page
         catalogRoute: (context) =>
-            const CatalogSubjectsPage(), // Catalog subjects page
+            CatalogSubjectsPage(), // Catalog subjects page
         messagesPageRoute: (context) =>
-            const MessagesPageTutor(), // Messages page for tutor
-        tasksRoute: (context) => const TasksPage(), // Tasks page
+            MessagesPageTutor(), // Messages page for tutor
+        tasksRoute: (context) => TasksPage(), // Tasks page
         tutorHomeRoute: (context) => TutorHomePage(
             tutorName: 'John Doe',
             subjects: 'Math, Physics',
             hourlyRate: '20'), // Tutor home page
         userSettingsRoute: (context) =>
-            const UserSettingsPage(), // User settings page
+            UserSettingsPage(), // User settings page
         fetchDataRoute: (context) =>
-            const FetchDataPage(), // Route for FetchDataPage to avoid unused import warning
+            FetchDataPage(), // Route for FetchDataPage to avoid unused import warning
       },
     );
   }
