@@ -1,4 +1,4 @@
-package com.tutorlink.tutor_domain.gateway.Service.Clients;
+package com.tutorlink.student_domain.gateway.Service.Clients;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

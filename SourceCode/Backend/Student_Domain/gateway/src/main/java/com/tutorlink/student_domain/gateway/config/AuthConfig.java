@@ -1,4 +1,4 @@
-package com.tutorlink.tutor_domain.gateway.config;
+package com.tutorlink.student_domain.gateway.config;
 
 import lombok.Getter;
 import lombok.Setter;

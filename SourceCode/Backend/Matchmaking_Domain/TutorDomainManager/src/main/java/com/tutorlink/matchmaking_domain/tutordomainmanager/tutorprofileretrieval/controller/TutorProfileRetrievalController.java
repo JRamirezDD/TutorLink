@@ -1,16 +1,17 @@
 package com.tutorlink.matchmaking_domain.tutordomainmanager.tutorprofileretrieval.controller;
 
-import com.tutorlink.matchmaking_domain.tutordomainmanager.tutorprofileretrieval.controller.APIs.API_TutorProfileRetrieval;
-import com.tutorlink.matchmaking_domain.tutordomainmanager.tutorprofileretrieval.model.dto.resp.TutorProfileResp;
-import com.tutorlink.matchmaking_domain.tutordomainmanager.tutorprofileretrieval.service.TutorProfileRetrievalService;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.tutorlink.matchmaking_domain.tutordomainmanager.tutorprofileretrieval.controller.APIs.API_TutorProfileRetrieval;
+import com.tutorlink.matchmaking_domain.tutordomainmanager.tutorprofileretrieval.model.dto.resp.TutorProfileResp;
+import com.tutorlink.matchmaking_domain.tutordomainmanager.tutorprofileretrieval.service.TutorProfileRetrievalService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/tutors")
@@ -29,4 +30,3 @@ public class TutorProfileRetrievalController implements API_TutorProfileRetrieva
         return ResponseEntity.ok(profiles);
     }
 }
-
