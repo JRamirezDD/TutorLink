@@ -49,7 +49,7 @@ docker-compose -f ../../docker-compose-frontend.yml down
 docker-compose -f ../../docker-compose-fullstack.yml down
 
 REM build up compose node
-docker-compose --env-file "%ENV_FILE%" -f ../../docker-compose-backend-all.yml up --build
+docker-compose --env-file "%ENV_FILE%" -f ../../docker-compose-backend-student-domain.yml up --build
 if %ERRORLEVEL% NEQ 0 (
     echo Docker Compose failed.
     pause

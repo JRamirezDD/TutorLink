@@ -32,7 +32,7 @@ def parse_yml_to_env(yml_file, output_file):
             if isinstance(value, (int, float)) or value.isdigit():
                 f.write(f'{key}={value}\n')
             else:
-                f.write(f'{key}="{value}"\n')
+                f.write(f'{key}={value}\n')
 
 
     print(f"env variables written to {output_file}")
