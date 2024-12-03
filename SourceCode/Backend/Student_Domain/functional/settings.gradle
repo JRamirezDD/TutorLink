@@ -1,1 +1,4 @@
 rootProject.name = 'functional'
+
+include ':Matchmaking_Domain:CrossDomainInteractions'
+project(':Matchmaking_Domain:CrossDomainInteractions').projectDir = new File('../../Matchmaking_Domain/CrossDomainInteractions')
