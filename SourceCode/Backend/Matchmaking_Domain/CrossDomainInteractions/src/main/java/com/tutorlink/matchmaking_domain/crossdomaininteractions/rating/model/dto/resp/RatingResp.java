@@ -8,7 +8,7 @@ public record RatingResp(
         Long id,
         Long studentId,
         Long tutorId,
-        int ratingValue
+        StarRating ratingValue
 ) {}
 
 

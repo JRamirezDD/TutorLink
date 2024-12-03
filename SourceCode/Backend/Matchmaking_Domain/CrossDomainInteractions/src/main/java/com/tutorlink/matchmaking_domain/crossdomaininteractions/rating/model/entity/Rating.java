@@ -1,15 +1,15 @@
 package com.tutorlink.matchmaking_domain.crossdomaininteractions.rating.model.entity;
 
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.rating.model.enums.StarRating;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
 @Table(name = "ratings")
-@Getter
-@Setter
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Rating {
 
     @Id
@@ -17,13 +17,14 @@ public class Rating {
     private Long id;
 
     @Column(nullable = false)
-    private Long tutorId;
-
-    @Column(nullable = false)
     private Long studentId;
 
     @Column(nullable = false)
-    private int ratingValue; // Changed from StarRating to int
+    private Long tutorId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private StarRating ratingValue;
 }
 
 

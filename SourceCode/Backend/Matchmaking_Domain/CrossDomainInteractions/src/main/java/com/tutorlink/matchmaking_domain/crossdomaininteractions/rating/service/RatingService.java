@@ -3,6 +3,7 @@ package com.tutorlink.matchmaking_domain.crossdomaininteractions.rating.service;
 import com.tutorlink.matchmaking_domain.crossdomaininteractions.rating.model.dto.req.SubmitRatingReq;
 import com.tutorlink.matchmaking_domain.crossdomaininteractions.rating.model.dto.resp.RatingResp;
 import com.tutorlink.matchmaking_domain.crossdomaininteractions.rating.model.entity.Rating;
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.rating.model.enums.StarRating;
 import com.tutorlink.matchmaking_domain.crossdomaininteractions.rating.repository.RatingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class RatingService {
         Rating rating = Rating.builder()
                 .studentId(request.getStudentId())
                 .tutorId(request.getTutorId())
-                .ratingValue(request.getRatingValue()) // Directly use the integer value
+                .ratingValue(StarRating.fromValue(request.getRatingValue())) // Directly use the integer value
                 .build();
 
         rating = ratingRepository.save(rating);

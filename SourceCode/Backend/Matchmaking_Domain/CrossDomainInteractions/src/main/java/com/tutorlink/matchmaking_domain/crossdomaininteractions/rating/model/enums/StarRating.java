@@ -4,11 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum StarRating {
-    ONE(1),
-    TWO(2),
-    THREE(3),
-    FOUR(4),
-    FIVE(5);
+    ONE(1), TWO(2), THREE(3), FOUR(4), FIVE(5);
 
     private final int value;
 
@@ -18,13 +14,14 @@ public enum StarRating {
 
     public static StarRating fromValue(int value) {
         for (StarRating rating : values()) {
-            if (rating.getValue() == value) {
+            if (rating.value == value) {
                 return rating;
             }
         }
         throw new IllegalArgumentException("Invalid rating value: " + value);
     }
 }
+
 
 
 
