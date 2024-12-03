@@ -1,0 +1,10 @@
+rootProject.name = 'TutorLink_Backend'
+include ':Student_Domain:auth',
+        ':Student_Domain:functional',
+        ':Student_Domain:gateway',
+        ':Tutor_Domain:auth',
+        ':Tutor_Domain:functional',
+        ':Tutor_Domain:gateway',
+        ':Matchmaking_Domain:CrossDomainInteractions',
+        ':Matchmaking_Domain:StudentDomainManager',
+        ':Matchmaking_Domain:TutorDomainManager'

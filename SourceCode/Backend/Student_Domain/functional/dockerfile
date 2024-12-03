@@ -4,39 +4,38 @@
 #   Code version: 1.0
 #   Availability: https://github.com/JRamirezDD/TutorLink
 
-# Use compilation image
-FROM openjdk:21-slim AS build
+FROM gradle:8.10.2-jdk21-alpine AS build
 
-# Working directory of container
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy gradle files into container
-COPY build.gradle settings.gradle /app/
+# Copy the entire root context as defined in docker-compose.yml
+COPY . /app
 
-COPY gradlew /app/
-COPY gradle /app/gradle
+# Debugging step to list files before running Gradle
+RUN ls -la
 
-# Copy source code into container
-COPY src /app/src
+# Install dos2unix to convert line endings
+RUN apk add --no-cache dos2unix
+# Convert gradlew line endings (in case there are Windows-style line endings)
+RUN dos2unix gradlew
+# Ensure gradlew is executable
+RUN chmod +x gradlew
 
-# Build gradle application
-RUN ./gradlew build -x test --stacktrace
+# Build the functional project from the root context
+RUN ./gradlew --project-dir /app :Student_Domain:functional:build --no-daemon -x test
+
+RUN ls -R -la
 
 # Use separate image for runtime
 FROM openjdk:21-slim
 LABEL authors="jorge"
 
-# Set environment variables
-ENV SPRING_APPLICATION_NAME=student-domain-functional
+# Copy the built JAR
+COPY --from=build /app/Student_Domain/functional/build/libs/functional-*.jar app.jar
 
-# Expose application port
+# Expose the app port
 EXPOSE $SERVER_PORT
 
-# Copy compiled application into container
-COPY --from=build /app/build/libs/functional-0.0.1-SNAPSHOT.jar /app/functional-0.0.1-SNAPSHOT.jar
-
-# Set working directory
-WORKDIR /app
-
-# Run application
-ENTRYPOINT ["java", "-jar", "/app/functional-0.0.1-SNAPSHOT.jar"]
+# Run the application
+ENTRYPOINT ["java", "-jar", "app.jar"]

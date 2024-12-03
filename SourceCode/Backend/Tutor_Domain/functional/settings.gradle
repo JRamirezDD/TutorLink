@@ -1,5 +1,1 @@
-rootProject.name = 'tutor_functional'
-
-
-include ':CrossDomainInteractions'
-project(':CrossDomainInteractions').projectDir = new File('../../Matchmaking_Domain', 'CrossDomainInteractions')
+rootProject.name = 'functional'
