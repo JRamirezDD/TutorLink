@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:tryflutter/fetch_data_page.dart';
-
+import 'edit_profile_page.dart'; // Make sure this path matches the location of EditProfilePage in your project
 class TutorHomePage extends StatefulWidget {
   final String tutorName;
   final String subjects;
   final String hourlyRate;
 
-  const TutorHomePage({super.key, required this.tutorName, required this.subjects, required this.hourlyRate});
+  const TutorHomePage({
+    super.key,
+    required this.tutorName,
+    required this.subjects,
+    required this.hourlyRate,
+  });
 
   @override
   _TutorHomePageState createState() => _TutorHomePageState();
@@ -16,6 +20,7 @@ class _TutorHomePageState extends State<TutorHomePage> {
   late String tutorName;
   late String subjects;
   late String hourlyRate;
+  late String profilePictureUrl;
 
   @override
   void initState() {
@@ -23,6 +28,7 @@ class _TutorHomePageState extends State<TutorHomePage> {
     tutorName = widget.tutorName;
     subjects = widget.subjects;
     hourlyRate = widget.hourlyRate;
+    profilePictureUrl = 'https://via.placeholder.com/150'; // Placeholder profile picture URL
   }
 
   void _editProfile() {
@@ -33,11 +39,13 @@ class _TutorHomePageState extends State<TutorHomePage> {
           tutorName: tutorName,
           subjects: subjects,
           hourlyRate: hourlyRate,
-          onSave: (String newName, String newSubjects, String newHourlyRate) {
+          profilePictureUrl: profilePictureUrl,
+          onSave: (String newName, String newSubjects, String newHourlyRate, String newProfilePictureUrl) {
             setState(() {
               tutorName = newName;
               subjects = newSubjects;
               hourlyRate = newHourlyRate;
+              profilePictureUrl = newProfilePictureUrl;
             });
           },
         ),
@@ -49,7 +57,7 @@ class _TutorHomePageState extends State<TutorHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent, // Updated color to match brand identity
+        backgroundColor: Colors.blueAccent,
         title: const Text('Tutor Home'),
         actions: [
           IconButton(
@@ -67,13 +75,12 @@ class _TutorHomePageState extends State<TutorHomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // User Profile Section
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const CircleAvatar(
+                    CircleAvatar(
                       radius: 50,
-                      backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+                      backgroundImage: NetworkImage(profilePictureUrl),
                     ),
                     const SizedBox(height: 10),
                     Text(
@@ -111,7 +118,6 @@ class _TutorHomePageState extends State<TutorHomePage> {
                     ),
                   ],
                 ),
-
                 const SizedBox(height: 20),
                 const Text(
                   'Recent Work Done',
@@ -213,13 +219,15 @@ class _TutorHomePageState extends State<TutorHomePage> {
             icon: Icon(Icons.task),
             label: 'Tasks',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_add),
+            label: 'Requests',
+          ),
         ],
-        currentIndex: 0, // Set this dynamically as per requirement
+        currentIndex: 0,
         onTap: (int index) {
-          // Handle bottom bar navigation here
           switch (index) {
             case 0:
-              // Stay on the current page
               break;
             case 1:
               Navigator.pushNamed(context, '/messagesPage');
@@ -227,78 +235,11 @@ class _TutorHomePageState extends State<TutorHomePage> {
             case 2:
               Navigator.pushNamed(context, '/tasks');
               break;
+            case 3:
+              Navigator.pushNamed(context, '/requestsPage');
+              break;
           }
         },
-      ),
-    );
-  }
-}
-
-class EditProfilePage extends StatelessWidget {
-  final String tutorName;
-  final String subjects;
-  final String hourlyRate;
-  final Function(String, String, String) onSave;
-
-  const EditProfilePage({super.key, 
-    required this.tutorName,
-    required this.subjects,
-    required this.hourlyRate,
-    required this.onSave,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    String newName = tutorName;
-    String newSubjects = subjects;
-    String newHourlyRate = hourlyRate;
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Edit Profile Information'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              decoration: const InputDecoration(labelText: 'Name'),
-              controller: TextEditingController(text: tutorName),
-              onChanged: (value) {
-                newName = value;
-              },
-            ),
-            DropdownButtonFormField<String>(
-              decoration: const InputDecoration(labelText: 'Subjects'),
-              value: subjects,
-              items: <String>['Mathematics', 'Physics', 'Chemistry', 'Biology', 'English']
-                  .map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-              onChanged: (value) {
-                newSubjects = value ?? subjects;
-              },
-            ),
-            TextField(
-              decoration: const InputDecoration(labelText: 'Hourly Rate (€)'),
-              controller: TextEditingController(text: hourlyRate),
-              onChanged: (value) {
-                newHourlyRate = value;
-              },
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                onSave(newName, newSubjects, newHourlyRate);
-                Navigator.of(context).pop();
-              },
-              child: const Text('Save'),
-            ),
-          ],
-        ),
       ),
     );
   }

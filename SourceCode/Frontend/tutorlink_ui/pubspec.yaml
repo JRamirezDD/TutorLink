@@ -14,10 +14,9 @@ dependencies:
   flutter_dotenv: ^5.0.2 # Optional: Manage API URLs via environment variables
 
   # Image Picker
-  image_picker: ^1.0.0 # Updated to a more stable and current version
+  image_picker: ^0.8.6 # Use the latest stable version
 
-  # Cupertino Icons for iOScd /Users/nadaelhaddad/Tutor_Link
-
+  # Cupertino Icons for iOS
   cupertino_icons: ^1.0.8
 
   # State Management (Optional, use this if needed)

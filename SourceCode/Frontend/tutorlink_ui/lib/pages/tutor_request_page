@@ -1,0 +1,115 @@
+import 'package:flutter/material.dart';
+
+class TutorRequestsPage extends StatefulWidget {
+  const TutorRequestsPage({Key? key}) : super(key: key);
+
+  @override
+  _TutorRequestsPageState createState() => _TutorRequestsPageState();
+}
+
+class _TutorRequestsPageState extends State<TutorRequestsPage> {
+  // Mock data for student requests (in a real app, this data would come from a backend)
+  final List<Map<String, String>> studentRequests = [
+    {
+      'studentName': 'John Doe',
+      'message': 'I need help with math homework. Can you assist?',
+    },
+    {
+      'studentName': 'Jane Smith',
+      'message': 'I would like to schedule a session for science lessons.',
+    },
+  ];
+
+  void _acceptRequest(int index) {
+    // Logic to accept the request (e.g., notify backend)
+    setState(() {
+      studentRequests.removeAt(index);
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('You have accepted the request.')),
+    );
+  }
+
+  void _declineRequest(int index) {
+    // Logic to decline the request (e.g., notify backend)
+    setState(() {
+      studentRequests.removeAt(index);
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('You have declined the request.')),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Student Requests'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: studentRequests.isEmpty
+            ? const Center(
+                child: Text('No new requests at the moment.'),
+              )
+            : ListView.builder(
+                itemCount: studentRequests.length,
+                itemBuilder: (context, index) {
+                  final request = studentRequests[index];
+                  return Card(
+                    elevation: 4,
+                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            request['studentName']!,
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(request['message']!),
+                          const SizedBox(height: 16),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () => _acceptRequest(index),
+                                style: ElevatedButton.styleFrom(
+                                    primary: Colors.green),
+                                child: const Text('Accept'),
+                              ),
+                              ElevatedButton(
+                                onPressed: () => _declineRequest(index),
+                                style: ElevatedButton.styleFrom(
+                                    primary: Colors.red),
+                                child: const Text('Decline'),
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.message,
+                                    color: Colors.blue),
+                                onPressed: () {
+                                  // Logic to navigate to a chat page with the student
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text(
+                                            'Opening chat with ${request['studentName']}...')),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+      ),
+    );
+  }
+}
+
+
