@@ -1,5 +1,7 @@
 package com.tutorlink.matchmaking_domain.crossdomaininteractions.rating.model.entity;
 
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.rating.model.enums.StarRating;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -8,35 +10,34 @@ public class Rating {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long targetId;
-    private int value;
+    private Long tutorId;
+
+    @Enumerated(EnumType.STRING) // Store the enum as a string in the database
+    private StarRating value; // Change field type to StarRating
 
     public static Rating fromValue(int value) {
         Rating rating = new Rating();
-        rating.setValue(value);
+        rating.setValue(StarRating.fromValue(value)); // Convert int to StarRating
         return rating;
     }
 
-    public int getValue() {
+    public StarRating getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(StarRating value) {
         this.value = value;
     }
 
-    public Long getTargetId() {
-        return targetId;
+    public Long getTutorId() {
+        return tutorId;
     }
 
-    public void setTargetId(Long targetId) {
-        this.targetId = targetId;
+    public void setTutorId(Long tutorId) {
+        this.tutorId = tutorId;
+    }
+
+    public Long getId() {
+        return this.id;
     }
 }
-
-
-
-
-
-
-

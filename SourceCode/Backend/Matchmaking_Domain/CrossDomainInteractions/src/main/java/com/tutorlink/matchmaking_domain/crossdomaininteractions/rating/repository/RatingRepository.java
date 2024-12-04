@@ -12,6 +12,6 @@ public interface RatingRepository extends JpaRepository<Rating, Long> {
 
     List<Rating> findByTutorId(Long tutorId);
 
-    @Query("SELECT AVG(CAST(r.ratingValue AS integer)) FROM Rating r WHERE r.tutorId = :tutorId")
+    @Query("SELECT AVG(CAST(r.value AS double)) FROM Rating r WHERE r.tutorId = :tutorId")
     Double findAverageByTutorId(Long tutorId);
 }

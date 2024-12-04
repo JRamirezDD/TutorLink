@@ -8,32 +8,38 @@ import com.tutorlink.matchmaking_domain.crossdomaininteractions.rating.repositor
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class RatingService {
 
     private final RatingRepository ratingRepository;
 
-    // Get the average rating for a tutor
-    public Double getAverageRatingForTutor(Long tutorId) {
-        return ratingRepository.findAverageByTutorId(tutorId);
-    }
-
     // Submit a rating for a tutor
     public RatingResp submitRating(SubmitRatingReq request) {
-        // Create a Rating entity from the request DTO
-        Rating rating = new Rating();
-        rating.setTargetId(request.getTutorId()); // Assuming `targetId` is used for tutorId
-        rating.setValue(request.getRatingValue());
+        // Convert the integer rating value to StarRating
+        StarRating starRating = StarRating.fromValue(request.getRatingValue());
 
-        // Save the Rating entity
+        // Create and populate the Rating entity
+        Rating rating = new Rating();
+        rating.setTutorId(request.getTutorId());
+        rating.setValue(starRating);
+
+        // Save the rating to the repository
         rating = ratingRepository.save(rating);
 
-        // Map the saved Rating to a RatingResp DTO
+        // Build and return the RatingResp DTO
         return RatingResp.builder()
                 .id(rating.getId())
-                .tutorId(rating.getTargetId()) // Assuming `targetId` represents tutorId
-                .ratingValue(StarRating.fromValue(rating.getValue())) // Convert int to StarRating
+                .tutorId(rating.getTutorId())
+                .ratingValue(rating.getValue()) // This is now StarRating
                 .build();
+    }
+
+    // Get the average rating for a tutor
+    public Double getAverageRatingForTutor(Long tutorId) {
+        Double average = ratingRepository.findAverageByTutorId(tutorId);
+        return average;
     }
 }
