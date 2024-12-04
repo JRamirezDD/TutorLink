@@ -1,7 +1,11 @@
 package com.tutorlink.tutor_domain.functional.messaging.model.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "messages")
@@ -26,6 +30,8 @@ public class Message {
     private String content;
 
     @Column(nullable = false)
-    private Long timestamp; // Timestamp in milliseconds
+    private Long timestamp; // Use Long for milliseconds
 }
+
+
 

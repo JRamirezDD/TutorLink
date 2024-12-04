@@ -27,8 +27,8 @@ spring:
         default_schema: ${MATCHMAKING_DOMAIN_SERVICES_CROSS_DOMAIN_INTERACTIONS_DATABASE_DEFAULT_SCHEMA:cross_domain_interactions_schema}
   sql:
     init:
-      schema-locations: classpath:schema.sql
-      mode: always
+      schema-locations: none
+      mode: never
 
 student_domain:
   services:

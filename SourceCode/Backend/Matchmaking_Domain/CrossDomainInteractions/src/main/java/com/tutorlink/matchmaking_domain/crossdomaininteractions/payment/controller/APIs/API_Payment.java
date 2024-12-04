@@ -22,5 +22,8 @@ public interface API_Payment {
 
     @PostMapping("/{paymentRequestId}/reject")
     PaymentConfirmationResp confirmRejectPayment(@PathVariable Long paymentRequestId);
+
+    @GetMapping("/{paymentId}")
+    public ResponseEntity<PaymentResp> getPayment(@PathVariable Long paymentId);
 }
 

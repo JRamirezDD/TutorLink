@@ -1,12 +1,12 @@
 package com.tutorlink.student_domain.functional.service;
 
-
 import com.tutorlink.matchmaking_domain.crossdomaininteractions.payment.model.dto.req.PaymentReq;
 import com.tutorlink.matchmaking_domain.crossdomaininteractions.payment.model.dto.resp.PaymentConfirmationResp;
 import com.tutorlink.matchmaking_domain.crossdomaininteractions.payment.model.dto.resp.PaymentResp;
 import com.tutorlink.student_domain.functional.service.feignclients.Client_CrossDomainInteractions_Payment;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,31 +15,34 @@ public class PaymentService {
 
     private final Client_CrossDomainInteractions_Payment paymentClient;
 
-    //Creates a new payment request
     public PaymentResp createPaymentRequest(PaymentReq req) {
-        return paymentClient.createPaymentRequest(req).getBody();
+        ResponseEntity<PaymentResp> response = paymentClient.createPaymentRequest(req);
+        return response.getBody();
     }
 
-    //Processes the payment
+    // Processes the payment
     public void payRequest(Long paymentId) {
         paymentClient.payRequest(paymentId);
     }
 
-    //Declines the payment
+    // Declines the payment
     public void declineRequest(Long paymentId) {
         paymentClient.declineRequest(paymentId);
     }
 
-    @Transactional
+    // Confirms acceptance of a payment
     public PaymentConfirmationResp confirmAcceptPayment(Long paymentRequestId) {
         return paymentClient.confirmAcceptPayment(paymentRequestId);
     }
 
-    @Transactional
+    // Confirms rejection of a payment
     public PaymentConfirmationResp confirmRejectPayment(Long paymentRequestId) {
         return paymentClient.confirmRejectPayment(paymentRequestId);
     }
+
+    // Retrieves payment details by ID
+    public PaymentResp getPayment(Long paymentId) {
+        ResponseEntity<PaymentResp> response = paymentClient.getPayment(paymentId);
+        return response.getBody();
+    }
 }
-
-
-
