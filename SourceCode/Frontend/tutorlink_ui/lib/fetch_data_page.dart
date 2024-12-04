@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:tutorlink_frontend_http_package/frontend_http_package.dart';
 import 'api_service.dart';
-import 'config.dart'; // Import the config file
+import 'config.dart'; 
 
 class FetchDataPage extends StatefulWidget {
   const FetchDataPage({super.key});
@@ -25,18 +25,18 @@ class _FetchDataPageState extends State<FetchDataPage> {
   void initState() {
     super.initState();
     apiService = ApiService(apiClient: apiClient);
-    fetchStudentProfile(); // Call fetchStudentProfile when the widget is initialized
+    fetchStudentProfile("sample_student_id"); // Replace "sample_student_id" with the actual student ID
   }
 
   // Updated fetchStudentProfile function
-  void fetchStudentProfile() async {
+  void fetchStudentProfile(String studentId) async {
     setState(() {
       _isLoading = true;
     });
 
     try {
       // Fetching profile data using ApiService
-      final profileData = await apiService.getStudentProfile();
+      final profileData = await apiService.getStudentProfile(studentId);
 
       if (!mounted) {
         return; // Ensure the widget is still in the tree before calling setState()

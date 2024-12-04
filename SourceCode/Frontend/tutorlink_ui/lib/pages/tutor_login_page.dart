@@ -90,7 +90,7 @@ class _TutorLoginPageState extends State<TutorLoginPage> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 150, // Set a finite height for FetchDataPage
                 child: FetchDataPage(),
               ),
@@ -102,6 +102,6 @@ class _TutorLoginPageState extends State<TutorLoginPage> {
   }
 }
 
-void main() => runApp(MaterialApp(
+void main() => runApp(const MaterialApp(
       home: TutorLoginPage(),
     ));

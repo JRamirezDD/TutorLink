@@ -48,7 +48,7 @@ class StudentProfilePage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             // Add the FetchDataWidget to display fetched data below the profile info
-            FetchDataPage(),
+            const FetchDataPage(),
           ],
         ),
       ),

@@ -21,28 +21,28 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(seconds: 2), () {});
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => WelcomePage()),
+      MaterialPageRoute(builder: (context) => const WelcomePage()),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // Circular Progress Indicator in the center of the screen
-          const Expanded(
+          Expanded(
             child: Center(
               child: CircularProgressIndicator(),
             ),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
 
           // Wrapping FetchDataPage in Expanded to ensure it gets a defined height
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.0),
               child: FetchDataPage(),
             ),
           ),
