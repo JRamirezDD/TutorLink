@@ -10,11 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SubmitRatingReq {
-
-    private Long studentId;
     private Long tutorId;
     private int ratingValue;
 }
+
 
 
 

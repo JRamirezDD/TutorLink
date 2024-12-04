@@ -1,31 +1,39 @@
 package com.tutorlink.matchmaking_domain.crossdomaininteractions.rating.model.entity;
 
-import com.tutorlink.matchmaking_domain.crossdomaininteractions.rating.model.enums.StarRating;
 import jakarta.persistence.*;
-import lombok.*;
 
 @Entity
-@Table(name = "ratings")
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class Rating {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long studentId;
+    private Long targetId;
+    private int value;
 
-    @Column(nullable = false)
-    private Long tutorId;
+    public static Rating fromValue(int value) {
+        Rating rating = new Rating();
+        rating.setValue(value);
+        return rating;
+    }
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private StarRating ratingValue;
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public Long getTargetId() {
+        return targetId;
+    }
+
+    public void setTargetId(Long targetId) {
+        this.targetId = targetId;
+    }
 }
+
 
 
 

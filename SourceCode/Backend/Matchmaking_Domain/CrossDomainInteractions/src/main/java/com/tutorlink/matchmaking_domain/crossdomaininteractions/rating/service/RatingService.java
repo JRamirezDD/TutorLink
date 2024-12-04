@@ -8,51 +8,32 @@ import com.tutorlink.matchmaking_domain.crossdomaininteractions.rating.repositor
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 @RequiredArgsConstructor
 public class RatingService {
 
     private final RatingRepository ratingRepository;
 
-    // Method to get the average rating for a tutor
+    // Get the average rating for a tutor
     public Double getAverageRatingForTutor(Long tutorId) {
         return ratingRepository.findAverageByTutorId(tutorId);
     }
 
-    // Method to submit a rating
+    // Submit a rating for a tutor
     public RatingResp submitRating(SubmitRatingReq request) {
-        Rating rating = Rating.builder()
-                .studentId(request.getStudentId())
-                .tutorId(request.getTutorId())
-                .ratingValue(StarRating.fromValue(request.getRatingValue()))
-                .build();
+        // Create a Rating entity from the request DTO
+        Rating rating = new Rating();
+        rating.setTargetId(request.getTutorId()); // Assuming `targetId` is used for tutorId
+        rating.setValue(request.getRatingValue());
 
+        // Save the Rating entity
         rating = ratingRepository.save(rating);
 
+        // Map the saved Rating to a RatingResp DTO
         return RatingResp.builder()
                 .id(rating.getId())
-                .studentId(rating.getStudentId())
-                .tutorId(rating.getTutorId())
-                .ratingValue(rating.getRatingValue())
+                .tutorId(rating.getTargetId()) // Assuming `targetId` represents tutorId
+                .ratingValue(StarRating.fromValue(rating.getValue())) // Convert int to StarRating
                 .build();
     }
-
-    // Method to get all ratings for a tutor
-    public List<RatingResp> getRatingsForTutor(Long tutorId) {
-        return ratingRepository.findByTutorId(tutorId).stream()
-                .map(rating -> RatingResp.builder()
-                        .id(rating.getId())
-                        .studentId(rating.getStudentId())
-                        .tutorId(rating.getTutorId())
-                        .ratingValue(rating.getRatingValue())
-                        .build())
-                .collect(Collectors.toList());
-    }
 }
-
-
-
-

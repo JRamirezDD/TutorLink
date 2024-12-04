@@ -16,16 +16,19 @@ public class MessagingController {
 
     private final MessagingService messagingService;
 
+    @PostMapping
     public ResponseEntity<MessageResp> sendMessage(@RequestBody SendMessageReq request) {
         MessageResp message = messagingService.sendMessage(request);
         return ResponseEntity.ok(message);
     }
 
+    @GetMapping("/{senderId}/{receiverId}")
     public ResponseEntity<List<MessageResp>> getMessagesBetweenUsers(
             @PathVariable Long senderId, @PathVariable Long receiverId) {
         List<MessageResp> messages = messagingService.getMessagesBetweenUsers(senderId, receiverId);
         return ResponseEntity.ok(messages);
     }
 }
+
 
 
