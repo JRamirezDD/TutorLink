@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tryflutter/api_service.dart';
 import 'student_home_page.dart';
 import '../fetch_data_page.dart';
 
@@ -62,6 +63,7 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
       }
 
       if (password == repeatPassword) {
+
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -87,6 +89,8 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
           ),
         );
       }
+
+      
     } else {
       showDialog(
         context: context,
@@ -103,6 +107,7 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
           ],
         ),
       );
+
     }
   }
 
