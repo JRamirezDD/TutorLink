@@ -25,7 +25,10 @@ spring:
     properties:
       hibernate:
         default_schema: ${MATCHMAKING_DOMAIN_SERVICES_TUTOR_DOMAIN_MANAGER_DATABASE_DEFAULT_SCHEMA:tutor_domain_manager_schema}
-
+  sql:
+    init:
+      schema-locations: classpath:schema.sql
+      mode: always
 
 student_domain:
   services:
