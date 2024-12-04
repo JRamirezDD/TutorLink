@@ -128,21 +128,7 @@ class WelcomePage extends StatelessWidget {
                     ),
                     const SizedBox(height: 24),
 
-                    // Fetched Data Section
-                    const Text(
-                      'Here is some fetched data to get you started:',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                    const SizedBox(height: 16),
-                    const SizedBox(
-                      height: 150, // Constrain FetchDataPage height
-                      child: FetchDataPage(),
-                    ),
+                    
                   ],
                 ),
               ),

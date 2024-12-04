@@ -47,15 +47,7 @@ class TutorDashboardPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
 
-            // Title for fetched data section
-            const Text(
-              'Fetched Data from Backend',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 16),
+            
 
             // Integration of FetchDataPage to display fetched data
             const Expanded(

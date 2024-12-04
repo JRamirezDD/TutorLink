@@ -78,18 +78,8 @@ class _TutorLoginPageState extends State<TutorLoginPage> {
               const SizedBox(height: 20),
 
               // Integration of FetchDataPage
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: Text(
-                  'Additional Information for Tutors:',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey[700],
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
+              
+              
               const SizedBox(
                 height: 150, // Set a finite height for FetchDataPage
                 child: FetchDataPage(),

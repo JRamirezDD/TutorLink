@@ -30,62 +30,54 @@ class _FetchDataPageState extends State<FetchDataPage> {
 
   // Updated fetchStudentProfile function
   void fetchStudentProfile(String studentId) async {
-    setState(() {
-      _isLoading = true;
-    });
+  setState(() {
+    _isLoading = true;
+  });
 
-    try {
-      // Fetching profile data using ApiService
-      final profileData = await apiService.getStudentProfile(studentId);
+  try {
+    final profileData = await apiService.getStudentProfile(studentId);
 
-      if (!mounted) {
-        return; // Ensure the widget is still in the tree before calling setState()
-      }
+    if (!mounted) {
+      return;
+    }
 
-      if (profileData != null) {
-        setState(() {
-          _data = profileData.toString();
-          _isLoading = false;
-        });
-      } else {
-        setState(() {
-          _errorMessage = 'Failed to fetch profile data.';
-          _isLoading = false;
-        });
-      }
-    } catch (e) {
-      if (!mounted) {
-        return; // Ensure the widget is still in the tree before calling setState()
-      }
-
+    if (profileData != null) {
       setState(() {
-        _errorMessage = 'Error: $e';
+        _data = profileData.toString();
         _isLoading = false;
       });
+    } else {
+      setState(() {
+        _isLoading = false; // Just stop loading without setting an error message
+      });
     }
-  }
+  } catch (e) {
+    if (!mounted) {
+      return;
+    }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Fetch Student Profile'),
-      ),
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : _errorMessage.isNotEmpty
-              ? Center(
-                  child: Text(
-                    _errorMessage,
-                    style: const TextStyle(color: Colors.red, fontSize: 16),
-                  ),
-                )
-              : Center(
-                  child: Text(
-                    _data.isNotEmpty ? _data : 'No profile data available',
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-    );
+    setState(() {
+      _isLoading = false; // Stop loading, do not set any error message
+    });
   }
 }
+
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: const Text('Fetch Student Profile'),
+    ),
+    body: _isLoading
+        ? const Center(child: CircularProgressIndicator())
+        : _data.isNotEmpty
+            ? Center(
+                child: Text(
+                  _data,
+                  textAlign: TextAlign.center,
+                ),
+              )
+            : Container(), // Empty container if there's no data and no loading
+  );
+} // <-- This bracket closes the build method
+} // <-- Add this bracket to close the _FetchDataPageState class

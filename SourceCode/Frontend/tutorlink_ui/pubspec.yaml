@@ -38,4 +38,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/default_avatar.png
+    - assets/images/konwledge-learning.jpg
     - assets/images/background.jpg

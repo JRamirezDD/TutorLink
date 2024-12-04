@@ -24,7 +24,7 @@ class _ChatPageState extends State<ChatPage> {
       // Simulate receiving a response (you can replace this with backend integration)
       Future.delayed(const Duration(seconds: 1), () {
         setState(() {
-          _messages.add({"type": "received", "message": "Thanks for your message!"});
+          _messages.add({"type": "received", "message": ""});
         });
       });
     }

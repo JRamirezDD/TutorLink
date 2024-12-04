@@ -46,16 +46,7 @@ class RoleSelectionPage extends StatelessWidget {
             ),
             const SizedBox(height: 40),
             // Adding FetchDataWidget to display data below the role selection
-            Text(
-              'Here is some information fetched for you:',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[700],
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 20),
+            
             const FetchDataPage(), // Corrected reference to FetchDataPage
           ],
         ),

@@ -283,16 +283,7 @@ class _TutorRegistrationPageState extends State<TutorRegistrationPage> {
               ),
               const SizedBox(height: 20),
 
-              // Fetch Data Section
-              const Text(
-                'Some Data from the Fetch Data Page:',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 10),
-              const SizedBox(
-                height: 200.0,
-                child: FetchDataPage(),
-              ),
+              
             ],
           ),
         ),
