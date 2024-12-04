@@ -25,7 +25,10 @@ spring:
     properties:
       hibernate:
         default_schema: ${STUDENT_DOMAIN_SERVICES_FUNCTIONAL_SERVICE_DATABASE_DEFAULT_SCHEMA:student_schema}
-
+  sql:
+    init:
+      schema-locations: none #classpath:schema.sql 
+      mode: never #always
 
 student_domain:
   services:
