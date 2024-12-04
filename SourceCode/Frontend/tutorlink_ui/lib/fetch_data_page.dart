@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:tutorlink_frontend_http_package/frontend_http_package.dart';
-import 'api_service.dart';
-import 'config.dart'; 
+import 'StudentDomain_ApiService.dart';
+import 'config.dart';
 
 class FetchDataPage extends StatefulWidget {
   const FetchDataPage({super.key});
@@ -25,7 +25,8 @@ class _FetchDataPageState extends State<FetchDataPage> {
   void initState() {
     super.initState();
     apiService = ApiService(apiClient: apiClient);
-    fetchStudentProfile("sample_student_id"); // Replace "sample_student_id" with the actual student ID
+    fetchStudentProfile(
+        "sample_student_id"); // Replace "sample_student_id" with the actual student ID
   }
 
   // Updated fetchStudentProfile function

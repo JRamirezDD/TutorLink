@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tryflutter/api_service.dart';
+import 'package:tryflutter/StudentDomain_ApiService.dart';
 import 'student_home_page.dart';
 import '../fetch_data_page.dart';
 
@@ -17,7 +17,8 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _repeatPasswordController = TextEditingController();
+  final TextEditingController _repeatPasswordController =
+      TextEditingController();
   final TextEditingController _dobController = TextEditingController();
 
   // Optional Information
@@ -63,7 +64,6 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
       }
 
       if (password == repeatPassword) {
-
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -89,14 +89,13 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
           ),
         );
       }
-
-      
     } else {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: const Text('Missing Fields'),
-          content: const Text('Please fill in all mandatory fields to register.'),
+          content:
+              const Text('Please fill in all mandatory fields to register.'),
           actions: <Widget>[
             TextButton(
               child: const Text('OK'),
@@ -107,7 +106,6 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
           ],
         ),
       );
-
     }
   }
 
