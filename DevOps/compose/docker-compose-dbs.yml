@@ -1,0 +1,58 @@
+#   Title: docker-compose-fullstack.yml
+#   Author: Ramirez de Diego, Jorge
+#   Date: 2024
+#   Code version: 1.0
+#   Availability: https://github.com/JRamirezDD/TutorLink
+
+name: tutorlink-backend
+
+services:
+  student-db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: student_db
+      POSTGRES_USER: main_user
+      POSTGRES_PASSWORD: PassWord12@
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - tutorlink-network
+
+  tutor-db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: tutor_db
+      POSTGRES_USER: main_user
+      POSTGRES_PASSWORD: PassWord12@
+    ports:
+      - "5433:5433"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - tutorlink-network
+
+  matchmaking-db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: matchmaking_db
+      POSTGRES_USER: main_user
+      POSTGRES_PASSWORD: PassWord12@
+    ports:
+      - "5434:5434"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - tutorlink-network
+  
+### Other backend services...
+
+
+
+volumes:
+  postgres_data:
+
+networks:
+  tutorlink-network:
+    driver: bridge

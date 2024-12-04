@@ -14,6 +14,12 @@ public class StudentProfileController {
 
     private final StudentProfileService studentProfileService;
 
+    @PostMapping("")
+    public ResponseEntity<StudentProfileResp> createStudentProfile(@RequestBody UpdateStudentProfileReq request) {
+        StudentProfileResp createdProfile = studentProfileService.createStudentProfile(request);
+        return ResponseEntity.ok(createdProfile);
+    }
+
     @GetMapping("/{studentId}")
     public ResponseEntity<StudentProfileResp> getProfile(@PathVariable Long studentId) {
         StudentProfileResp profile = studentProfileService.getStudentProfile(studentId);

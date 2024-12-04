@@ -24,6 +24,3 @@ public class MessagingService {
         return (List<MessageResp>) messagingClient.getMessagesBetweenUsers(userId, otherUserId);
     }
 }
-
-
-

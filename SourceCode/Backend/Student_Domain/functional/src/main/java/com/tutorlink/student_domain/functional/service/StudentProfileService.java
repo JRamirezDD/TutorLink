@@ -33,6 +33,20 @@ public class StudentProfileService {
         return mapToStudentProfileResp(profile);
     }
 
+    public StudentProfileResp createStudentProfile(UpdateStudentProfileReq request) {
+        //Map req to entity
+        StudentProfile profile = new StudentProfile();
+        profile.setName(request.name());
+        profile.setEmail(request.email());
+        profile.setSubscriptionLevel(request.subscriptionLevel());
+
+        //Save to repository
+        StudentProfile savedProfile = studentProfileRepository.save(profile);
+
+        //Map saved entity to resp
+        return mapToStudentProfileResp(savedProfile);
+    }
+
     private StudentProfileResp mapToStudentProfileResp(StudentProfile profile) {
         return new StudentProfileResp(
                 profile.getId(),
@@ -42,8 +56,3 @@ public class StudentProfileService {
         );
     }
 }
-
-
-
-
-

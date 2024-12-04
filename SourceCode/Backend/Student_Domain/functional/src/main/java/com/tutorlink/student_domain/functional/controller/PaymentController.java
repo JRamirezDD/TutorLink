@@ -38,7 +38,7 @@ public class PaymentController {
                     )),
             @ApiResponse(responseCode = "400", description = "Invalid payment request data")
     })
-    @PostMapping("/request")
+    @PostMapping("")
     public ResponseEntity<PaymentResp> createPaymentRequest(@RequestBody PaymentReq req) {
         // PaymentResp paymentResponse = paymentService.createPaymentRequest(req);
         PaymentResp paymentResponse = PaymentResp.mock();
