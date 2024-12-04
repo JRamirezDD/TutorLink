@@ -4,6 +4,7 @@ import 'user_settings_page.dart';
 import 'catalog_subjects_page.dart';
 import '../fetch_data_page.dart';
 import 'chat_page.dart'; // Import the ChatPage
+import 'your_tutors_page.dart'; // Import the "My Tutors" page
 
 class MessagesPage extends StatelessWidget {
   const MessagesPage({super.key});
@@ -19,7 +20,7 @@ class MessagesPage extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => UserSettingsPage()),
+              MaterialPageRoute(builder: (context) => const UserSettingsPage()),
             );
           },
         ),
@@ -36,7 +37,7 @@ class MessagesPage extends StatelessWidget {
           Container(
             height: 150, // Set a finite height for the FetchDataPage
             padding: const EdgeInsets.all(8.0),
-            child: FetchDataPage(),
+            child: const FetchDataPage(),
           ),
           Expanded(
             child: ListView(
@@ -53,7 +54,7 @@ class MessagesPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ChatPage(userName: 'John Doe'),
+                        builder: (context) => const ChatPage(userName: 'John Doe'),
                       ),
                     );
                   },
@@ -70,7 +71,7 @@ class MessagesPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ChatPage(userName: 'Jane Smith'),
+                        builder: (context) => const ChatPage(userName: 'Jane Smith'),
                       ),
                     );
                   },
@@ -87,7 +88,7 @@ class MessagesPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ChatPage(userName: 'Alex Johnson'),
+                        builder: (context) => const ChatPage(userName: 'Alex Johnson'),
                       ),
                     );
                   },
@@ -104,7 +105,7 @@ class MessagesPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ChatPage(userName: 'Emily Davis'),
+                        builder: (context) => const ChatPage(userName: 'Emily Davis'),
                       ),
                     );
                   },
@@ -116,20 +117,37 @@ class MessagesPage extends StatelessWidget {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        currentIndex: 2,
+        currentIndex: 2, // "Messages" tab index
         onTap: (index) {
-          if (index == 0) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => student_page.StudentHomePage(username: 'Student'),
-              ),
-            );
-          } else if (index == 1) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => CatalogSubjectsPage()),
-            );
+          switch (index) {
+            case 0:
+              // Navigate to Dashboard
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      student_page.StudentHomePage(username: 'Student'),
+                ),
+              );
+              break;
+            case 1:
+              // Navigate to Catalog
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const CatalogSubjectsPage()),
+              );
+              break;
+            case 2:
+              // Stay on Messages
+              break;
+            case 3:
+              // Navigate to My Tutors
+              Navigator.pushReplacement(
+                context,
+               MaterialPageRoute(builder: (context) => YourTutorsPage()),
+
+              );
+              break;
           }
         },
         items: const [
@@ -139,14 +157,15 @@ class MessagesPage extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
-            
-
-
             label: 'Catalog',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.message),
             label: 'Messages',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            label: 'My Tutors',
           ),
         ],
       ),

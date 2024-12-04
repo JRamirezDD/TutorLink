@@ -30,7 +30,7 @@ class _SearchPageState extends State<SearchPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // FetchDataPage wrapped in a Container with fixed height
-              SizedBox(
+              const SizedBox(
                 height: 200, // Provide a fixed height for the FetchDataPage widget
                 child: FetchDataPage(),
               ),

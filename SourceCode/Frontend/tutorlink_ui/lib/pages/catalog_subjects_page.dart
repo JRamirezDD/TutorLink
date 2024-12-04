@@ -4,6 +4,7 @@ import 'student_home_page.dart' as student_page;
 import 'user_settings_page.dart';
 import 'top_rated_tutors_page.dart'; // Import the new page
 import '../fetch_data_page.dart';
+import 'your_tutors_page.dart'; // Import My Tutors page
 
 class CatalogSubjectsPage extends StatefulWidget {
   const CatalogSubjectsPage({super.key});
@@ -54,7 +55,7 @@ class _CatalogSubjectsPageState extends State<CatalogSubjectsPage> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => UserSettingsPage()),
+              MaterialPageRoute(builder: (context) => const UserSettingsPage()),
             );
           },
         ),
@@ -68,7 +69,7 @@ class _CatalogSubjectsPageState extends State<CatalogSubjectsPage> {
             const SizedBox(height: 16),
 
             // Adding the FetchDataPage with height constraints
-            SizedBox(
+            const SizedBox(
               height: 150, // Set a finite height for the FetchDataPage
               child: FetchDataPage(),
             ),
@@ -139,16 +140,21 @@ class _CatalogSubjectsPageState extends State<CatalogSubjectsPage> {
         currentIndex: 1,
         onTap: (index) {
           if (index == 0) {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                 builder: (context) => student_page.StudentHomePage(username: 'Student'),
               ),
             );
           } else if (index == 2) {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => MessagesPage()),
+              MaterialPageRoute(builder: (context) => const MessagesPage()),
+            );
+          } else if (index == 3) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => YourTutorsPage()),
             );
           }
         },
@@ -164,6 +170,10 @@ class _CatalogSubjectsPageState extends State<CatalogSubjectsPage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.message),
             label: 'Messages',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            label: 'My Tutors',
           ),
         ],
       ),
