@@ -1,7 +1,7 @@
-package com.tutorlink.tutor_domain.gateway.filter;
+package com.tutorlink.student_domain.gateway.filter;
 
-import com.tutorlink.tutor_domain.gateway.Service.Clients.Client_AuthenticationService;
-import com.tutorlink.tutor_domain.gateway.config.AuthConfig;
+import com.tutorlink.student_domain.gateway.Service.Clients.Client_AuthenticationService;
+import com.tutorlink.student_domain.gateway.config.AuthConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -17,9 +17,9 @@ public class AuthenticationGlobalFilter implements GlobalFilter {
     private final AuthConfig authConfig;
     private final Client_AuthenticationService authenticationServiceFeignClient;
 
-
     @Autowired
-    public AuthenticationGlobalFilter(@Lazy Client_AuthenticationService authenticationServiceFeignClient, AuthConfig authConfig) {
+    public AuthenticationGlobalFilter(@Lazy Client_AuthenticationService authenticationServiceFeignClient,
+            AuthConfig authConfig) {
         this.authenticationServiceFeignClient = authenticationServiceFeignClient;
         this.authConfig = authConfig;
     }
@@ -28,18 +28,21 @@ public class AuthenticationGlobalFilter implements GlobalFilter {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         // If authentication is disabled, skip the filter logic
         if (!authConfig.isCheckAuthentication()) {
-            return chain.filter(exchange);  // Skip authentication checks
+            return chain.filter(exchange); // Skip authentication checks
         }
 
-        // Allow requests to login, google-login, and register to pass without authentication
+        // Allow requests to login, google-login, and register to pass without
+        // authentication
         String path = exchange.getRequest().getURI().getPath();
-        if (path.startsWith("/auth/login") || path.startsWith("/auth/google-login") || path.startsWith("/auth/register")) {
+        if (path.startsWith("/auth/login") || path.startsWith("/auth/google-login")
+                || path.startsWith("/auth/register")) {
             return chain.filter(exchange);
         }
 
         // Get the SESSIONTOKEN cookie directly from the request
-        String sessionToken = exchange.getRequest().getCookies().getFirst("SESSIONTOKEN") != null ?
-                exchange.getRequest().getCookies().getFirst("SESSIONTOKEN").getValue() : null;
+        String sessionToken = exchange.getRequest().getCookies().getFirst("SESSIONTOKEN") != null
+                ? exchange.getRequest().getCookies().getFirst("SESSIONTOKEN").getValue()
+                : null;
 
         // If no session token, reject the request
         if (sessionToken == null || sessionToken.isEmpty()) {

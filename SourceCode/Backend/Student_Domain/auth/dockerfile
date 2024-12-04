@@ -22,8 +22,8 @@ RUN dos2unix gradlew
 # Ensure gradlew is executable
 RUN chmod +x gradlew
 
-# Build the functional project from the root context
-RUN ./gradlew :Student_Domain:functional:build --no-daemon --build-cache --parallel -x test
+# Build the auth project from the root context
+RUN ./gradlew :Student_Domain:auth:build --no-daemon --build-cache --parallel -x test
 
 RUN ls -R -la
 
@@ -32,7 +32,7 @@ FROM openjdk:21-slim
 LABEL authors="jorge"
 
 # Copy the built JAR
-COPY --from=build /app/Student_Domain/functional/build/libs/functional-*.jar app.jar
+COPY --from=build /app/Student_Domain/auth/build/libs/auth-*.jar app.jar
 
 # Expose the app port
 EXPOSE $SERVER_PORT
