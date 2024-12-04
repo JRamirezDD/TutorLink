@@ -3,6 +3,7 @@ package com.tutorlink.matchmaking_domain.crossdomaininteractions.rating.service;
 import com.tutorlink.matchmaking_domain.crossdomaininteractions.rating.model.dto.req.SubmitRatingReq;
 import com.tutorlink.matchmaking_domain.crossdomaininteractions.rating.model.dto.resp.RatingResp;
 import com.tutorlink.matchmaking_domain.crossdomaininteractions.rating.model.entity.Rating;
+import com.tutorlink.matchmaking_domain.crossdomaininteractions.rating.model.enums.StarRating;
 import com.tutorlink.matchmaking_domain.crossdomaininteractions.rating.repository.RatingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,38 +17,42 @@ public class RatingService {
 
     private final RatingRepository ratingRepository;
 
+    // Method to get the average rating for a tutor
     public Double getAverageRatingForTutor(Long tutorId) {
-        return ratingRepository.findAverageByTutorId(tutorId); // Average works seamlessly for integers
+        return ratingRepository.findAverageByTutorId(tutorId);
     }
 
+    // Method to submit a rating
     public RatingResp submitRating(SubmitRatingReq request) {
         Rating rating = Rating.builder()
                 .studentId(request.getStudentId())
                 .tutorId(request.getTutorId())
-                .ratingValue(request.getRatingValue()) // Directly use the integer value
+                .ratingValue(StarRating.fromValue(request.getRatingValue()))
                 .build();
 
         rating = ratingRepository.save(rating);
 
-        return new RatingResp(
-                rating.getId(),
-                rating.getTutorId(),
-                rating.getStudentId(),
-                rating.getRatingValue()
-        );
+        return RatingResp.builder()
+                .id(rating.getId())
+                .studentId(rating.getStudentId())
+                .tutorId(rating.getTutorId())
+                .ratingValue(rating.getRatingValue())
+                .build();
     }
 
+    // Method to get all ratings for a tutor
     public List<RatingResp> getRatingsForTutor(Long tutorId) {
         return ratingRepository.findByTutorId(tutorId).stream()
-                .map(rating -> new RatingResp(
-                        rating.getId(),
-                        rating.getTutorId(),
-                        rating.getStudentId(),
-                        rating.getRatingValue()
-                ))
+                .map(rating -> RatingResp.builder()
+                        .id(rating.getId())
+                        .studentId(rating.getStudentId())
+                        .tutorId(rating.getTutorId())
+                        .ratingValue(rating.getRatingValue())
+                        .build())
                 .collect(Collectors.toList());
     }
 }
+
 
 
 

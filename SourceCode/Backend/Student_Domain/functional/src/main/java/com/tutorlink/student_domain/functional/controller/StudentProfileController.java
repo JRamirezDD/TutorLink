@@ -1,7 +1,7 @@
 package com.tutorlink.student_domain.functional.controller;
 
-import com.tutorlink.matchmaking_domain.studentdomainmanager.model.dto.req.UpdateStudentProfileReq;
-import com.tutorlink.matchmaking_domain.studentdomainmanager.model.dto.resp.StudentProfileResp;
+import com.tutorlink.student_domain.functional.model.dto.request.UpdateStudentProfileReq;
+import com.tutorlink.student_domain.functional.model.dto.response.StudentProfileResp;
 import com.tutorlink.student_domain.functional.service.StudentProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.*;
 public class StudentProfileController {
 
     private final StudentProfileService studentProfileService;
+
+    @PostMapping("")
+    public ResponseEntity<StudentProfileResp> createStudentProfile(@RequestBody UpdateStudentProfileReq request) {
+        StudentProfileResp createdProfile = studentProfileService.createStudentProfile(request);
+        return ResponseEntity.ok(createdProfile);
+    }
 
     @GetMapping("/{studentId}")
     public ResponseEntity<StudentProfileResp> getProfile(@PathVariable Long studentId) {
@@ -28,5 +34,3 @@ public class StudentProfileController {
         return ResponseEntity.ok(profile);
     }
 }
-
-

@@ -13,7 +13,6 @@ import java.util.List;
 @Service
 public class RatingService {
 
-<<<<<<< HEAD
     @Autowired
     private final RatingRepository ratingRepository;
 
@@ -41,8 +40,7 @@ public class RatingService {
 
         return average.orElse(0.0);
     }
-}
-=======
+
     private final Client_CrossDomainInteractions_Rating ratingClient;
 
     public RatingResp submitRating(SubmitRatingReq request) {
@@ -53,6 +51,3 @@ public class RatingService {
         return ratingClient.getRatingsForTutor(tutorId).getBody();
     }
 }
-
-
->>>>>>> new-gio-branch

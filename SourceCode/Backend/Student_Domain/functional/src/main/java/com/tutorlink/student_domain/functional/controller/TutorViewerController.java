@@ -30,9 +30,8 @@ public class TutorViewerController {
                     ))
     })
     @GetMapping
-    public ResponseEntity<List<TutorProfileResp>> getAllTutors() {
-        // List<TutorProfileResp> tutors = tutorViewerService.getAllTutors();
-        List<TutorProfileResp> tutors = List.of(TutorProfileResp.mock());
+    public ResponseEntity<List<com.tutorlink.matchmaking_domain.tutordomainmanager.tutorprofileretrieval.model.dto.resp.TutorProfileResp>> getAllTutors() {
+        List<com.tutorlink.matchmaking_domain.tutordomainmanager.tutorprofileretrieval.model.dto.resp.TutorProfileResp> tutors = tutorViewerService.getAllTutors();
         return ResponseEntity.ok(tutors);
     }
 
@@ -44,17 +43,12 @@ public class TutorViewerController {
                             examples = @ExampleObject(value = "{\"tutorId\": 1, \"name\": \"John Doe\", \"expertise\": \"Mathematics\", \"rating\": 4.5, \"hourlyRate\": 30.0}")
                     )),
             @ApiResponse(responseCode = "404", description = "Tutor not found"),
-            @ApiResponse(responseCode = "400", description = "Invalid student or tutor ID")
+            @ApiResponse(responseCode = "400", description = "Invalid tutor ID")
     })
     @GetMapping("/{tutorId}")
-    public ResponseEntity<TutorProfileResp> getTutorProfile(
-            @RequestParam Long studentId,
-            @PathVariable Long tutorId) {
-        // TutorProfileResp tutorProfile = tutorViewerService.getTutorProfileById(studentId, tutorId);
-        TutorProfileResp tutorProfile = TutorProfileResp.mock();
+    public ResponseEntity<com.tutorlink.matchmaking_domain.tutordomainmanager.tutorprofileretrieval.model.dto.resp.TutorProfileResp> getTutorProfile(@PathVariable Long tutorId) {
+        com.tutorlink.matchmaking_domain.tutordomainmanager.tutorprofileretrieval.model.dto.resp.TutorProfileResp tutorProfile = tutorViewerService.getTutorProfileById(tutorId);
         return ResponseEntity.ok(tutorProfile);
     }
 }
-
-
 

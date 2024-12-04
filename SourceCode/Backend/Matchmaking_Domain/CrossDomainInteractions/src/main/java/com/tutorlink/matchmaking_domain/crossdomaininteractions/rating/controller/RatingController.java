@@ -16,19 +16,16 @@ public class RatingController {
 
     private final RatingService ratingService;
 
-    @PostMapping
     public ResponseEntity<RatingResp> submitRating(@RequestBody SubmitRatingReq request) {
         RatingResp response = ratingService.submitRating(request);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{tutorId}/average")
     public ResponseEntity<Double> getAverageRatingForTutor(@PathVariable Long tutorId) {
         Double averageRating = ratingService.getAverageRatingForTutor(tutorId);
         return ResponseEntity.ok(averageRating);
     }
 
-    @GetMapping("/{tutorId}/ratings")
     public ResponseEntity<List<RatingResp>> getRatingsForTutor(@PathVariable Long tutorId) {
         List<RatingResp> ratings = ratingService.getRatingsForTutor(tutorId);
         return ResponseEntity.ok(ratings);
