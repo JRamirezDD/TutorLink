@@ -21,7 +21,10 @@ jobs:
 
     - name: Navigate to Backend folder
       run: cd SourceCode/Backend
-
+      
+    - name: Grant execute permissions for Gradle wrapper
+      run: chmod +x SourceCode/Backend/gradlew
+      
     - name: Run Gradle tests
       working-directory: SourceCode/Backend
       run: ./gradlew clean test
