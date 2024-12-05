@@ -11,4 +11,3 @@ const String STUDENT_COURSES_ENDPOINT = '/courses';
 const String TUTOR_BASE_ENDPOINT = '/tutor';
 const String TUTOR_AUTH_ENDPOINT = '/auth';
 const String TUTOR_PROFILE_ENDPOINT = '/profile';
-

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'payment_history.dart'; // Import Payment History page
+import '../fetch_data_page.dart'; // Corrected import for FetchDataPage
 
 // Define the StudentDashboardPage class
 class StudentDashboardPage extends StatelessWidget {
@@ -23,6 +24,7 @@ class StudentDashboardPage extends StatelessWidget {
             const SizedBox(height: 16),
 
             // Integrate FetchDataWidget to display fetched data
+            const FetchDataPage(),
             const SizedBox(height: 16),
 
             // Button to find a tutor
@@ -31,8 +33,7 @@ class StudentDashboardPage extends StatelessWidget {
                 // Add functionality for finding tutors here
                 // e.g., Navigating to a tutor search page or list of tutors
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                      content: Text('Find a Tutor functionality coming soon!')),
+                  const SnackBar(content: Text('Find a Tutor functionality coming soon!')),
                 );
               },
               child: const Text('Find a Tutor'),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'edit_profile_page.dart';
 import 'messages_page_tutor.dart';
+import 'tasks_page.dart';
+import 'user_settings_page.dart';
 import 'tutor_requests_page.dart'; // Import the TutorRequestsPage
 
 class TutorHomePage extends StatefulWidget {
@@ -90,7 +92,9 @@ class _TutorHomePageState extends State<TutorHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
-        title: const Text('Tutor Home'),
+        title: const Text('Tutor Home',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.account_circle),
@@ -176,7 +180,7 @@ class _TutorHomePageState extends State<TutorHomePage> {
                             SizedBox(height: 5),
                             Text(
                               'Rating: ⭐⭐⭐⭐⭐',
-                              style: TextStyle(fontSize: 16, color: Colors.grey),
+                              style: TextStyle(fontSize: 16, color: Color(0xFFF4C430)), // Gold/yellow color for stars
                             ),
                           ],
                         ),
@@ -200,7 +204,7 @@ class _TutorHomePageState extends State<TutorHomePage> {
                             SizedBox(height: 5),
                             Text(
                               'Rating: ⭐⭐⭐⭐',
-                              style: TextStyle(fontSize: 16, color: Colors.grey),
+                              style: TextStyle(fontSize: 16, color: Color(0xFFF4C430)), // Gold/yellow color for stars
                             ),
                           ],
                         ),
@@ -224,7 +228,7 @@ class _TutorHomePageState extends State<TutorHomePage> {
                             SizedBox(height: 5),
                             Text(
                               'Rating: ⭐⭐⭐⭐⭐',
-                              style: TextStyle(fontSize: 16, color: Colors.grey),
+                              style: TextStyle(fontSize: 16, color: Color(0xFFF4C430)), // Gold/yellow color for stars
                             ),
                           ],
                         ),
@@ -240,26 +244,27 @@ class _TutorHomePageState extends State<TutorHomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard, color: Colors.grey),
+            icon: Icon(Icons.dashboard),
             label: 'Dashboard',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.message, color: Colors.grey),
+            icon: Icon(Icons.message),
             label: 'Messages',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.task, color: Colors.grey),
+            icon: Icon(Icons.task),
             label: 'Tasks',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_add, color: Colors.grey),
+            icon: Icon(Icons.person_add),
             label: 'Requests',
           ),
         ],
         currentIndex: _currentIndex,
-        selectedItemColor: Colors.blueAccent, // Blue color when selected
-        showSelectedLabels: true, // Ensure label is always visible
-        showUnselectedLabels: true, // Ensure label is always visible
+        selectedItemColor: Colors.blueAccent,
+        unselectedItemColor: Colors.black,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
         onTap: _onTabTapped,
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'welcome_page.dart';
+import '../fetch_data_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -42,6 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
           Expanded(
             child: Padding(
               padding: EdgeInsets.all(16.0),
+              child: FetchDataPage(),
             ),
           ),
         ],

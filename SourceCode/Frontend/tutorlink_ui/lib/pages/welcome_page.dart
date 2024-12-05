@@ -3,6 +3,7 @@ import 'student_login_page.dart';
 import 'tutor_login_page.dart';
 import 'tutor_registration_page.dart';
 import 'student_registration_page.dart';
+import '../fetch_data_page.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -13,8 +14,7 @@ class WelcomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Welcome to TutorLink'),
         centerTitle: true,
-        backgroundColor: Color(
-            0xFF4CA6C6), // Adjusted color to exactly match the image color
+        backgroundColor: Color(0xFF4CA6C6), // Adjusted color to exactly match the image color
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -66,8 +66,7 @@ class WelcomePage extends StatelessWidget {
                       label: const Text('Login as Tutor'),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
-                        backgroundColor: Color(
-                            0xFF4CA6C6), // Updated color to match image theme
+                        backgroundColor: Color(0xFF4CA6C6), // Updated color to match image theme
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -86,8 +85,7 @@ class WelcomePage extends StatelessWidget {
                       label: const Text('Login as Student'),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
-                        backgroundColor: Color(
-                            0xFF4CA6C6), // Updated color to match image theme
+                        backgroundColor: Color(0xFF4CA6C6), // Updated color to match image theme
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -106,8 +104,7 @@ class WelcomePage extends StatelessWidget {
                       label: const Text('Register as Tutor'),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
-                        backgroundColor: Color(
-                            0xFF4CA6C6), // Updated color to match image theme
+                        backgroundColor: Color(0xFF4CA6C6), // Updated color to match image theme
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -118,8 +115,7 @@ class WelcomePage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                const StudentRegistrationPage(),
+                            builder: (context) => const StudentRegistrationPage(),
                           ),
                         );
                       },
@@ -127,23 +123,12 @@ class WelcomePage extends StatelessWidget {
                       label: const Text('Register as Student'),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
-                        backgroundColor: Color(
-                            0xFF4CA6C6), // Updated color to match image theme
+                        backgroundColor: Color(0xFF4CA6C6), // Updated color to match image theme
                       ),
                     ),
                     const SizedBox(height: 24),
 
-                    // Fetched Data Section
-                    const Text(
-                      'Here is some fetched data to get you started:',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                    const SizedBox(height: 16),
+                    
                   ],
                 ),
               ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tryflutter/pages/student_login_page.dart';
-import 'package:tryflutter/StudentDomain_ApiService.dart';
-import 'package:tryflutter/models/student_domain/req.dart';
+import 'package:tryflutter/api_service.dart';
+import 'student_home_page.dart';
+import '../fetch_data_page.dart';
 
 class StudentRegistrationPage extends StatefulWidget {
   const StudentRegistrationPage({super.key});
@@ -12,15 +12,12 @@ class StudentRegistrationPage extends StatefulWidget {
 }
 
 class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
-  final StudentDomain_ApiService apiService = StudentDomain_ApiService();
-
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _repeatPasswordController =
-      TextEditingController();
+  final TextEditingController _repeatPasswordController = TextEditingController();
   final TextEditingController _dobController = TextEditingController();
 
   // Optional Information
@@ -37,13 +34,6 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
     String password = _passwordController.text;
     String repeatPassword = _repeatPasswordController.text;
     String dob = _dobController.text;
-
-    RegisterUserReq registerUserReq =
-        RegisterUserReq(username, password, email);
-    UpdateStudentProfileReq registrationData = UpdateStudentProfileReq(
-        name: '$firstName $lastName',
-        email: email,
-        subscriptionLevel: 'SILVER');
 
     if (firstName.isNotEmpty &&
         lastName.isNotEmpty &&
@@ -73,12 +63,13 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
       }
 
       if (password == repeatPassword) {
-        apiService.registerStudent(registerUserReq, registrationData);
 
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => StudentLoginPage(),
+            builder: (context) => StudentHomePage(
+              username: username,
+            ),
           ),
         );
       } else {
@@ -98,13 +89,14 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
           ),
         );
       }
+
+      
     } else {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: const Text('Missing Fields'),
-          content:
-              const Text('Please fill in all mandatory fields to register.'),
+          content: const Text('Please fill in all mandatory fields to register.'),
           actions: <Widget>[
             TextButton(
               child: const Text('OK'),
@@ -115,6 +107,7 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
           ],
         ),
       );
+
     }
   }
 
@@ -127,116 +120,122 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              TextField(
-                controller: _firstNameController,
-                decoration: const InputDecoration(
-                  labelText: 'First Name *',
-                  border: OutlineInputBorder(),
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            TextField(
+              controller: _firstNameController,
+              decoration: const InputDecoration(
+                labelText: 'First Name *',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: _lastNameController,
+              decoration: const InputDecoration(
+                labelText: 'Last Name *',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: _emailController,
+              decoration: const InputDecoration(
+                labelText: 'Email *',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: _usernameController,
+              decoration: const InputDecoration(
+                labelText: 'Username *',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: _passwordController,
+              obscureText: true,
+              decoration: const InputDecoration(
+                labelText: 'Password *',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: _repeatPasswordController,
+              obscureText: true,
+              decoration: const InputDecoration(
+                labelText: 'Repeat Password *',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: _dobController,
+              decoration: const InputDecoration(
+                labelText: 'Date of Birth *',
+                border: OutlineInputBorder(),
+              ),
+              onTap: () async {
+                DateTime? pickedDate = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(1900),
+                  lastDate: DateTime.now(),
+                );
+                if (pickedDate != null) {
+                  _dobController.text =
+                      '${pickedDate.year}-${pickedDate.month}-${pickedDate.day}';
+                }
+              },
+            ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: _phoneNumberController,
+              decoration: const InputDecoration(
+                labelText: 'Phone Number (Optional)',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: _addressController,
+              decoration: const InputDecoration(
+                labelText: 'Residential Address (Optional)',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                Checkbox(
+                  value: _locationConsent,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      _locationConsent = value ?? false;
+                    });
+                  },
                 ),
-              ),
-              const SizedBox(height: 10),
-              TextField(
-                controller: _lastNameController,
-                decoration: const InputDecoration(
-                  labelText: 'Last Name *',
-                  border: OutlineInputBorder(),
+                const Expanded(
+                  child: Text(
+                      'I consent to share my location while using the application.'),
                 ),
-              ),
-              const SizedBox(height: 10),
-              TextField(
-                controller: _emailController,
-                decoration: const InputDecoration(
-                  labelText: 'Email *',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 10),
-              TextField(
-                controller: _usernameController,
-                decoration: const InputDecoration(
-                  labelText: 'Username *',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 10),
-              TextField(
-                controller: _passwordController,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  labelText: 'Password *',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 10),
-              TextField(
-                controller: _repeatPasswordController,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  labelText: 'Repeat Password *',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 10),
-              TextField(
-                controller: _dobController,
-                decoration: const InputDecoration(
-                  labelText: 'Date of Birth *',
-                  border: OutlineInputBorder(),
-                ),
-                onTap: () async {
-                  DateTime? pickedDate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(1900),
-                    lastDate: DateTime.now(),
-                  );
-                  if (pickedDate != null) {
-                    _dobController.text =
-                        '${pickedDate.year}-${pickedDate.month}-${pickedDate.day}';
-                  }
-                },
-              ),
-              const SizedBox(height: 10),
-              TextField(
-                controller: _phoneNumberController,
-                decoration: const InputDecoration(
-                  labelText: 'Phone Number (Optional)',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 10),
-              TextField(
-                controller: _addressController,
-                decoration: const InputDecoration(
-                  labelText: 'Residential Address (Optional)',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  Checkbox(
-                    value: _locationConsent,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        _locationConsent = value ?? false;
-                      });
-                    },
-                  ),
-                  const Expanded(
-                    child: Text(
-                        'I consent to share my location while using the application.'),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _registerStudent,
-                child: const Text('Register'),
-              )
-            ]),
+              ],
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _registerStudent,
+              child: const Text('Register'),
+            ),
+            const SizedBox(height: 20),
+            const SizedBox(
+              height: 200.0,
+              child: FetchDataPage(),
+            ),
+          ],
+        ),
       ),
     );
   }

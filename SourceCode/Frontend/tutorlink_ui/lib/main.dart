@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tryflutter/UserService.dart';
 import 'pages/student_home_page.dart';
 import 'pages/student_login_page.dart';
 import 'pages/tutor_login_page.dart';
@@ -7,10 +6,11 @@ import 'pages/student_registration_page.dart';
 import 'pages/tutor_registration_page.dart';
 import 'pages/welcome_page.dart';
 import 'pages/catalog_subjects_page.dart';
-import 'pages/messages_page_tutor.dart';
+import 'pages/Messages_page_tutor.dart';
 import 'pages/tasks_page.dart';
 import 'pages/tutor_home_page.dart';
 import 'pages/user_settings_page.dart';
+import 'package:tryflutter/fetch_data_page.dart'; // Import the FetchDataPage
 
 // Define route names as constants
 const String welcomeRoute = '/';
@@ -24,12 +24,9 @@ const String messagesPageRoute = '/messagesPage';
 const String tasksRoute = '/tasks';
 const String tutorHomeRoute = '/tutorHome';
 const String userSettingsRoute = '/userSettings';
+const String fetchDataRoute = '/fetchData';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  await UserService().loadUserId();
-
+void main() {
   runApp(MyApp());
 }
 
@@ -54,9 +51,8 @@ class MyApp extends StatelessWidget {
             StudentRegistrationPage(), // Route for student registration page
         registerTutorRoute: (context) =>
             TutorRegistrationPage(), // Route for tutor registration page
-        studentHomeRoute: (context) => StudentHomePage(
-              userId: UserService().currentUserId.toString(),
-            ), // Home page
+        studentHomeRoute: (context) =>
+            StudentHomePage(username: 'Guest'), // Home page
         catalogRoute: (context) =>
             CatalogSubjectsPage(), // Catalog subjects page
         messagesPageRoute: (context) =>
@@ -68,6 +64,8 @@ class MyApp extends StatelessWidget {
             hourlyRate: '20'), // Tutor home page
         userSettingsRoute: (context) =>
             UserSettingsPage(), // User settings page
+        fetchDataRoute: (context) =>
+            FetchDataPage(), // Route for FetchDataPage to avoid unused import warning
       },
     );
   }

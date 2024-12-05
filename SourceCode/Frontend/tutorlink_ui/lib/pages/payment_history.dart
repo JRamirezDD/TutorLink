@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tryflutter/fetch_data_page.dart';
 
 class PaymentHistoryPage extends StatelessWidget {
   // Sample list of payments for illustration
@@ -17,6 +18,21 @@ class PaymentHistoryPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Adding the FetchDataPage widget at the top of the page
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              'Additional Financial Data:',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[700],
+              ),
+            ),
+          ),
+          Expanded(
+            child: FetchDataPage(),
+          ),
           SizedBox(height: 16),
 
           // Payment History Section

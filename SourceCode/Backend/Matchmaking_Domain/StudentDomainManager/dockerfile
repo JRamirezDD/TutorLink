@@ -1,0 +1,41 @@
+#   Title: dockerfile
+#   Author: Ramirez de Diego, Jorge
+#   Date: 2024
+#   Code version: 1.0
+#   Availability: https://github.com/JRamirezDD/TutorLink
+
+FROM gradle:8.10.2-jdk21-alpine AS build
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the entire root context as defined in docker-compose.yml
+COPY . /app
+
+# Debugging step to list files before running Gradle
+RUN ls -la
+
+# Install dos2unix to convert line endings
+RUN apk add --no-cache dos2unix
+# Convert gradlew line endings (in case there are Windows-style line endings)
+RUN dos2unix gradlew
+# Ensure gradlew is executable
+RUN chmod +x gradlew
+
+# Build the functional project from the root context
+RUN ./gradlew :Matchmaking_Domain:StudentDomainManager:build --no-daemon --build-cache --parallel -x test
+
+RUN ls -R -la
+
+# Use separate image for runtime
+FROM openjdk:21-slim
+LABEL authors="jorge"
+
+# Copy the built JAR
+COPY --from=build /app/Matchmaking_Domain/StudentDomainManager/build/libs/StudentDomainManager-*.jar app.jar
+
+# Expose the app port
+EXPOSE $SERVER_PORT
+
+# Run the application
+ENTRYPOINT ["java", "-jar", "app.jar"]
