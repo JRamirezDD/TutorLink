@@ -1,5 +1,6 @@
 package com.tutorlink.student_domain.functional.service;
 
+import com.tutorlink.student_domain.functional.model.dto.request.CreateStudentProfileReq;
 import com.tutorlink.student_domain.functional.model.dto.request.UpdateStudentProfileReq;
 import com.tutorlink.student_domain.functional.model.dto.response.StudentProfileResp;
 import com.tutorlink.student_domain.functional.model.entity.StudentProfile;
@@ -38,7 +39,6 @@ public class StudentProfileService {
         StudentProfile profile = new StudentProfile();
         profile.setName(request.name());
         profile.setEmail(request.email());
-        profile.setSubscriptionLevel(request.subscriptionLevel());
 
         //Save to repository
         StudentProfile savedProfile = studentProfileRepository.save(profile);

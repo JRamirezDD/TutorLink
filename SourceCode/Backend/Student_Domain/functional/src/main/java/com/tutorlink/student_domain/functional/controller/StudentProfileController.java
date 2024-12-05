@@ -14,7 +14,7 @@ public class StudentProfileController {
 
     private final StudentProfileService studentProfileService;
 
-    @PostMapping("")
+    @PostMapping("/create")
     public ResponseEntity<StudentProfileResp> createStudentProfile(@RequestBody UpdateStudentProfileReq request) {
         StudentProfileResp createdProfile = studentProfileService.createStudentProfile(request);
         return ResponseEntity.ok(createdProfile);
