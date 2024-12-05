@@ -1,0 +1,22 @@
+package com.tutorlink.tutor_domain.functional.course.controller;
+
+import com.tutorlink.tutor_domain.functional.course.model.dto.req.CreateCourseReq;
+import com.tutorlink.tutor_domain.functional.course.model.dto.resp.CourseResp;
+import com.tutorlink.tutor_domain.functional.course.service.CourseService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/courses")
+@RequiredArgsConstructor
+public class CourseController {
+
+    private final CourseService courseService;
+
+    @PostMapping
+    public ResponseEntity<CourseResp> createCourse(@RequestBody CreateCourseReq request) {
+        CourseResp response = courseService.createCourse(request);
+        return ResponseEntity.ok(response);
+    }
+}
