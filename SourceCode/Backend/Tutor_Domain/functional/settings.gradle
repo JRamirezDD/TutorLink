@@ -3,5 +3,5 @@ rootProject.name = 'functional'
 include ':Matchmaking_Domain:CrossDomainInteractions'
 project(':Matchmaking_Domain:CrossDomainInteractions').projectDir = new File('../../Matchmaking_Domain/CrossDomainInteractions')
 
-include ':Matchmaking_Domain:StudentDomainInteractions'
-project(':Matchmaking_Domain:StudentDomainInteractions').projectDir = new File('../../Matchmaking_Domain/StudentDomainInteractions')
+include ':Matchmaking_Domain:StudentDomainManager'
+project(':Matchmaking_Domain:StudentDomainManager').projectDir = new File('../../Matchmaking_Domain/StudentDomainManager')

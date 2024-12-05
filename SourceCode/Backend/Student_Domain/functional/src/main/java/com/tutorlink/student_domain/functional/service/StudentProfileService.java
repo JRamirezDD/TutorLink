@@ -34,11 +34,11 @@ public class StudentProfileService {
         return mapToStudentProfileResp(profile);
     }
 
-    public StudentProfileResp createStudentProfile(CreateStudentProfileReq createReq) {
+    public StudentProfileResp createStudentProfile(UpdateStudentProfileReq request) {
         //Map req to entity
         StudentProfile profile = new StudentProfile();
-        profile.setName(createReq.name());
-        profile.setEmail(createReq.email());
+        profile.setName(request.name());
+        profile.setEmail(request.email());
 
         //Save to repository
         StudentProfile savedProfile = studentProfileRepository.save(profile);

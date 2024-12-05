@@ -9,5 +9,4 @@ public record CreateTutorProfileReq(
   @NotBlank @Email String email,
   @NotBlank String specialization,
   @NotNull Double hourlyRate
-) {
-}
+) {}
