@@ -30,7 +30,7 @@ public class Message {
     private String content;
 
     @Column(nullable = false)
-    private Long timestamp; // Use Long for milliseconds
+    private Long timestamp;
 }
 
 
