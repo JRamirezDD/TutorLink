@@ -16,17 +16,17 @@ public class ConnectionService {
 
     private final Client_CrossDomainInteractions_Connection connectionClient;
 
-    //retrieve all connections for a tutor
+    // retrieve all connections for a tutor
     public List<ConnectionResp> getConnectionsForTutor(Long tutorId) {
         return connectionClient.getConnectionsForTutor(tutorId).getBody();
     }
 
-    //respond to a connection request
+    // respond to a connection request
     public void respondToConnection(RespondConnectionReq respondConnectionReq) {
         connectionClient.getRespondConnection(respondConnectionReq);
     }
 
-    //graphQL: retrieve only accepted connections for a tutor
+    // graphQL: retrieve only accepted connections for a tutor
     public List<ConnectionResp> getAcceptedConnectionsForTutor(Long tutorId) {
         return Objects.requireNonNull(connectionClient.getConnectionsForTutor(tutorId).getBody()).stream()
                 .filter(connection -> "ACCEPTED".equalsIgnoreCase(String.valueOf(connection.status())))
@@ -40,5 +40,3 @@ public class ConnectionService {
     }
 
 }
-
-

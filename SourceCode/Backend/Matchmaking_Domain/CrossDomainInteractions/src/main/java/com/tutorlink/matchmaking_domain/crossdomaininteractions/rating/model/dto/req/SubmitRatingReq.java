@@ -14,7 +14,13 @@ public class SubmitRatingReq {
     private Long studentId;
     private Long tutorId;
     private int ratingValue;
+
+    
+    public Long getTutorId() {
+        return tutorId;
+    }
+
+    public int getRatingValue() {
+        return ratingValue;
+    }
 }
-
-
-

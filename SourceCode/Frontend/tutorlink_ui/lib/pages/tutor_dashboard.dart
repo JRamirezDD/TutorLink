@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'payment_history.dart'; // Import Payment History page
-import '../fetch_data_page.dart';
+
 class TutorDashboardPage extends StatelessWidget {
   const TutorDashboardPage({super.key});
 
@@ -27,7 +27,9 @@ class TutorDashboardPage extends StatelessWidget {
                 // Add functionality for managing availability here
                 // e.g., Add or edit availability slots for tutoring
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Manage Availability functionality coming soon!')),
+                  const SnackBar(
+                      content: Text(
+                          'Manage Availability functionality coming soon!')),
                 );
               },
               child: const Text('Manage Availability'),
@@ -58,9 +60,6 @@ class TutorDashboardPage extends StatelessWidget {
             const SizedBox(height: 16),
 
             // Integration of FetchDataPage to display fetched data
-            Expanded(
-              child: FetchDataPage(),
-            ),
           ],
         ),
       ),

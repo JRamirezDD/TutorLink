@@ -1,55 +1,181 @@
 import 'package:flutter/material.dart';
+import 'package:tryflutter/StudentDomain_ApiService.dart';
+import 'package:tryflutter/models/student_domain/resp.dart';
 import 'catalog_subjects_page.dart';
 import 'messages_page.dart';
 import 'user_settings_page.dart';
 import 'chat_page.dart'; // Import ChatPage for messaging functionality
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'tutor_profile_page.dart'; // Import TutorProfilePage for detailed tutor profiles
+import 'subscription_page.dart'; // Import SubscriptionPage for subscribing to Gold membership
+import 'your_tutors_page.dart';
 
 // Shared global list for saved tutors
 List<Map<String, dynamic>> savedTutors = [];
 
-class StudentHomePage extends StatelessWidget {
-  final String username;
+class StudentHomePage extends StatefulWidget {
+  final String userId;
 
-  // Constructor to accept the username
-  StudentHomePage({super.key, required this.username});
+  StudentHomePage({super.key, required this.userId});
 
+  @override
+  _StudentHomePageState createState() => _StudentHomePageState();
+}
+
+class _StudentHomePageState extends State<StudentHomePage> {
   final List<Map<String, dynamic>> tutors = [
     {
       'name': 'Marius T.',
       'specialty': 'SEO Strategy / Content / Tech',
-      'rate': '\$70.00/hr',
+      'rate': 70.0,
       'success': '100% Job Success',
-      'image': 'https://via.placeholder.com/150'
+      'verified': true,
+      'location': 'New York',
+      'rating': 4.9,
+      'image': 'https://via.placeholder.com/150',
+      'isConnected': false,
     },
     {
       'name': 'Anna K.',
       'specialty': 'Mathematics Expert',
-      'rate': '\$50.00/hr',
+      'rate': 50.0,
       'success': '95% Job Success',
-      'image': 'https://via.placeholder.com/150'
+      'verified': true,
+      'location': 'Los Angeles',
+      'rating': 4.8,
+      'image': 'https://via.placeholder.com/150',
+      'isConnected': false,
     },
     {
       'name': 'John D.',
       'specialty': 'Physics Tutor',
-      'rate': '\$40.00/hr',
+      'rate': 40.0,
       'success': '90% Job Success',
-      'image': 'https://via.placeholder.com/150'
+      'verified': false,
+      'location': 'Chicago',
+      'rating': 4.5,
+      'image': 'https://via.placeholder.com/150',
+      'isConnected': true,
     },
     {
       'name': 'Sophia L.',
       'specialty': 'Chemistry Teacher',
-      'rate': '\$45.00/hr',
+      'rate': 45.0,
       'success': '98% Job Success',
-      'image': 'https://via.placeholder.com/150'
+      'verified': true,
+      'location': 'Houston',
+      'rating': 4.7,
+      'image': 'https://via.placeholder.com/150',
+      'isConnected': false,
     },
   ];
+
+  bool isGoldSubscriber = false;
+  StudentProfileResp? studentProfile;
+
+  String? selectedSubject;
+  double maxRate = 100.0;
+  double minRating = 0.0;
+  bool showVerified = false;
+
+  List<Map<String, dynamic>> filteredTutors = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchStudentProfile();
+    filteredTutors = tutors; // Initially display all tutors
+  }
+
+  Future<void> _fetchStudentProfile() async {
+    final profile =
+        await StudentDomain_ApiService().getStudentProfile(widget.userId);
+    if (profile != null) {
+      setState(() {
+        studentProfile = profile;
+        isGoldSubscriber = profile.subscriptionLevel == "GOLD";
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Failed to fetch profile')),
+      );
+    }
+  }
+
+  void applyFilters() {
+    setState(() {
+      filteredTutors = tutors.where((tutor) {
+        bool matchesSubject =
+            selectedSubject == null || tutor['specialty'] == selectedSubject;
+        bool matchesRate = tutor['rate'] <= maxRate;
+        bool matchesRating = tutor['rating'] >= minRating;
+        bool matchesVerified = !showVerified || tutor['verified'] == true;
+
+        return matchesSubject &&
+            matchesRate &&
+            matchesRating &&
+            matchesVerified;
+      }).toList();
+    });
+  }
+
+  void _saveTutor(Map<String, dynamic> tutor) {
+    setState(() {
+      if (!savedTutors.contains(tutor)) {
+        savedTutors.add(tutor);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('${tutor['name']} saved successfully!')),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('${tutor['name']} is already saved.')),
+        );
+      }
+    });
+  }
+
+  void _showSubscriptionDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Gold Membership Required'),
+        content: const Text(
+            'To message tutors, connect with them, or view their profiles, you need to subscribe to the Gold membership.'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context); // Close the dialog
+            },
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context); // Close the dialog
+              _navigateToSubscriptionPage();
+            },
+            child: const Text('Subscribe Now'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _navigateToSubscriptionPage() async {
+    final subscribed = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const SubscriptionPage()),
+    );
+    if (subscribed == true) {
+      setState(() {
+        isGoldSubscriber = true; // Update subscription status
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('Welcome, ${studentProfile?.username ?? "Student"}'),
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
@@ -57,7 +183,7 @@ class StudentHomePage extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => UserSettingsPage()),
+              MaterialPageRoute(builder: (context) => const UserSettingsPage()),
             );
           },
         ),
@@ -67,7 +193,6 @@ class StudentHomePage extends StatelessWidget {
             onPressed: () {},
           ),
         ],
-        title: Text('Welcome, $username'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -76,22 +201,24 @@ class StudentHomePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 16),
-
-              // Wrapping FetchDataWidget with SizedBox to give a finite height.
-              SizedBox(
-                height: 100,
-                child: FetchDataWidget(),
-              ),
-
-              const SizedBox(height: 16),
+              // Search and Filter Section
               TextField(
                 decoration: InputDecoration(
-                  hintText: 'Search',
+                  hintText: 'Search tutors...',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                   prefixIcon: const Icon(Icons.search),
                 ),
+                onChanged: (query) {
+                  setState(() {
+                    filteredTutors = tutors.where((tutor) {
+                      return tutor['name']
+                          .toLowerCase()
+                          .contains(query.toLowerCase());
+                    }).toList();
+                  });
+                },
               ),
               const SizedBox(height: 16),
               DropdownButtonFormField<String>(
@@ -100,16 +227,72 @@ class StudentHomePage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                hint: const Text('Discover'),
-                onChanged: (String? value) {},
-                items: const [
-                  DropdownMenuItem(value: 'Option 1', child: Text('Option 1')),
-                  DropdownMenuItem(value: 'Option 2', child: Text('Option 2')),
+                hint: const Text('Filter by Subject Expertise'),
+                value: selectedSubject,
+                onChanged: (String? value) {
+                  setState(() {
+                    selectedSubject = value;
+                    applyFilters();
+                  });
+                },
+                items: tutors
+                    .map((tutor) => tutor['specialty'] as String)
+                    .toSet()
+                    .toList()
+                    .map((subject) => DropdownMenuItem<String>(
+                          value: subject,
+                          child: Text(subject),
+                        ))
+                    .toList(),
+              ),
+              const SizedBox(height: 16),
+              Text('Max Rate: \$${maxRate.toStringAsFixed(0)}'),
+              Slider(
+                value: maxRate,
+                min: 0,
+                max: 100,
+                divisions: 10,
+                label: '\$${maxRate.toStringAsFixed(0)}',
+                onChanged: (value) {
+                  setState(() {
+                    maxRate = value;
+                    applyFilters();
+                  });
+                },
+              ),
+              Text('Min Rating: ${minRating.toStringAsFixed(1)}'),
+              Slider(
+                value: minRating,
+                min: 0,
+                max: 5,
+                divisions: 10,
+                label: minRating.toStringAsFixed(1),
+                onChanged: (value) {
+                  setState(() {
+                    minRating = value;
+                    applyFilters();
+                  });
+                },
+              ),
+              Row(
+                children: [
+                  Checkbox(
+                    value: showVerified,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        showVerified = value!;
+                        applyFilters();
+                      });
+                    },
+                  ),
+                  const Text('Show Only Verified Profiles'),
                 ],
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 16),
+
+              // Tutor List
               const Text(
-                'Recently Viewed',
+                'Tutors',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -117,129 +300,127 @@ class StudentHomePage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              // Horizontal Scrollable List of Tutors
-              SizedBox(
-                height: 180,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: tutors.length,
-                  itemBuilder: (context, index) {
-                    final tutor = tutors[index];
-                    return Container(
-                      width: 300,
-                      margin: const EdgeInsets.only(right: 16),
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        elevation: 4,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: filteredTutors.length,
+                itemBuilder: (context, index) {
+                  final tutor = filteredTutors[index];
+                  return GestureDetector(
+                    onTap: () {
+                      if (isGoldSubscriber) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                TutorProfilePage(tutor: tutor),
+                          ),
+                        );
+                      } else {
+                        _showSubscriptionDialog();
+                      }
+                    },
+                    child: Card(
+                      elevation: 4,
+                      margin: const EdgeInsets.symmetric(vertical: 8),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CircleAvatar(
+                              radius: 30,
+                              backgroundImage: NetworkImage(tutor['image']),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  CircleAvatar(
-                                    radius: 30,
-                                    backgroundImage: NetworkImage(tutor['image']),
-                                  ),
-                                  const SizedBox(width: 16),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          tutor['name'],
-                                          style: const TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Text(tutor['specialty']),
-                                      ],
+                                  Text(
+                                    tutor['name'],
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  Column(
-                                    children: [
-                                      IconButton(
-                                        icon: const Icon(Icons.favorite_border, color: Colors.red),
-                                        onPressed: () {
-                                          if (!savedTutors.contains(tutor)) {
-                                            savedTutors.add(tutor);
-                                            ScaffoldMessenger.of(context).showSnackBar(
-                                              SnackBar(
-                                                content: Text('${tutor['name']} added to Saved Tutors!'),
-                                              ),
-                                            );
-                                          } else {
-                                            ScaffoldMessenger.of(context).showSnackBar(
-                                              SnackBar(
-                                                content: Text('${tutor['name']} is already in Saved Tutors!'),
-                                              ),
-                                            );
-                                          }
-                                        },
-                                      ),
-                                      IconButton(
-                                        icon: const Icon(Icons.chat, color: Colors.blue),
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ChatPage(userName: tutor['name']),
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ],
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    tutor['specialty'],
+                                    style: const TextStyle(
+                                        fontSize: 14, color: Colors.grey),
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 8),
-                              Row(
-                                children: [
-                                  Text(
-                                    tutor['rate'],
-                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Column(
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.message,
+                                      color: Colors.blue),
+                                  onPressed: () {
+                                    if (isGoldSubscriber) {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ChatPage(userName: tutor['name']),
+                                        ),
+                                      );
+                                    } else {
+                                      _showSubscriptionDialog();
+                                    }
+                                  },
+                                ),
+                                IconButton(
+                                  icon: Icon(
+                                    savedTutors.contains(tutor)
+                                        ? Icons.bookmark
+                                        : Icons.bookmark_border,
+                                    color: savedTutors.contains(tutor)
+                                        ? Colors.green
+                                        : Colors.grey,
                                   ),
-                                  const Spacer(),
-                                  Text(
-                                    tutor['success'],
-                                    style: const TextStyle(color: Colors.grey),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                                  onPressed: () => _saveTutor(tutor),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
-              const SizedBox(height: 32),
             ],
           ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        currentIndex: 0, // Correct index for the "Dashboard"
+        currentIndex: 0,
         onTap: (index) {
           if (index == 0) {
-            // Stay on the same page
+            // Stay on the Dashboard
           } else if (index == 1) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => CatalogSubjectsPage()),
+              MaterialPageRoute(
+                  builder: (context) => const CatalogSubjectsPage()),
             );
           } else if (index == 2) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => MessagesPage()),
+              MaterialPageRoute(builder: (context) => const MessagesPage()),
+            );
+          } else if (index == 3) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => YourTutorsPage()), // My Tutors Page
             );
           }
         },
@@ -256,58 +437,12 @@ class StudentHomePage extends StatelessWidget {
             icon: Icon(Icons.message),
             label: 'Messages',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            label: 'My Tutors',
+          ),
         ],
       ),
-    );
-  }
-}
-
-class FetchDataWidget extends StatefulWidget {
-  const FetchDataWidget({super.key});
-
-  @override
-  _FetchDataWidgetState createState() => _FetchDataWidgetState();
-}
-
-class _FetchDataWidgetState extends State<FetchDataWidget> {
-  String data = 'Loading...';
-
-  @override
-  void initState() {
-    super.initState();
-    fetchData();
-  }
-
-  void fetchData() async {
-    try {
-      final response = await http.get(Uri.parse('http://localhost:10000/cart'));
-
-      if (response.statusCode == 200) {
-        final jsonData = jsonDecode(response.body);
-        setState(() {
-          data = jsonData.toString(); // Replace this with how you want to display the data
-        });
-      } else {
-        setState(() {
-          data = 'Failed to fetch data. Status code: ${response.statusCode}';
-        });
-      }
-    } catch (e) {
-      setState(() {
-        data = 'Error occurred: $e';
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.blue[100],
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Text(data),
     );
   }
 }

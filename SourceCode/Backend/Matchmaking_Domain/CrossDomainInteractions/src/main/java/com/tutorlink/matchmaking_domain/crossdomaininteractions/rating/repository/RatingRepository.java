@@ -10,18 +10,8 @@ import java.util.List;
 @Repository
 public interface RatingRepository extends JpaRepository<Rating, Long> {
 
-    @Query("SELECT AVG(r.ratingValue) FROM Rating r WHERE r.tutorId = :tutorId")
+    List<Rating> findByTutorId(Long tutorId);
+
+    @Query("SELECT AVG(CAST(r.value AS double)) FROM Rating r WHERE r.tutorId = :tutorId")
     Double findAverageByTutorId(Long tutorId);
-
-        //custom method to find all ratings by tutorId
-        List<Rating> findByTutorId(Long tutorId);
-    }
-
-
-
-
-
-
-
-
-
+}

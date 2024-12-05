@@ -1,113 +1,229 @@
 import 'package:flutter/material.dart';
-import 'package:tryflutter/fetch_data_page.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
-class SearchPage extends StatefulWidget {
-  const SearchPage({super.key});
+class CourseCataloguePage extends StatefulWidget {
+  const CourseCataloguePage({Key? key}) : super(key: key);
 
   @override
-  _SearchPageState createState() => _SearchPageState();
+  _CourseCataloguePageState createState() => _CourseCataloguePageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
-  String? _selectedSubject;
-  double _selectedRating = 0;
-  double _selectedHourlyRate = 0;
-  String? _selectedLocation;
+class _CourseCataloguePageState extends State<CourseCataloguePage> {
+  String? selectedLocation;
+  String? selectedSubject;
+  double? minPrice;
+  double? maxPrice;
 
-  final List<String> subjects = ['Math', 'Science', 'English', 'History'];
-  final List<String> locations = ['New York', 'Los Angeles', 'Chicago', 'Miami'];
+  final List<String> locations = [
+    'New York',
+    'Los Angeles',
+    'Chicago',
+    'Miami'
+  ];
+  final List<String> subjects = ['Math', 'Science', 'History', 'Programming'];
+
+  final String query = """
+    query GetCourses(\$minPrice: Float, \$maxPrice: Float, \$location: String, \$subject: String) {
+      getAllCourses(minPrice: \$minPrice, maxPrice: \$maxPrice, location: \$location, subject: \$subject) {
+        courseId
+        courseName
+        tutorName
+        hourlyRate
+        location
+        subject
+        description
+      }
+    }
+  """;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search for Tutors'),
+        title: const Text('Course Catalogue'),
+        backgroundColor: Colors.deepPurple,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // FetchDataPage wrapped in a Container with fixed height
-              SizedBox(
-                height: 200, // Provide a fixed height for the FetchDataPage widget
-                child: FetchDataPage(),
-              ),
-              const SizedBox(height: 16),
-              const Text('Select Subject:'),
-              DropdownButton<String>(
-                hint: const Text('Select Subject'),
-                value: _selectedSubject,
-                onChanged: (newValue) {
-                  setState(() {
-                    _selectedSubject = newValue;
-                  });
-                },
-                items: subjects.map((subject) {
-                  return DropdownMenuItem<String>(
-                    value: subject,
-                    child: Text(subject),
-                  );
-                }).toList(),
-              ),
-              const SizedBox(height: 16),
-              const Text('Select Rating:'),
-              Slider(
-                value: _selectedRating,
-                min: 0,
-                max: 5,
-                divisions: 5,
-                label: _selectedRating.toString(),
-                onChanged: (value) {
-                  setState(() {
-                    _selectedRating = value;
-                  });
-                },
-              ),
-              const SizedBox(height: 16),
-              const Text('Select Hourly Rate:'),
-              Slider(
-                value: _selectedHourlyRate,
-                min: 0,
-                max: 100,
-                divisions: 20,
-                label: _selectedHourlyRate.toString(),
-                onChanged: (value) {
-                  setState(() {
-                    _selectedHourlyRate = value;
-                  });
-                },
-              ),
-              const SizedBox(height: 16),
-              const Text('Select Location:'),
-              DropdownButton<String>(
-                hint: const Text('Select Location'),
-                value: _selectedLocation,
-                onChanged: (newValue) {
-                  setState(() {
-                    _selectedLocation = newValue;
-                  });
-                },
-                items: locations.map((location) {
-                  return DropdownMenuItem<String>(
-                    value: location,
-                    child: Text(location),
-                  );
-                }).toList(),
-              ),
-              const SizedBox(height: 32),
-              ElevatedButton(
-                onPressed: () {
-                  // Handle the search logic here
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Searching for tutors...')),
-                  );
-                },
-                child: const Text('Search'),
-              ),
-            ],
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: FilterBar(
+              locations: locations,
+              subjects: subjects,
+              onFilterChanged: (String? location, String? subject, double? min,
+                  double? max) {
+                setState(() {
+                  selectedLocation = location;
+                  selectedSubject = subject;
+                  minPrice = min;
+                  maxPrice = max;
+                });
+              },
+            ),
           ),
+          Expanded(
+            child: Query(
+              options: QueryOptions(
+                document: gql(query),
+                variables: {
+                  'minPrice': minPrice,
+                  'maxPrice': maxPrice,
+                  'location': selectedLocation,
+                  'subject': selectedSubject,
+                },
+              ),
+              builder: (QueryResult result, {fetchMore, refetch}) {
+                if (result.isLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
+                if (result.hasException) {
+                  return Center(child: Text(result.exception.toString()));
+                }
+
+                final courses = result.data?['getAllCourses'] ?? [];
+
+                if (courses.isEmpty) {
+                  return const Center(child: Text('No courses found.'));
+                }
+
+                return GridView.builder(
+                  padding: const EdgeInsets.all(8.0),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 3 / 4,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemCount: courses.length,
+                  itemBuilder: (context, index) {
+                    final course = courses[index];
+                    return CourseCard(course: course);
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class FilterBar extends StatelessWidget {
+  final List<String> locations;
+  final List<String> subjects;
+  final Function(String?, String?, double?, double?) onFilterChanged;
+
+  const FilterBar({
+    Key? key,
+    required this.locations,
+    required this.subjects,
+    required this.onFilterChanged,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    String? selectedLocation;
+    String? selectedSubject;
+    double? minPrice;
+    double? maxPrice;
+
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      elevation: 4,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: DropdownButtonFormField<String>(
+                    decoration: const InputDecoration(labelText: 'Location'),
+                    items: locations.map((location) {
+                      return DropdownMenuItem(
+                          value: location, child: Text(location));
+                    }).toList(),
+                    onChanged: (value) => selectedLocation = value,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: DropdownButtonFormField<String>(
+                    decoration: const InputDecoration(labelText: 'Subject'),
+                    items: subjects.map((subject) {
+                      return DropdownMenuItem(
+                          value: subject, child: Text(subject));
+                    }).toList(),
+                    onChanged: (value) => selectedSubject = value,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    decoration: const InputDecoration(labelText: 'Min Price'),
+                    keyboardType: TextInputType.number,
+                    onChanged: (value) => minPrice = double.tryParse(value),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: TextFormField(
+                    decoration: const InputDecoration(labelText: 'Max Price'),
+                    keyboardType: TextInputType.number,
+                    onChanged: (value) => maxPrice = double.tryParse(value),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            ElevatedButton(
+              onPressed: () => onFilterChanged(
+                  selectedLocation, selectedSubject, minPrice, maxPrice),
+              child: const Text('Apply Filters'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CourseCard extends StatelessWidget {
+  final dynamic course;
+
+  const CourseCard({Key? key, required this.course}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      elevation: 4,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(course['courseName'],
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 8),
+            Text('Tutor: ${course['tutorName']}'),
+            Text('Rate: \$${course['hourlyRate']}'),
+            Text('Location: ${course['location']}'),
+            const Spacer(),
+            ElevatedButton(
+              onPressed: () {
+                // Action for enrolling
+              },
+              child: const Text('Enroll'),
+            ),
+          ],
         ),
       ),
     );

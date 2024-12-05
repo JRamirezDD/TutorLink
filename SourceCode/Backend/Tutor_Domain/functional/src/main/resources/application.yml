@@ -14,7 +14,7 @@ spring:
   application:
     name: tutor-domain-functional
   datasource:
-    url: ${TUTOR_DOMAIN_DATASOURCE_URL:jdbc:postgresql://localhost:5432}/${TUTOR_DOMAIN_DATASOURCE_DATABASE:tutor_db}
+    url: ${TUTOR_DOMAIN_DATASOURCE_URL:jdbc:postgresql://localhost:5432}/${TUTOR_DOMAIN_DATASOURCE_DATABASE:student_db}
     username: ${TUTOR_DOMAIN_DATASOURCE_USERNAME:main_user}
     password: ${TUTOR_DOMAIN_DATASOURCE_PASSWORD:PassWord12@}
     driver-class-name: ${TUTOR_DOMAIN_DATASOURCE_DRIVER_CLASS_NAME:org.postgresql.Driver}
@@ -25,7 +25,10 @@ spring:
     properties:
       hibernate:
         default_schema: ${TUTOR_DOMAIN_SERVICES_FUNCTIONAL_SERVICE_DATABASE_DEFAULT_SCHEMA:tutor_schema}
-
+  sql:
+    init:
+      schema-locations: classpath:schema.sql
+      mode: always
 
 student_domain:
   services:

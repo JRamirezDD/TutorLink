@@ -18,13 +18,10 @@ public enum StarRating {
 
     public static StarRating fromValue(int value) {
         for (StarRating rating : values()) {
-            if (rating.getValue() == value) {
+            if (rating.value == value) {
                 return rating;
             }
         }
         throw new IllegalArgumentException("Invalid rating value: " + value);
     }
 }
-
-
-

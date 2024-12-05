@@ -1,8 +1,9 @@
 package com.tutorlink.student_domain.functional.service;
 
-import com.tutorlink.matchmaking_domain.studentdomainmanager.model.dto.req.UpdateStudentProfileReq;
-import com.tutorlink.matchmaking_domain.studentdomainmanager.model.dto.resp.StudentProfileResp;
-import com.tutorlink.student_domain.functional.service.feignclients.Client_CrossDomainInteractions_StudentProfileRetrieval;
+import com.tutorlink.student_domain.functional.model.dto.request.UpdateStudentProfileReq;
+import com.tutorlink.student_domain.functional.model.dto.response.StudentProfileResp;
+import com.tutorlink.student_domain.functional.model.entity.StudentProfile;
+import com.tutorlink.student_domain.functional.repository.StudentProfileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,17 +11,48 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class StudentProfileService {
 
-    private final Client_CrossDomainInteractions_StudentProfileRetrieval profileManagementClient;
+    private final StudentProfileRepository studentProfileRepository;
 
     public StudentProfileResp getStudentProfile(Long studentId) {
-        return profileManagementClient.getStudentProfile(studentId).getBody();
+        StudentProfile profile = studentProfileRepository.findById(studentId)
+                .orElseThrow(() -> new RuntimeException("Student profile not found"));
+
+        return mapToStudentProfileResp(profile);
     }
 
     public StudentProfileResp updateStudentProfile(Long studentId, UpdateStudentProfileReq request) {
-        return profileManagementClient.updateStudentProfile(studentId, request).getBody();
+        StudentProfile profile = studentProfileRepository.findById(studentId)
+                .orElseThrow(() -> new RuntimeException("Student profile not found"));
+
+        profile.setName(request.name());
+        profile.setEmail(request.email());
+        profile.setSubscriptionLevel(request.subscriptionLevel());
+
+        studentProfileRepository.save(profile);
+
+        return mapToStudentProfileResp(profile);
+    }
+
+    public StudentProfileResp createStudentProfile(UpdateStudentProfileReq request) {
+        //Map req to entity
+        StudentProfile profile = new StudentProfile();
+        profile.setName(request.name());
+        profile.setEmail(request.email());
+        profile.setSubscriptionLevel(request.subscriptionLevel());
+
+        //Save to repository
+        StudentProfile savedProfile = studentProfileRepository.save(profile);
+
+        //Map saved entity to resp
+        return mapToStudentProfileResp(savedProfile);
+    }
+
+    private StudentProfileResp mapToStudentProfileResp(StudentProfile profile) {
+        return new StudentProfileResp(
+                profile.getId(),
+                profile.getName(),
+                profile.getEmail(),
+                profile.getSubscriptionLevel()
+        );
     }
 }
-
-
-
-

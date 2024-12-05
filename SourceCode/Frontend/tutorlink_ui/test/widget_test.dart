@@ -5,7 +5,7 @@ import 'package:tryflutter/main.dart'; // Update with your actual import path
 void main() {
   testWidgets('Tutor List and Grid display test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(const MyApp());
 
     // Verify that the landing page is shown
     expect(find.text('Welcome to TutorLink!'), findsOneWidget);

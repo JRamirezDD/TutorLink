@@ -1,0 +1,77 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "CrossDomainInteractionsApplication",
+            "request": "launch",
+            "mainClass": "com.tutorlink.matchmaking_domain.crossdomaininteractions.CrossDomainInteractionsApplication",
+            "projectName": "CrossDomainInteractions"
+        },
+        {
+            "type": "java",
+            "name": "StudentDomainManagerApplication",
+            "request": "launch",
+            "mainClass": "com.tutorlink.matchmaking_domain.studentdomainmanager.StudentDomainManagerApplication",
+            "projectName": "Matchmaking_Domain-StudentDomainManager"
+        },
+        {
+            "type": "java",
+            "name": "TutorDomainManagerApplication",
+            "request": "launch",
+            "mainClass": "com.tutorlink.matchmaking_domain.tutordomainmanager.TutorDomainManagerApplication",
+            "projectName": "Matchmaking_Domain-TutorDomainManager"
+        },
+        {
+            "type": "java",
+            "name": "AuthApplication",
+            "request": "launch",
+            "mainClass": "com.tutorlink.student_domain.auth.AuthApplication",
+            "projectName": "Student_Domain-auth"
+        },
+        {
+            "type": "java",
+            "name": "FunctionalApplication",
+            "request": "launch",
+            "mainClass": "com.tutorlink.student_domain.functional.FunctionalApplication",
+            "projectName": "Student_Domain-functional"
+        },
+        {
+            "type": "java",
+            "name": "GatewayApplication",
+            "request": "launch",
+            "mainClass": "com.tutorlink.student_domain.gateway.GatewayApplication",
+            "projectName": "Student_Domain-gateway"
+        },
+        {
+            "type": "java",
+            "name": "AuthApplication(1)",
+            "request": "launch",
+            "mainClass": "com.tutorlink.tutor_domain.auth.AuthApplication",
+            "projectName": "Tutor_Domain-auth"
+        },
+        {
+            "type": "java",
+            "name": "FunctionalApplication(1)",
+            "request": "launch",
+            "mainClass": "com.tutorlink.tutor_domain.functional.FunctionalApplication",
+            "projectName": "Tutor_Domain-functional"
+        },
+        {
+            "type": "java",
+            "name": "TutorLinkApplication",
+            "request": "launch",
+            "mainClass": "com.example.tutorlink.TutorLinkApplication",
+            "projectName": "tutorlink"
+        }
+    ]
+}

@@ -2,6 +2,7 @@ package com.tutorlink.student_domain.auth.controller;
 
 import com.tutorlink.student_domain.auth.model.dto.request.RegisterUserReq;
 import com.tutorlink.student_domain.auth.model.dto.request.UserLoginReq;
+import com.tutorlink.student_domain.auth.model.entity.UserEntity;
 import com.tutorlink.student_domain.auth.service.AuthenticationService;
 import com.tutorlink.student_domain.auth.service.GoogleOAuthService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,6 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
     private final GoogleOAuthService googleOAuthService;
 
-
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UserLoginReq loginRequest) {
         try {
@@ -30,10 +30,20 @@ public class AuthenticationController {
             return ResponseEntity.ok()
                     .header(HttpHeaders.SET_COOKIE, cookie.toString())
                     .build();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<UserEntity> getUserFromSessionToken(@CookieValue("SESSIONTOKEN") String token) {
+        try {
+            UserEntity user = authenticationService.getUserFromSessionToken(token);
+            return ResponseEntity.ok(user);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+
     }
 
     @PostMapping("/google-login")
@@ -47,8 +57,7 @@ public class AuthenticationController {
             return ResponseEntity.ok()
                     .header(HttpHeaders.SET_COOKIE, cookie.toString())
                     .build();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -57,8 +66,7 @@ public class AuthenticationController {
     public ResponseEntity<String> registerNewUser(@RequestBody RegisterUserReq req) {
         try {
             authenticationService.register(req);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
         return ResponseEntity.ok().build();
@@ -68,8 +76,7 @@ public class AuthenticationController {
     public ResponseEntity<String> logout(@CookieValue("SESSIONTOKEN") String token) {
         try {
             authenticationService.invalidateSessionToken(token);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
         return ResponseEntity.ok().build();
@@ -80,4 +87,3 @@ public class AuthenticationController {
         return authenticationService.isSessionTokenValid(sessionToken);
     }
 }
-

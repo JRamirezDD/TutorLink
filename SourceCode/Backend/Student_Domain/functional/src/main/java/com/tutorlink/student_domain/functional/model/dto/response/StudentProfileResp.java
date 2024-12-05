@@ -6,7 +6,7 @@ public record StudentProfileResp(
         Long id,
         String username,
         String email,
-        LocalDateTime joinedDate
+        String subscriptionLevel // Add this field
 ) {
     // Static factory method to create a mock StudentProfileResp object
     public static StudentProfileResp mock() {
@@ -14,7 +14,9 @@ public record StudentProfileResp(
                 1L, // mock id
                 "mockUsername", // mock username
                 "mockEmail@example.com", // mock email
-                LocalDateTime.now() // mock joinedDate
+                "Gold" // mock subscription level
         );
     }
+
+
 }

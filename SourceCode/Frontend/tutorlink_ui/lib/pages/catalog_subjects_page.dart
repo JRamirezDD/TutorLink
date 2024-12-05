@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'messages_page.dart';
-import 'student_home_page.dart' as student_page;
 import 'user_settings_page.dart';
 import 'top_rated_tutors_page.dart'; // Import the new page
-import '../fetch_data_page.dart';
+// Import My Tutors page
 
 class CatalogSubjectsPage extends StatefulWidget {
   const CatalogSubjectsPage({super.key});
@@ -14,13 +12,42 @@ class CatalogSubjectsPage extends StatefulWidget {
 
 class _CatalogSubjectsPageState extends State<CatalogSubjectsPage> {
   List<String> subjects = [
-    'Mathematics', 'Physics', 'Chemistry', 'Biology', 'History', 'Geography',
-    'English', 'Computer Science', 'Economics', 'Psychology', 'Philosophy',
-    'Art', 'Music', 'Physical Education', 'Business Studies', 'Political Science',
-    'Sociology', 'Environmental Science', 'French', 'Spanish', 'German', 'Japanese',
-    'Chinese', 'Accounting', 'Astronomy', 'Botany', 'Zoology', 'Literature',
-    'Anthropology', 'Archaeology', 'Statistics', 'Law', 'Medicine', 'Nursing',
-    'Pharmacy', 'Veterinary Science'
+    'Mathematics',
+    'Physics',
+    'Chemistry',
+    'Biology',
+    'History',
+    'Geography',
+    'English',
+    'Computer Science',
+    'Economics',
+    'Psychology',
+    'Philosophy',
+    'Art',
+    'Music',
+    'Physical Education',
+    'Business Studies',
+    'Political Science',
+    'Sociology',
+    'Environmental Science',
+    'French',
+    'Spanish',
+    'German',
+    'Japanese',
+    'Chinese',
+    'Accounting',
+    'Astronomy',
+    'Botany',
+    'Zoology',
+    'Literature',
+    'Anthropology',
+    'Archaeology',
+    'Statistics',
+    'Law',
+    'Medicine',
+    'Nursing',
+    'Pharmacy',
+    'Veterinary Science'
   ];
   List<String> filteredSubjects = [];
 
@@ -37,7 +64,8 @@ class _CatalogSubjectsPageState extends State<CatalogSubjectsPage> {
         filteredSubjects = List.from(subjects);
       } else {
         filteredSubjects = subjects
-            .where((subject) => subject.toLowerCase().startsWith(query.toLowerCase()))
+            .where((subject) =>
+                subject.toLowerCase().startsWith(query.toLowerCase()))
             .toList();
       }
     });
@@ -54,11 +82,12 @@ class _CatalogSubjectsPageState extends State<CatalogSubjectsPage> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => UserSettingsPage()),
+              MaterialPageRoute(builder: (context) => const UserSettingsPage()),
             );
           },
         ),
-        title: const Text('Project Catalog', style: TextStyle(color: Colors.black)),
+        title: const Text('Project Catalog',
+            style: TextStyle(color: Colors.black)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -66,12 +95,6 @@ class _CatalogSubjectsPageState extends State<CatalogSubjectsPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 16),
-
-            // Adding the FetchDataPage with height constraints
-            SizedBox(
-              height: 150, // Set a finite height for the FetchDataPage
-              child: FetchDataPage(),
-            ),
 
             const SizedBox(height: 16),
 
@@ -111,9 +134,11 @@ class _CatalogSubjectsPageState extends State<CatalogSubjectsPage> {
                       child: ListTile(
                         title: Text(
                           filteredSubjects[index],
-                          style: const TextStyle(fontSize: 18, color: Colors.green),
+                          style: const TextStyle(
+                              fontSize: 18, color: Colors.green),
                         ),
-                        trailing: const Icon(Icons.arrow_forward_ios, color: Colors.green),
+                        trailing: const Icon(Icons.arrow_forward_ios,
+                            color: Colors.green),
                         onTap: () {
                           // Navigate to TopRatedTutorsPage
                           Navigator.push(
@@ -133,39 +158,6 @@ class _CatalogSubjectsPageState extends State<CatalogSubjectsPage> {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: 1,
-        onTap: (index) {
-          if (index == 0) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => student_page.StudentHomePage(username: 'Student'),
-              ),
-            );
-          } else if (index == 2) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => MessagesPage()),
-            );
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
-            label: 'Dashboard',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            label: 'Catalog',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: 'Messages',
-          ),
-        ],
       ),
     );
   }

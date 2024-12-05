@@ -46,6 +46,7 @@ docker-compose -f ../../docker-compose-backend-tutor-domain.yml down
 docker-compose -f ../../docker-compose-backend-student-domain.yml down
 docker-compose -f ../../docker-compose-frontend.yml down
 docker-compose -f ../../docker-compose-fullstack.yml down
+docker-compose -f ../../docker-compose-backend-dbs.yml down
 
 REM build up compose node
 docker-compose --env-file "%ENV_FILE%" -f ../../docker-compose-fullstack.yml up --build

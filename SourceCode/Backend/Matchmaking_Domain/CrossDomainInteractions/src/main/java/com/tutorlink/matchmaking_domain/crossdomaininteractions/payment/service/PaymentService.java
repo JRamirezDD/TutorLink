@@ -20,7 +20,7 @@ public class PaymentService {
     private final PaymentRequestPublisher paymentRequestPublisher;
     private final PaymentConfirmationPublisher paymentConfirmationPublisher;
 
-    //Create a new payment request
+    // Create a new payment request
     public PaymentResp createPaymentRequest(PaymentReq request) {
         Payment payment = Payment.builder()
                 .studentId(request.studentId())
@@ -33,14 +33,12 @@ public class PaymentService {
         paymentRepository.save(payment);
         paymentRequestPublisher.publishPaymentRequest(payment);
 
-        return new PaymentResp(payment.getId(), payment.getStudentId(), payment.getTutorId(),
-                payment.getAmount(), payment.getStatus());
+        return mapToPaymentResp(payment);
     }
 
-    //Process the payment
+    // Process the payment
     public void payRequest(Long paymentId) {
-        Payment payment = paymentRepository.findById(paymentId)
-                .orElseThrow(() -> new RuntimeException("Payment not found"));
+        Payment payment = findPaymentById(paymentId);
 
         if (!"PENDING".equals(payment.getStatus())) {
             throw new RuntimeException("Payment request already processed");
@@ -53,10 +51,9 @@ public class PaymentService {
         paymentConfirmationPublisher.publishPaymentConfirmation(payment);
     }
 
-    //Decline the payment
+    // Decline the payment
     public void declineRequest(Long paymentId) {
-        Payment payment = paymentRepository.findById(paymentId)
-                .orElseThrow(() -> new RuntimeException("Payment not found"));
+        Payment payment = findPaymentById(paymentId);
 
         if (!"PENDING".equals(payment.getStatus())) {
             throw new RuntimeException("Payment request already processed");
@@ -68,10 +65,9 @@ public class PaymentService {
         paymentConfirmationPublisher.publishPaymentRejection(payment);
     }
 
-    //Confirm and accept a payment request
+    // Confirm and accept a payment request
     public PaymentConfirmationResp confirmAcceptPayment(Long paymentRequestId) {
-        Payment payment = paymentRepository.findById(paymentRequestId)
-                .orElseThrow(() -> new RuntimeException("Payment request not found"));
+        Payment payment = findPaymentById(paymentRequestId);
 
         if (!"PENDING".equals(payment.getStatus())) {
             throw new RuntimeException("Payment request already processed");
@@ -85,10 +81,9 @@ public class PaymentService {
         return new PaymentConfirmationResp(paymentRequestId, "ACCEPTED", "Payment accepted successfully.");
     }
 
-    //Confirm and reject a payment request
+    // Confirm and reject a payment request
     public PaymentConfirmationResp confirmRejectPayment(Long paymentRequestId) {
-        Payment payment = paymentRepository.findById(paymentRequestId)
-                .orElseThrow(() -> new RuntimeException("Payment request not found"));
+        Payment payment = findPaymentById(paymentRequestId);
 
         if (!"PENDING".equals(payment.getStatus())) {
             throw new RuntimeException("Payment request already processed");
@@ -101,6 +96,30 @@ public class PaymentService {
 
         return new PaymentConfirmationResp(paymentRequestId, "REJECTED", "Payment rejected successfully.");
     }
+
+    //Get payment details
+    public PaymentResp getPayment(Long paymentId) {
+        Payment payment = findPaymentById(paymentId);
+        return mapToPaymentResp(payment);
+    }
+
+    //Utility method to fetch a payment by ID
+    private Payment findPaymentById(Long paymentId) {
+        return paymentRepository.findById(paymentId)
+                .orElseThrow(() -> new RuntimeException("Payment not found with ID: " + paymentId));
+    }
+
+    //Utility method to map Payment entity to PaymentResp DTO
+    private PaymentResp mapToPaymentResp(Payment payment) {
+        return PaymentResp.builder()
+                .paymentId(payment.getId())
+                .studentId(payment.getStudentId())
+                .tutorId(payment.getTutorId())
+                .amount(payment.getAmount())
+                .status(payment.getStatus())
+                .build();
+    }
 }
+
 
 

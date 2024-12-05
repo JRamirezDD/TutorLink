@@ -1,12 +1,9 @@
 package com.tutorlink.matchmaking_domain.tutordomainmanager.servicemanagement.service;
 
-import com.tutorlink.matchmaking_domain.crossdomaininteractions.rating.model.dto.req.SubmitRatingReq;
-import com.tutorlink.matchmaking_domain.crossdomaininteractions.rating.model.dto.resp.RatingResp;
 import com.tutorlink.matchmaking_domain.tutordomainmanager.servicemanagement.model.dto.req.TutorServiceReq;
 import com.tutorlink.matchmaking_domain.tutordomainmanager.servicemanagement.model.dto.resp.TutorServiceResp;
 import com.tutorlink.matchmaking_domain.tutordomainmanager.servicemanagement.model.entity.TutorService;
 import com.tutorlink.matchmaking_domain.tutordomainmanager.servicemanagement.repository.TutorServiceRepository;
-import com.tutorlink.matchmaking_domain.tutordomainmanager.servicemanagement.service.feignclients.Client_CrossDomainInteractions_Rating;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +15,6 @@ import java.util.stream.Collectors;
 public class TutorServiceService {
 
     private final TutorServiceRepository tutorServiceRepository;
-    private final Client_CrossDomainInteractions_Rating ratingClient; // Feign Client Injection
 
     public TutorServiceResp createService(TutorServiceReq request) {
         TutorService tutorService = TutorService.builder()
@@ -30,7 +26,8 @@ public class TutorServiceService {
 
         tutorService = tutorServiceRepository.save(tutorService);
 
-        Double averageRating = ratingClient.getAverageRatingForTutor(tutorService.getTutorId()).getBody();
+        // Assuming we compute the average rating in this service or it is stored in the database
+        Double averageRating = computeAverageRating(tutorService.getTutorId());
 
         return new TutorServiceResp(
                 tutorService.getId(),
@@ -46,7 +43,7 @@ public class TutorServiceService {
         TutorService tutorService = tutorServiceRepository.findById(serviceId)
                 .orElseThrow(() -> new RuntimeException("Service not found"));
 
-        Double averageRating = ratingClient.getAverageRatingForTutor(tutorService.getTutorId()).getBody();
+        Double averageRating = computeAverageRating(tutorService.getTutorId());
 
         return new TutorServiceResp(
                 tutorService.getId(),
@@ -61,7 +58,7 @@ public class TutorServiceService {
     public List<TutorServiceResp> getAllServices() {
         return tutorServiceRepository.findAll().stream()
                 .map(service -> {
-                    Double averageRating = ratingClient.getAverageRatingForTutor(service.getTutorId()).getBody();
+                    Double averageRating = computeAverageRating(service.getTutorId());
                     return new TutorServiceResp(
                             service.getId(),
                             service.getTutorId(),
@@ -78,12 +75,11 @@ public class TutorServiceService {
         tutorServiceRepository.deleteById(serviceId);
     }
 
-    public RatingResp submitRating(SubmitRatingReq request) {
-        return ratingClient.submitRating(request).getBody();
-    }
-
-    public List<RatingResp> getRatingsForTutor(Long tutorId) {
-        return ratingClient.getRatingsForTutor(tutorId).getBody();
+    // Mock method to compute the average rating (replace with actual implementation)
+    private Double computeAverageRating(Long tutorId) {
+        // Logic to compute average rating locally or fetch from the repository
+        return tutorServiceRepository.findAverageRatingForTutor(tutorId);
     }
 }
+
 

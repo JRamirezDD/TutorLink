@@ -92,4 +92,3 @@ class PasswordsPage extends StatelessWidget {
     );
   }
 }
-

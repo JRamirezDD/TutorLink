@@ -3,8 +3,6 @@ package com.tutorlink.matchmaking_domain.crossdomaininteractions.connection.mode
 import jakarta.validation.constraints.NotNull;
 
 public record RespondConnectionReq(
-        @NotNull Long connectionId,
-        @NotNull ConnectionReqResponseTypes responseType
-) {}
-
-
+                @NotNull Long connectionId,
+                @NotNull ConnectionReqResponseTypes responseType) {
+}
