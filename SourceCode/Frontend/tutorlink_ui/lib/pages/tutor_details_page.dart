@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tryflutter/fetch_data_page.dart';
 
 class TutorDetailsPage extends StatelessWidget {
   const TutorDetailsPage({super.key});
@@ -30,6 +31,12 @@ class TutorDetailsPage extends StatelessWidget {
               style: TextStyle(fontSize: 18),
             ),
             SizedBox(height: 20),
+
+            // Replace Expanded with a Container with a fixed height
+            SizedBox(
+              height: 200, // Set a finite height for FetchDataPage
+              child: FetchDataPage(),
+            ),
           ],
         ),
       ),

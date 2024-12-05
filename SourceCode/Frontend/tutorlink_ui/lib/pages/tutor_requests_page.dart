@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'messages_page_tutor.dart'; // Import MessagesPageTutor
 import 'chat_page_tutor.dart'; // Import your ChatPageTutor widget
 import 'tutor_home_page.dart'; // Import TutorHomePage
 import 'tasks_page.dart'; // Import TasksPage
@@ -20,6 +21,18 @@ class _TutorRequestsPageState extends State<TutorRequestsPage> {
       'studentName': 'Jane Smith',
       'message': 'I would like to schedule a session for science lessons.',
     },
+    {
+      'studentName': 'Alice Johnson',
+      'message': 'Can you help me with my English assignment?',
+    },
+    {
+      'studentName': 'Robert Brown',
+      'message': 'I need some guidance for my physics project.',
+    },
+    {
+      'studentName': 'Emily Davis',
+      'message': 'I want to learn more about chemistry. Can we schedule a session?',
+    },
   ];
 
   void _openChat(int index) {
@@ -38,10 +51,29 @@ class _TutorRequestsPageState extends State<TutorRequestsPage> {
     }
   }
 
+  void _acceptRequest(int index) {
+    setState(() {
+      studentRequests.removeAt(index);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Request from ${studentRequests[index]['studentName']} accepted.')),
+      );
+    });
+  }
+
+  void _declineRequest(int index) {
+    setState(() {
+      studentRequests.removeAt(index);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Request from ${studentRequests[index]['studentName']} declined.')),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blueAccent,
         title: const Text('Student Requests'),
       ),
       body: Padding(
@@ -80,6 +112,20 @@ class _TutorRequestsPageState extends State<TutorRequestsPage> {
                                 ),
                                 child: const Text('Message'),
                               ),
+                              ElevatedButton(
+                                onPressed: () => _acceptRequest(index),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.green,
+                                ),
+                                child: const Text('Accept'),
+                              ),
+                              ElevatedButton(
+                                onPressed: () => _declineRequest(index),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.red,
+                                ),
+                                child: const Text('Decline'),
+                              ),
                             ],
                           ),
                         ],
@@ -92,24 +138,27 @@ class _TutorRequestsPageState extends State<TutorRequestsPage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard, color: Colors.grey),
+            icon: Icon(Icons.dashboard),
             label: 'Dashboard',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.message, color: Colors.grey),
+            icon: Icon(Icons.message),
             label: 'Messages',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.task, color: Colors.grey),
+            icon: Icon(Icons.task),
             label: 'Tasks',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_add, color: Colors.grey),
+            icon: Icon(Icons.person_add),
             label: 'Requests',
           ),
         ],
         currentIndex: 3,
         selectedItemColor: Colors.blueAccent,
+        unselectedItemColor: Colors.black,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
         onTap: (int index) {
           switch (index) {
             case 0:
@@ -128,9 +177,7 @@ class _TutorRequestsPageState extends State<TutorRequestsPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ChatPageTutor(
-                    studentName: 'Default Student', // Use a default value here
-                  ),
+                  builder: (context) => MessagesPageTutor(),
                 ),
               );
               break;

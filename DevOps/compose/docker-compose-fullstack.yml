@@ -69,6 +69,45 @@ services:
       - student-db
     networks:
       - tutorlink-network
+  
+  cross-domain-interactions:
+    build:
+      context: '../../SourceCode/Backend'
+      dockerfile: Matchmaking_Domain/CrossDomainInteractions/dockerfile
+    ports:
+      - "${MATCHMAKING_DOMAIN_SERVICES_CROSS_DOMAIN_INTERACTIONS_PORT}:${MATCHMAKING_DOMAIN_SERVICES_CROSS_DOMAIN_INTERACTIONS_PORT}"
+    env_file:
+      - ${ENV_FILE}
+    depends_on:
+      - student-db
+    networks:
+      - tutorlink-network
+
+  student-domain-manager:
+    build:
+      context: '../../SourceCode/Backend'
+      dockerfile: Matchmaking_Domain/StudentDomainManager/dockerfile
+    ports:
+      - "${MATCHMAKING_DOMAIN_SERVICES_STUDENT_DOMAIN_MANAGER_PORT}:${MATCHMAKING_DOMAIN_SERVICES_STUDENT_DOMAIN_MANAGER_PORT}"
+    env_file:
+      - ${ENV_FILE}
+    depends_on:
+      - student-db
+    networks:
+      - tutorlink-network
+  
+  tutor-domain-manager:
+    build:
+      context: '../../SourceCode/Backend'
+      dockerfile: Matchmaking_Domain/TutorDomainManager/dockerfile
+    ports:
+      - "${MATCHMAKING_DOMAIN_SERVICES_TUTOR_DOMAIN_MANAGER_PORT}:${MATCHMAKING_DOMAIN_SERVICES_TUTOR_DOMAIN_MANAGER_PORT}"
+    env_file:
+      - ${ENV_FILE}
+    depends_on:
+      - student-db
+    networks:
+      - tutorlink-network
 
 ### Other backend services...
 

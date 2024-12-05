@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'saved_tutor_page.dart'; // Import the Saved Tutors Page
 import 'welcome_page.dart'; // Import the Welcome Page
 import 'subscription_page.dart'; // Import the Subscription Page
+import 'password_management_page.dart'; // Import the Password Management Page
 
 class UserSettingsPage extends StatefulWidget {
   const UserSettingsPage({super.key});
@@ -39,8 +40,8 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
               ListTile(
                 leading: const Icon(Icons.account_circle, color: Colors.black),
                 title: const Text('Accounts Centre'),
-                subtitle: const Text('Password, security, personal details, ad preferences'),
-                trailing: const Icon(Icons.arrow_forward_ios),
+                subtitle: const Text('Password, security, personal details'),
+              
                 onTap: () {},
               ),
               Padding(
@@ -86,24 +87,20 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                   );
                 },
               ),
-              const SizedBox(height: 24),
-              Text(
-                'Privacy Settings',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey[700] ?? Colors.grey,
-                ),
-              ),
               ListTile(
-                leading: const Icon(Icons.lock_outline),
-                title: const Text('Account Privacy'),
-                trailing: Text(
-                  'Private',
-                  style: TextStyle(color: Colors.grey[600] ?? Colors.grey),
-                ),
-                onTap: () {},
-              ),
+  leading: const Icon(Icons.lock),
+  title: const Text('Password'),
+  trailing: const Icon(Icons.arrow_forward_ios),
+  onTap: () {
+    // Navigate to Password Management Page
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const PasswordManagementPage()),
+    );
+  },
+),
+
+              
               const SizedBox(height: 24),
               Text(
                 'Actions',

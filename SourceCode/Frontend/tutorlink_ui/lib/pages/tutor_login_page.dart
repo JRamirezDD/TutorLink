@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'tutor_home_page.dart';
-
+import '../fetch_data_page.dart';
 class TutorLoginPage extends StatefulWidget {
   const TutorLoginPage({super.key});
 
@@ -20,8 +20,7 @@ class _TutorLoginPageState extends State<TutorLoginPage> {
     // Dummy data for demonstration
     if (username == 'tutor123' && password == 'password123') {
       String tutorName = "John Doe"; // Replace with data from your backend
-      String subjects =
-          "Mathematics, Science"; // Replace with data from backend
+      String subjects = "Mathematics, Science"; // Replace with data from backend
       String hourlyRate = "25"; // Replace with data from backend
 
       Navigator.push(
@@ -79,17 +78,11 @@ class _TutorLoginPageState extends State<TutorLoginPage> {
               const SizedBox(height: 20),
 
               // Integration of FetchDataPage
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: Text(
-                  'Additional Information for Tutors:',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey[700],
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+              
+              
+              const SizedBox(
+                height: 150, // Set a finite height for FetchDataPage
+                child: FetchDataPage(),
               ),
             ],
           ),

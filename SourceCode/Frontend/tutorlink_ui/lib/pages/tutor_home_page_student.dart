@@ -78,10 +78,7 @@ class TutorHomePageStudent extends StatelessWidget {
               'About the Tutor:',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            const Text(
-              'This is a placeholder for the tutor\'s bio or description. You can fetch and display more details about the tutor from the backend here.',
-              style: TextStyle(fontSize: 16),
-            ),
+            
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
