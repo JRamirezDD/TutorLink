@@ -3,7 +3,6 @@ import 'package:tryflutter/UserService.dart';
 import 'student_home_page.dart' as student_page;
 import 'user_settings_page.dart';
 import 'catalog_subjects_page.dart';
-import '../fetch_data_page.dart';
 import 'chat_page.dart'; // Import the ChatPage
 import 'your_tutors_page.dart'; // Import the "My Tutors" page
 
@@ -38,7 +37,6 @@ class MessagesPage extends StatelessWidget {
           Container(
             height: 150, // Set a finite height for the FetchDataPage
             padding: const EdgeInsets.all(8.0),
-            child: const FetchDataPage(),
           ),
           Expanded(
             child: ListView(

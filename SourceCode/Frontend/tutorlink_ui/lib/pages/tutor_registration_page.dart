@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'tutor_home_page.dart'; // Import TutorHomePage
-import '../fetch_data_page.dart';
 
 class TutorRegistrationPage extends StatefulWidget {
   const TutorRegistrationPage({super.key});
@@ -15,11 +14,13 @@ class _TutorRegistrationPageState extends State<TutorRegistrationPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _repeatPasswordController = TextEditingController();
+  final TextEditingController _repeatPasswordController =
+      TextEditingController();
   final TextEditingController _dobController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
-  final TextEditingController _briefDescriptionController = TextEditingController();
+  final TextEditingController _briefDescriptionController =
+      TextEditingController();
   final TextEditingController _hourlyRateController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
@@ -36,7 +37,8 @@ class _TutorRegistrationPageState extends State<TutorRegistrationPage> {
     'Python'
   ];
 
-  final List<Map<String, String>> _addedSubjects = []; // Added subjects with hourly rates
+  final List<Map<String, String>> _addedSubjects =
+      []; // Added subjects with hourly rates
 
   bool _validateRegistration() {
     return _firstNameController.text.isNotEmpty &&
@@ -204,7 +206,8 @@ class _TutorRegistrationPageState extends State<TutorRegistrationPage> {
                     _selectedSubject = newValue;
                   });
                 },
-                items: _predefinedSubjects.map<DropdownMenuItem<String>>((String subject) {
+                items: _predefinedSubjects
+                    .map<DropdownMenuItem<String>>((String subject) {
                   return DropdownMenuItem<String>(
                     value: subject,
                     child: Text(subject),
@@ -244,7 +247,8 @@ class _TutorRegistrationPageState extends State<TutorRegistrationPage> {
                     ..._addedSubjects.map((subject) {
                       return ListTile(
                         title: Text(subject['subject'] ?? ''),
-                        subtitle: Text('Hourly Rate: €${subject['hourlyRate']}'),
+                        subtitle:
+                            Text('Hourly Rate: €${subject['hourlyRate']}'),
                         trailing: IconButton(
                           icon: const Icon(Icons.delete),
                           onPressed: () {
@@ -267,16 +271,20 @@ class _TutorRegistrationPageState extends State<TutorRegistrationPage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => TutorHomePage(
-                          tutorName: '${_firstNameController.text} ${_lastNameController.text}',
+                          tutorName:
+                              '${_firstNameController.text} ${_lastNameController.text}',
                           subjects: _addedSubjects
-                              .map((e) => '${e['subject']} (€${e['hourlyRate']}/hr)')
+                              .map((e) =>
+                                  '${e['subject']} (€${e['hourlyRate']}/hr)')
                               .join(', '),
-                          hourlyRate: '', // Not used as individual rates are specified
+                          hourlyRate:
+                              '', // Not used as individual rates are specified
                         ),
                       ),
                     );
                   } else {
-                    _showAlert('Error', 'Please fill in all mandatory fields and add at least one subject.');
+                    _showAlert('Error',
+                        'Please fill in all mandatory fields and add at least one subject.');
                   }
                 },
                 child: const Text('Register'),
@@ -289,10 +297,6 @@ class _TutorRegistrationPageState extends State<TutorRegistrationPage> {
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
-              const SizedBox(
-                height: 200.0,
-                child: FetchDataPage(),
-              ),
             ],
           ),
         ),

@@ -14,7 +14,7 @@ class UserService {
   // Get userId from SharedPreferences when the app starts
   Future<void> loadUserId() async {
     final prefs = await SharedPreferences.getInstance();
-    _userId = prefs.getString('userId');
+    _userId = prefs.getString('userId') ?? '0';
   }
 
   // Set userId and save it to SharedPreferences

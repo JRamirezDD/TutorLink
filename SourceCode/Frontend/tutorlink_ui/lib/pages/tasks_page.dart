@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../fetch_data_page.dart';
-import 'tutor_home_page.dart'; // Import TutorHomePage
+// Import TutorHomePage
 import 'tutor_requests_page.dart'; // Import TutorRequestsPage
 import 'messages_page_tutor.dart'; // Import MessagesPage
 
@@ -60,10 +59,6 @@ class _TasksPageState extends State<TasksPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            // Fetch Data Widget added at the top to display important data
-            const Expanded(
-              child: FetchDataPage(),
-            ),
             const SizedBox(height: 16),
             // Row to display "Done Tasks" and "To-Do Tasks" lists
             Expanded(

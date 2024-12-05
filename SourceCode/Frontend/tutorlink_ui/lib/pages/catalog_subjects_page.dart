@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'messages_page.dart';
-import 'student_home_page.dart' as student_page;
 import 'user_settings_page.dart';
 import 'top_rated_tutors_page.dart'; // Import the new page
-import '../fetch_data_page.dart';
-import 'your_tutors_page.dart'; // Import My Tutors page
+// Import My Tutors page
 
 class CatalogSubjectsPage extends StatefulWidget {
   const CatalogSubjectsPage({super.key});
@@ -98,12 +95,6 @@ class _CatalogSubjectsPageState extends State<CatalogSubjectsPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 16),
-
-            // Adding the FetchDataPage with height constraints
-            const SizedBox(
-              height: 150, // Set a finite height for the FetchDataPage
-              child: FetchDataPage(),
-            ),
 
             const SizedBox(height: 16),
 

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'edit_profile_page.dart';
 import 'messages_page_tutor.dart';
-import 'tasks_page.dart';
-import 'user_settings_page.dart';
 import 'tutor_requests_page.dart'; // Import the TutorRequestsPage
 
 class TutorHomePage extends StatefulWidget {

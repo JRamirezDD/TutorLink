@@ -3,7 +3,6 @@ import 'package:tryflutter/StudentDomain_ApiService.dart';
 import 'package:tryflutter/UserService.dart';
 import 'package:tryflutter/models/student_domain/req.dart';
 import 'student_home_page.dart'; // Import the StudentHomePage
-import '../fetch_data_page.dart'; // Include the FetchDataPage
 
 class StudentLoginPage extends StatefulWidget {
   const StudentLoginPage({super.key});
@@ -110,24 +109,6 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
                   child: const Text('Login'),
                 ),
                 const SizedBox(height: 20),
-
-                // Include FetchDataPage below the login button
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Text(
-                    'Additional Information:',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey[700],
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 150, // Constrain the height of FetchDataPage
-                  child:
-                      FetchDataPage(), // Display the FetchDataPage widget here
-                ),
               ],
             ),
           ),

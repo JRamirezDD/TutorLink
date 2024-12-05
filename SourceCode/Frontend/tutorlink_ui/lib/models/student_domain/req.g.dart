@@ -107,3 +107,34 @@ Map<String, dynamic> _$LoginReqToJson(LoginReq instance) => <String, dynamic>{
       'username': instance.username,
       'password': instance.password,
     };
+
+RegisterUserReq _$RegisterUserReqFromJson(Map<String, dynamic> json) =>
+    RegisterUserReq(
+      json['username'] as String?,
+      json['password'] as String?,
+      json['email'] as String?,
+    );
+
+Map<String, dynamic> _$RegisterUserReqToJson(RegisterUserReq instance) =>
+    <String, dynamic>{
+      'username': instance.username,
+      'password': instance.password,
+      'email': instance.email,
+    };
+
+UserEntity _$UserEntityFromJson(Map<String, dynamic> json) => UserEntity(
+      json['id'] as String?,
+      json['username'] as String?,
+      json['password'] as String?,
+      json['email'] as String?,
+      json['googleId'] as String?,
+    );
+
+Map<String, dynamic> _$UserEntityToJson(UserEntity instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'username': instance.username,
+      'password': instance.password,
+      'email': instance.email,
+      'googleId': instance.googleId,
+    };

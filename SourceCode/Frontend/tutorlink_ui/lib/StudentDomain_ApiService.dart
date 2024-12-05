@@ -8,7 +8,7 @@ import 'package:tutorlink_frontend_http_package/frontend_http_package.dart'; // 
 class StudentDomain_ApiService {
   final ApiClient apiClient = ApiClient(baseUrl: BASE_URL);
 
-  final String baseEndpoint = "/student";
+  final String baseEndpoint = "/gateway/student";
 
   // Singleton instance
   static StudentDomain_ApiService? _instance;
@@ -21,24 +21,35 @@ class StudentDomain_ApiService {
   }
 
   // Register a new student account
-  Future<void> registerStudent(UpdateStudentProfileReq registrationData) async {
+  Future<void> registerStudent(RegisterUserReq registerUserReq,
+      UpdateStudentProfileReq registrationData) async {
+    await _postRequest('${baseEndpoint}/auth/authentication/register',
+        registerUserReq.toJson());
+
     await _postRequest(
-        '${baseEndpoint}/auth/registration', registrationData.toJson());
+        '${baseEndpoint}/functional/profile', registrationData.toJson());
     return null;
   }
 
   // Login a student account - P - userId return format?
-  Future<void> loginStudent(LoginReq loginData) async {
-    final response =
-        await _postRequest('${baseEndpoint}/auth/login', loginData.toJson());
-    _userService.setCurrentUserId(response?['userId']);
+  Future<String> loginStudent(LoginReq loginData) async {
+    final response = await _postRequest(
+        '${baseEndpoint}/auth/authentication/login', loginData.toJson());
+
+    final getUserIdResponse =
+        await _getRequest('${baseEndpoint}/auth/authentication/user');
+
+    final user = UserEntity.fromJson(getUserIdResponse!);
+
+    _userService.setCurrentUserId(user.id!);
     _userService.setUserType('student');
-    return null;
+    return _userService.currentUserId.toString();
   }
 
   // Login a student account
   Future<void> logoutStudent() async {
-    final response = await _postRequest('${baseEndpoint}/auth/logout', null);
+    final response =
+        await _postRequest('${baseEndpoint}/auth/authentication/logout', null);
     if (response != null) {
       _userService.clearUserId();
       _userService.clearUserType();
@@ -48,7 +59,8 @@ class StudentDomain_ApiService {
 
   // Fetch student profile by ID
   Future<StudentProfileResp?> getStudentProfile(String studentId) async {
-    final response = await _getRequest('${baseEndpoint}/profile/$studentId');
+    final response =
+        await _getRequest('${baseEndpoint}/functional/profile/$studentId');
     if (response != null) {
       return StudentProfileResp.fromJson(response);
     }
@@ -58,8 +70,8 @@ class StudentDomain_ApiService {
   // Update student profile
   Future<StudentProfileResp?> updateStudentProfile(
       UpdateStudentProfileReq profileData) async {
-    final response =
-        await _putRequest('${baseEndpoint}/profile', profileData.toJson());
+    final response = await _putRequest(
+        '${baseEndpoint}/functional/profile', profileData.toJson());
     if (response != null) {
       return StudentProfileResp.fromJson(response);
     }
@@ -70,7 +82,7 @@ class StudentDomain_ApiService {
   Future<SubscriptionStatusResp?> getSubscriptionStatus(
       String studentId) async {
     final response =
-        await _getRequest('${baseEndpoint}/subscription/$studentId');
+        await _getRequest('${baseEndpoint}/functional/subscription/$studentId');
     if (response != null) {
       return SubscriptionStatusResp.fromJson(response);
     }
@@ -79,7 +91,8 @@ class StudentDomain_ApiService {
 
   // Fetch available courses
   Future<List<CourseCatalogResp>?> getAllCourses() async {
-    final response = await _getRequestList('${baseEndpoint}/catalog/courses');
+    final response =
+        await _getRequestList('${baseEndpoint}/functional/catalog/courses');
     if (response != null) {
       return response
           .map((courseJson) => CourseCatalogResp.fromJson(courseJson))
@@ -90,8 +103,8 @@ class StudentDomain_ApiService {
 
   // Fetch specific course details
   Future<CourseDetailResp?> getCourseDetails(String courseId) async {
-    final response =
-        await _getRequest('${baseEndpoint}/catalog/courses/$courseId');
+    final response = await _getRequest(
+        '${baseEndpoint}/functional/catalog/courses/$courseId');
     if (response != null) {
       return CourseDetailResp.fromJson(response);
     }
@@ -102,7 +115,7 @@ class StudentDomain_ApiService {
   Future<EnrollmentStatusResp?> enrollInCourse(
       String courseId, EnrollmentReq enrollmentData) async {
     final response = await _postRequest(
-        '${baseEndpoint}/catalog/courses/$courseId/enroll',
+        '${baseEndpoint}/functional/catalog/courses/$courseId/enroll',
         enrollmentData.toJson());
     if (response != null) {
       return EnrollmentStatusResp.fromJson(response);
@@ -113,7 +126,7 @@ class StudentDomain_ApiService {
   // Fetch all enrolled courses
   Future<List<CourseCatalogResp>?> getEnrolledCourses(String studentId) async {
     final response = await _getRequestList(
-        '${baseEndpoint}/catalog/enrolled?studentId=$studentId');
+        '${baseEndpoint}/functional/catalog/enrolled?studentId=$studentId');
     if (response != null) {
       return response
           .map((courseJson) => CourseCatalogResp.fromJson(courseJson))
@@ -125,7 +138,7 @@ class StudentDomain_ApiService {
   // Send a message between users
   Future<MessageResp?> sendMessage(SendMessageReq messageData) async {
     final response = await _postRequest(
-        '${baseEndpoint}/messages/send', messageData.toJson());
+        '${baseEndpoint}/functional/messages/send', messageData.toJson());
     if (response != null) {
       return MessageResp.fromJson(response);
     }
@@ -136,7 +149,7 @@ class StudentDomain_ApiService {
   Future<List<MessageResp>?> getConversation(
       String userId, String otherUserId) async {
     final response = await _getRequestList(
-        '${baseEndpoint}/messages/conversation/$userId/$otherUserId');
+        '${baseEndpoint}/functional/messages/conversation/$userId/$otherUserId');
     if (response != null) {
       return response
           .map((messageJson) => MessageResp.fromJson(messageJson))
@@ -147,7 +160,7 @@ class StudentDomain_ApiService {
 
   // Fetch all tutors
   Future<List<TutorProfileResp>?> getAllTutors() async {
-    final response = await _getRequestList('${baseEndpoint}/tutors');
+    final response = await _getRequestList('${baseEndpoint}/functional/tutors');
     if (response != null) {
       return response
           .map((tutorJson) => TutorProfileResp.fromJson(tutorJson))
@@ -158,7 +171,8 @@ class StudentDomain_ApiService {
 
   // Fetch tutor profile by ID
   Future<TutorProfileResp?> getTutorProfile(String tutorId) async {
-    final response = await _getRequest('${baseEndpoint}/tutors/$tutorId');
+    final response =
+        await _getRequest('${baseEndpoint}/functional/tutors/$tutorId');
     if (response != null) {
       return TutorProfileResp.fromJson(response);
     }
@@ -167,8 +181,8 @@ class StudentDomain_ApiService {
 
   // Create a payment request
   Future<PaymentResp?> createPaymentRequest(PaymentReq paymentData) async {
-    final response =
-        await _postRequest('${baseEndpoint}/payment', paymentData.toJson());
+    final response = await _postRequest(
+        '${baseEndpoint}/functional/payment', paymentData.toJson());
     if (response != null) {
       return PaymentResp.fromJson(response);
     }
@@ -177,8 +191,8 @@ class StudentDomain_ApiService {
 
   // Pay a payment request
   Future<PaymentConfirmationResp?> payRequest(String paymentId) async {
-    final response =
-        await _postRequest('${baseEndpoint}/payment/$paymentId/pay', null);
+    final response = await _postRequest(
+        '${baseEndpoint}/functional/payment/$paymentId/pay', null);
     if (response != null) {
       return PaymentConfirmationResp.fromJson(response);
     }
@@ -188,8 +202,8 @@ class StudentDomain_ApiService {
   // Decline a payment request
   Future<PaymentConfirmationResp?> declinePaymentRequest(
       String paymentId) async {
-    final response =
-        await _postRequest('${baseEndpoint}/payment/$paymentId/decline', null);
+    final response = await _postRequest(
+        '${baseEndpoint}/functional/payment/$paymentId/decline', null);
     if (response != null) {
       return PaymentConfirmationResp.fromJson(response);
     }
@@ -200,7 +214,8 @@ class StudentDomain_ApiService {
   Future<PaymentConfirmationResp?> confirmAcceptPayment(
       String paymentRequestId) async {
     final response = await _postRequest(
-        '${baseEndpoint}/payment/$paymentRequestId/confirm/accept', null);
+        '${baseEndpoint}/functional/payment/$paymentRequestId/confirm/accept',
+        null);
     if (response != null) {
       return PaymentConfirmationResp.fromJson(response);
     }
@@ -211,7 +226,8 @@ class StudentDomain_ApiService {
   Future<PaymentConfirmationResp?> confirmRejectPayment(
       String paymentRequestId) async {
     final response = await _postRequest(
-        '${baseEndpoint}/payment/$paymentRequestId/confirm/reject', null);
+        '${baseEndpoint}/functional/payment/$paymentRequestId/confirm/reject',
+        null);
     if (response != null) {
       return PaymentConfirmationResp.fromJson(response);
     }
@@ -221,7 +237,7 @@ class StudentDomain_ApiService {
   // Upgrade to Gold subscription
   Future<SubscriptionResp?> upgradeToGold(String studentId) async {
     final response = await _postRequest(
-        '${baseEndpoint}/subscription/$studentId/upgrade', null);
+        '${baseEndpoint}/functional/subscription/$studentId/upgrade', null);
     if (response != null) {
       return SubscriptionResp.fromJson(response);
     }

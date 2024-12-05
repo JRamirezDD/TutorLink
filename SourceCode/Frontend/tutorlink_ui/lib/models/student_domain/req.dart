@@ -128,6 +128,7 @@ class UpdateStudentProfileReq {
   Map<String, dynamic> toJson() => _$UpdateStudentProfileReqToJson(this);
 }
 
+// Auth Requestss
 @JsonSerializable()
 class LoginReq {
   final String? username;
@@ -142,4 +143,34 @@ class LoginReq {
       _$LoginReqFromJson(json);
 
   Map<String, dynamic> toJson() => _$LoginReqToJson(this);
+}
+
+@JsonSerializable()
+class RegisterUserReq {
+  final String? username;
+  final String? password;
+  final String? email;
+
+  RegisterUserReq(this.username, this.password, this.email);
+
+  factory RegisterUserReq.fromJson(Map<String, dynamic> json) =>
+      _$RegisterUserReqFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RegisterUserReqToJson(this);
+}
+
+@JsonSerializable()
+class UserEntity {
+  final String? id;
+  final String? username;
+  final String? password;
+  final String? email;
+  final String? googleId;
+
+  UserEntity(this.id, this.username, this.password, this.email, this.googleId);
+
+  factory UserEntity.fromJson(Map<String, dynamic> json) =>
+      _$UserEntityFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UserEntityToJson(this);
 }

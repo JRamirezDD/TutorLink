@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:intl/intl.dart'; // For formatting LocalDateTime
+// For formatting LocalDateTime
 
 part 'resp.g.dart'; // Generates the serialization code
 

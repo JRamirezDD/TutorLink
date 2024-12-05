@@ -92,7 +92,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
     if (profile != null) {
       setState(() {
         studentProfile = profile;
-        isGoldSubscriber = profile.subscriptionLevel == "Gold";
+        isGoldSubscriber = profile.subscriptionLevel == "GOLD";
       });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
