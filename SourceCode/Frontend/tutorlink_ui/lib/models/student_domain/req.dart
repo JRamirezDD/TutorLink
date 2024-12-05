@@ -127,3 +127,19 @@ class UpdateStudentProfileReq {
 
   Map<String, dynamic> toJson() => _$UpdateStudentProfileReqToJson(this);
 }
+
+@JsonSerializable()
+class LoginReq {
+  final String? username;
+  final String? password;
+
+  LoginReq({
+    this.username,
+    this.password,
+  });
+
+  factory LoginReq.fromJson(Map<String, dynamic> json) =>
+      _$LoginReqFromJson(json);
+
+  Map<String, dynamic> toJson() => _$LoginReqToJson(this);
+}

@@ -15,5 +15,3 @@ public class StudentViewerService {
         return studentProfileClient.getStudentProfile(studentId).getBody();
     }
 }
-
-

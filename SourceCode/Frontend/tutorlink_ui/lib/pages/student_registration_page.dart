@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tryflutter/StudentDomain_ApiService.dart';
+import 'package:tryflutter/UserService.dart';
+import 'package:tryflutter/pages/student_login_page.dart';
 import 'student_home_page.dart';
 import '../fetch_data_page.dart';
 
@@ -67,9 +69,7 @@ class _StudentRegistrationPageState extends State<StudentRegistrationPage> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => StudentHomePage(
-              username: username,
-            ),
+            builder: (context) => StudentLoginPage(),
           ),
         );
       } else {

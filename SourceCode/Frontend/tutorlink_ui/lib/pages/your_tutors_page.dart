@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tryflutter/UserService.dart';
 import 'catalog_subjects_page.dart';
 import 'messages_page.dart';
 import 'student_home_page.dart';
@@ -75,49 +76,51 @@ class YourTutorsPage extends StatelessWidget {
           );
         },
       ),
-     bottomNavigationBar: BottomNavigationBar(
-  type: BottomNavigationBarType.fixed,
-  currentIndex: 3, // Correct index for "My Tutors"
-  onTap: (index) {
-    if (index == 0) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => StudentHomePage(username: 'YourUsername'),
-        ),
-      );
-    } else if (index == 1) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const CatalogSubjectsPage()),
-      );
-    } else if (index == 2) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const MessagesPage()),
-      );
-    }
-  },
-  items: const [
-    BottomNavigationBarItem(
-      icon: Icon(Icons.dashboard),
-      label: 'Dashboard',
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.list),
-      label: 'Catalog',
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.message),
-      label: 'Messages',
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.people),
-      label: 'My Tutors',
-    ),
-  ],
-),
-
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        currentIndex: 3, // Correct index for "My Tutors"
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => StudentHomePage(
+                  userId: UserService().currentUserId.toString(),
+                ),
+              ),
+            );
+          } else if (index == 1) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const CatalogSubjectsPage()),
+            );
+          } else if (index == 2) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const MessagesPage()),
+            );
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.dashboard),
+            label: 'Dashboard',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: 'Catalog',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            label: 'Messages',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            label: 'My Tutors',
+          ),
+        ],
+      ),
     );
   }
 
@@ -146,7 +149,8 @@ class YourTutorsPage extends StatelessWidget {
                         ),
                         onPressed: () {
                           setState(() {
-                            rating = index + 1.0; // Update the rating dynamically
+                            rating =
+                                index + 1.0; // Update the rating dynamically
                           });
                         },
                       );
@@ -174,7 +178,8 @@ class YourTutorsPage extends StatelessWidget {
                   onPressed: () {
                     // Handle Review Submission
                     final String reviewText = reviewController.text;
-                    print('Rating: $rating stars, Review: $reviewText for $tutorName');
+                    print(
+                        'Rating: $rating stars, Review: $reviewText for $tutorName');
                     Navigator.pop(context); // Close the dialog
                   },
                   child: const Text('Submit'),

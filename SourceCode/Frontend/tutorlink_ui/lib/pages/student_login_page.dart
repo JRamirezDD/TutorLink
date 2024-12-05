@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tryflutter/StudentDomain_ApiService.dart';
+import 'package:tryflutter/UserService.dart';
+import 'package:tryflutter/models/student_domain/req.dart';
 import 'student_home_page.dart'; // Import the StudentHomePage
 import '../fetch_data_page.dart'; // Include the FetchDataPage
 
@@ -15,31 +18,34 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  // Dummy database for username and password validation
-  final Map<String, String> _dummyUsers = {
-    'student1': 'password1',
-    'student2': 'password2',
-    'student3': 'password3',
-  };
+  // Instantiate your ApiService
+  final StudentDomain_ApiService apiService = StudentDomain_ApiService();
 
-  void _login() {
+  void _login() async {
     if (_formKey.currentState!.validate()) {
       String username = _usernameController.text;
       String password = _passwordController.text;
 
-      // Check credentials against the dummy database
-      if (_dummyUsers.containsKey(username) && _dummyUsers[username] == password) {
+      LoginReq loginReq = LoginReq(username: username, password: password);
+
+      try {
+        // Call your API to authenticate the student
+        await apiService.loginStudent(loginReq);
+
         // Navigate to StudentHomePage after successful login
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => StudentHomePage(username: username), // Pass the username
+            builder: (context) => StudentHomePage(
+                userId: UserService()
+                    .currentUserId
+                    .toString()), // Pass the username
           ),
         );
-      } else {
-        // Show error if login fails
+      } catch (e) {
+        // Handle API errors
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Invalid username or password')),
+          SnackBar(content: Text('Error: ${e.toString()}')),
         );
       }
     }
@@ -119,7 +125,8 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
                 ),
                 const SizedBox(
                   height: 150, // Constrain the height of FetchDataPage
-                  child: FetchDataPage(), // Display the FetchDataPage widget here
+                  child:
+                      FetchDataPage(), // Display the FetchDataPage widget here
                 ),
               ],
             ),

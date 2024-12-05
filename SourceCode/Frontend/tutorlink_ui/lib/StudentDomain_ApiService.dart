@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:tryflutter/UserService.dart';
 import 'package:tryflutter/config.dart';
 import 'package:tryflutter/models/student_domain/req.dart';
 import 'package:tryflutter/models/student_domain/resp.dart';
@@ -12,27 +13,37 @@ class StudentDomain_ApiService {
   // Singleton instance
   static StudentDomain_ApiService? _instance;
 
+  final UserService _userService = UserService();
+
   // Static method to get the instance
   static StudentDomain_ApiService getInstance() {
     return _instance!;
   }
 
   // Register a new student account
-  Future<StudentProfileResp?> registerStudent(
-      UpdateStudentProfileReq registrationData) async {
-    final response = await _postRequest(
+  Future<void> registerStudent(UpdateStudentProfileReq registrationData) async {
+    await _postRequest(
         '${baseEndpoint}/auth/registration', registrationData.toJson());
-    if (response != null) {
-      return StudentProfileResp.fromJson(response);
-    }
     return null;
   }
 
-  // Validate a session token
-  Future<Map<String, dynamic>?> validateSession(String token) async {
-    return await _getRequest('${baseEndpoint}/auth/validate', headers: {
-      'Authorization': 'Bearer $token',
-    });
+  // Login a student account - P - userId return format?
+  Future<void> loginStudent(LoginReq loginData) async {
+    final response =
+        await _postRequest('${baseEndpoint}/auth/login', loginData.toJson());
+    _userService.setCurrentUserId(response?['userId']);
+    _userService.setUserType('student');
+    return null;
+  }
+
+  // Login a student account
+  Future<void> logoutStudent() async {
+    final response = await _postRequest('${baseEndpoint}/auth/logout', null);
+    if (response != null) {
+      _userService.clearUserId();
+      _userService.clearUserType();
+    }
+    return null;
   }
 
   // Fetch student profile by ID

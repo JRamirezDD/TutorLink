@@ -22,7 +22,7 @@ dependencies:
   cupertino_icons: ^1.0.8
 
   # State Management (Optional, use this if needed)
-  provider: ^6.1.2 # Added provider for state management
+  provider: ^6.0.4
 
   tutorlink_frontend_http_package:
     git:
@@ -30,13 +30,14 @@ dependencies:
       ref: main # Optional, specify a branch, tag, or commit
       path: "SourceCode/Frontend/tutorlink_frontend_http_package" # Path within the repository
   intl: ^0.20.1
+  shared_preferences: ^2.3.3
+  graphql_flutter: ^5.2.0-beta.7
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^2.4.6
   json_serializable: ^6.6.1
-  shared_preferences: ^2.3.3
 
 flutter:
   uses-material-design: true

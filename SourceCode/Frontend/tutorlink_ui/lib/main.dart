@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tryflutter/UserService.dart';
 import 'pages/student_home_page.dart';
 import 'pages/student_login_page.dart';
 import 'pages/tutor_login_page.dart';
@@ -26,7 +28,11 @@ const String tutorHomeRoute = '/tutorHome';
 const String userSettingsRoute = '/userSettings';
 const String fetchDataRoute = '/fetchData';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await UserService().loadUserId();
+
   runApp(MyApp());
 }
 
@@ -51,8 +57,9 @@ class MyApp extends StatelessWidget {
             StudentRegistrationPage(), // Route for student registration page
         registerTutorRoute: (context) =>
             TutorRegistrationPage(), // Route for tutor registration page
-        studentHomeRoute: (context) =>
-            StudentHomePage(username: 'Guest'), // Home page
+        studentHomeRoute: (context) => StudentHomePage(
+              userId: UserService().currentUserId.toString(),
+            ), // Home page
         catalogRoute: (context) =>
             CatalogSubjectsPage(), // Catalog subjects page
         messagesPageRoute: (context) =>

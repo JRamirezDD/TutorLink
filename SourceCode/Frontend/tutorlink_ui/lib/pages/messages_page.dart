@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tryflutter/UserService.dart';
 import 'student_home_page.dart' as student_page;
 import 'user_settings_page.dart';
 import 'catalog_subjects_page.dart';
@@ -45,7 +46,8 @@ class MessagesPage extends StatelessWidget {
               children: [
                 ListTile(
                   leading: const CircleAvatar(
-                    backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+                    backgroundImage:
+                        NetworkImage('https://via.placeholder.com/150'),
                   ),
                   title: const Text('John Doe'),
                   subtitle: const Text('Hey! How are you doing?'),
@@ -54,7 +56,8 @@ class MessagesPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const ChatPage(userName: 'John Doe'),
+                        builder: (context) =>
+                            const ChatPage(userName: 'John Doe'),
                       ),
                     );
                   },
@@ -62,7 +65,8 @@ class MessagesPage extends StatelessWidget {
                 const Divider(),
                 ListTile(
                   leading: const CircleAvatar(
-                    backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+                    backgroundImage:
+                        NetworkImage('https://via.placeholder.com/150'),
                   ),
                   title: const Text('Jane Smith'),
                   subtitle: const Text('Can we schedule a session tomorrow?'),
@@ -71,7 +75,8 @@ class MessagesPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const ChatPage(userName: 'Jane Smith'),
+                        builder: (context) =>
+                            const ChatPage(userName: 'Jane Smith'),
                       ),
                     );
                   },
@@ -79,7 +84,8 @@ class MessagesPage extends StatelessWidget {
                 const Divider(),
                 ListTile(
                   leading: const CircleAvatar(
-                    backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+                    backgroundImage:
+                        NetworkImage('https://via.placeholder.com/150'),
                   ),
                   title: const Text('Alex Johnson'),
                   subtitle: const Text('Thanks for your help!'),
@@ -88,7 +94,8 @@ class MessagesPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const ChatPage(userName: 'Alex Johnson'),
+                        builder: (context) =>
+                            const ChatPage(userName: 'Alex Johnson'),
                       ),
                     );
                   },
@@ -96,16 +103,19 @@ class MessagesPage extends StatelessWidget {
                 const Divider(),
                 ListTile(
                   leading: const CircleAvatar(
-                    backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+                    backgroundImage:
+                        NetworkImage('https://via.placeholder.com/150'),
                   ),
                   title: const Text('Emily Davis'),
-                  subtitle: const Text('Do you have any availability next week?'),
+                  subtitle:
+                      const Text('Do you have any availability next week?'),
                   trailing: const Text('Monday'),
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const ChatPage(userName: 'Emily Davis'),
+                        builder: (context) =>
+                            const ChatPage(userName: 'Emily Davis'),
                       ),
                     );
                   },
@@ -125,8 +135,8 @@ class MessagesPage extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      student_page.StudentHomePage(username: 'Student'),
+                  builder: (context) => student_page.StudentHomePage(
+                      userId: UserService().currentUserId.toString()),
                 ),
               );
               break;
@@ -134,7 +144,8 @@ class MessagesPage extends StatelessWidget {
               // Navigate to Catalog
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const CatalogSubjectsPage()),
+                MaterialPageRoute(
+                    builder: (context) => const CatalogSubjectsPage()),
               );
               break;
             case 2:
@@ -144,8 +155,7 @@ class MessagesPage extends StatelessWidget {
               // Navigate to My Tutors
               Navigator.pushReplacement(
                 context,
-               MaterialPageRoute(builder: (context) => YourTutorsPage()),
-
+                MaterialPageRoute(builder: (context) => YourTutorsPage()),
               );
               break;
           }

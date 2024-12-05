@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tryflutter/StudentDomain_ApiService.dart';
+import 'package:tryflutter/models/student_domain/resp.dart';
 import 'catalog_subjects_page.dart';
 import 'messages_page.dart';
 import 'user_settings_page.dart';
@@ -11,9 +13,9 @@ import 'your_tutors_page.dart';
 List<Map<String, dynamic>> savedTutors = [];
 
 class StudentHomePage extends StatefulWidget {
-  final String username;
+  final String userId;
 
-  StudentHomePage({super.key, required this.username});
+  StudentHomePage({super.key, required this.userId});
 
   @override
   _StudentHomePageState createState() => _StudentHomePageState();
@@ -68,6 +70,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
   ];
 
   bool isGoldSubscriber = false;
+  StudentProfileResp? studentProfile;
 
   String? selectedSubject;
   double maxRate = 100.0;
@@ -79,18 +82,38 @@ class _StudentHomePageState extends State<StudentHomePage> {
   @override
   void initState() {
     super.initState();
+    _fetchStudentProfile();
     filteredTutors = tutors; // Initially display all tutors
+  }
+
+  Future<void> _fetchStudentProfile() async {
+    final profile =
+        await StudentDomain_ApiService().getStudentProfile(widget.userId);
+    if (profile != null) {
+      setState(() {
+        studentProfile = profile;
+        isGoldSubscriber = profile.subscriptionLevel == "Gold";
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Failed to fetch profile')),
+      );
+    }
   }
 
   void applyFilters() {
     setState(() {
       filteredTutors = tutors.where((tutor) {
-        bool matchesSubject = selectedSubject == null || tutor['specialty'] == selectedSubject;
+        bool matchesSubject =
+            selectedSubject == null || tutor['specialty'] == selectedSubject;
         bool matchesRate = tutor['rate'] <= maxRate;
         bool matchesRating = tutor['rating'] >= minRating;
         bool matchesVerified = !showVerified || tutor['verified'] == true;
 
-        return matchesSubject && matchesRate && matchesRating && matchesVerified;
+        return matchesSubject &&
+            matchesRate &&
+            matchesRating &&
+            matchesVerified;
       }).toList();
     });
   }
@@ -152,6 +175,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('Welcome, ${studentProfile?.username ?? "Student"}'),
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
@@ -169,7 +193,6 @@ class _StudentHomePageState extends State<StudentHomePage> {
             onPressed: () {},
           ),
         ],
-        title: Text('Welcome, ${widget.username}'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -190,7 +213,9 @@ class _StudentHomePageState extends State<StudentHomePage> {
                 onChanged: (query) {
                   setState(() {
                     filteredTutors = tutors.where((tutor) {
-                      return tutor['name'].toLowerCase().contains(query.toLowerCase());
+                      return tutor['name']
+                          .toLowerCase()
+                          .contains(query.toLowerCase());
                     }).toList();
                   });
                 },
@@ -287,7 +312,8 @@ class _StudentHomePageState extends State<StudentHomePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => TutorProfilePage(tutor: tutor),
+                            builder: (context) =>
+                                TutorProfilePage(tutor: tutor),
                           ),
                         );
                       } else {
@@ -324,7 +350,8 @@ class _StudentHomePageState extends State<StudentHomePage> {
                                   const SizedBox(height: 4),
                                   Text(
                                     tutor['specialty'],
-                                    style: const TextStyle(fontSize: 14, color: Colors.grey),
+                                    style: const TextStyle(
+                                        fontSize: 14, color: Colors.grey),
                                   ),
                                 ],
                               ),
@@ -332,13 +359,15 @@ class _StudentHomePageState extends State<StudentHomePage> {
                             Column(
                               children: [
                                 IconButton(
-                                  icon: const Icon(Icons.message, color: Colors.blue),
+                                  icon: const Icon(Icons.message,
+                                      color: Colors.blue),
                                   onPressed: () {
                                     if (isGoldSubscriber) {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => ChatPage(userName: tutor['name']),
+                                          builder: (context) =>
+                                              ChatPage(userName: tutor['name']),
                                         ),
                                       );
                                     } else {
@@ -351,7 +380,9 @@ class _StudentHomePageState extends State<StudentHomePage> {
                                     savedTutors.contains(tutor)
                                         ? Icons.bookmark
                                         : Icons.bookmark_border,
-                                    color: savedTutors.contains(tutor) ? Colors.green : Colors.grey,
+                                    color: savedTutors.contains(tutor)
+                                        ? Colors.green
+                                        : Colors.grey,
                                   ),
                                   onPressed: () => _saveTutor(tutor),
                                 ),
@@ -369,51 +400,49 @@ class _StudentHomePageState extends State<StudentHomePage> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-  type: BottomNavigationBarType.fixed,
-  currentIndex: 0,
-  onTap: (index) {
-    if (index == 0) {
-      // Stay on the Dashboard
-    } else if (index == 1) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const CatalogSubjectsPage()),
-      );
-    } else if (index == 2) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const MessagesPage()),
-      );
-    } else if (index == 3) {
-      Navigator.push(
-       context,
-       MaterialPageRoute(builder: (context) => YourTutorsPage()), // My Tutors Page
-
-);
-
-    }
-  },
-  items: const [
-    BottomNavigationBarItem(
-      icon: Icon(Icons.dashboard),
-      label: 'Dashboard',
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.list),
-      label: 'Catalog',
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.message),
-      label: 'Messages',
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.people),
-      label: 'My Tutors',
-    ),
-  ],
-),
-
+        type: BottomNavigationBarType.fixed,
+        currentIndex: 0,
+        onTap: (index) {
+          if (index == 0) {
+            // Stay on the Dashboard
+          } else if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const CatalogSubjectsPage()),
+            );
+          } else if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MessagesPage()),
+            );
+          } else if (index == 3) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => YourTutorsPage()), // My Tutors Page
+            );
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.dashboard),
+            label: 'Dashboard',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: 'Catalog',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            label: 'Messages',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            label: 'My Tutors',
+          ),
+        ],
+      ),
     );
   }
 }
-
