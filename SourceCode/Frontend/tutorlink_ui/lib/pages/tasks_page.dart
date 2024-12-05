@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import '../fetch_data_page.dart';
-import 'tutor_home_page.dart'; // Import TutorHomePage
+import 'messages_page_tutor.dart'; // Import MessagesPageTutor
 import 'tutor_requests_page.dart'; // Import TutorRequestsPage
-import 'messages_page_tutor.dart'; // Import MessagesPage
 
 class TasksPage extends StatefulWidget {
   const TasksPage({super.key});
@@ -21,6 +19,7 @@ class _TasksPageState extends State<TasksPage> {
 
   final TextEditingController _taskController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
+  int _selectedIndex = 2; // Default to 'Tasks' page
 
   @override
   void dispose() {
@@ -40,15 +39,41 @@ class _TasksPageState extends State<TasksPage> {
     }
   }
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    switch (index) {
+      case 0:
+        Navigator.pushNamed(context, '/tutorHome');
+        break;
+      case 1:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const MessagesPageTutor()),
+        );
+        break;
+      case 2:
+        break; // Stay on current page
+      case 3:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const TutorRequestsPage()),
+        );
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Time Management'),
+        title: const Text('Task Management', style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.blueAccent,
+        elevation: 0,
         actions: [
           IconButton(
-            icon: const Icon(Icons.account_circle),
+            icon: const Icon(Icons.account_circle, color: Colors.white),
             onPressed: () {
               Navigator.pushNamed(context, '/userSettings');
             },
@@ -58,175 +83,167 @@ class _TasksPageState extends State<TasksPage> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            // Fetch Data Widget added at the top to display important data
-            const Expanded(
-              child: FetchDataPage(),
-            ),
-            const SizedBox(height: 16),
-            // Row to display "Done Tasks" and "To-Do Tasks" lists
+          children: [
+            // "To-Do Tasks" Column
             Expanded(
-              child: Row(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  // "Done Tasks" Column
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: Colors.deepPurple.withOpacity(0.1),
-                          ),
-                          child: const Center(
-                            child: Text(
-                              'Completed Sessions',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.grey.shade200,
+                        ),
+                        child: const Text(
+                          'To Do',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
                           ),
                         ),
-                        const SizedBox(height: 10),
-                        Expanded(
-                          child: ListView.builder(
-                            itemCount: doneTasks.length, // Number of done tasks
-                            itemBuilder: (context, index) {
-                              return Card(
-                                color: Colors.green.shade50,
-                                elevation: 3,
-                                margin: const EdgeInsets.symmetric(vertical: 8),
-                                child: ListTile(
-                                  leading: const Icon(Icons.check_circle, color: Colors.green),
-                                  title: Text(
-                                    doneTasks[index],
-                                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                                  ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.add, color: Colors.blueAccent),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
                                 ),
+                                title: const Text('Add New Task'),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    TextField(
+                                      controller: _taskController,
+                                      decoration: const InputDecoration(
+                                        labelText: 'Task',
+                                        border: OutlineInputBorder(),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    TextField(
+                                      controller: _timeController,
+                                      decoration: const InputDecoration(
+                                        labelText: 'Time',
+                                        border: OutlineInputBorder(),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('Cancel'),
+                                  ),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.blueAccent,
+                                    ),
+                                    onPressed: _addTask,
+                                    child: const Text('Add'),
+                                  ),
+                                ],
                               );
                             },
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: toDoTasks.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          color: Colors.white,
+                          elevation: 1,
+                          shadowColor: Colors.grey.withOpacity(0.3),
+                          margin: const EdgeInsets.symmetric(vertical: 8),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                        ),
-                      ],
+                          child: CheckboxListTile(
+                            controlAffinity: ListTileControlAffinity.leading,
+                            activeColor: Colors.blueAccent,
+                            value: false,
+                            onChanged: (bool? value) {
+                              if (value == true) {
+                                setState(() {
+                                  doneTasks.add('${toDoTasks[index]['title']} (Completed)');
+                                  toDoTasks.removeAt(index);
+                                });
+                              }
+                            },
+                            title: Text(
+                              toDoTasks[index]['title']!,
+                              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            subtitle: Text(
+                              toDoTasks[index]['time']!,
+                              style: const TextStyle(color: Colors.black54),
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
-                  const SizedBox(width: 16),
-                  // "To-Do Tasks" Column
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            // "Completed Sessions" Column
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.grey.shade200,
+                    ),
+                    child: const Text(
+                      'Done',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: Colors.blueAccent.withOpacity(0.1),
-                              ),
-                              child: const Center(
-                                child: Text(
-                                  'Upcoming Sessions',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.add, color: Colors.blueAccent),
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15.0),
-                                      ),
-                                      title: const Text('Add New Task'),
-                                      content: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          TextField(
-                                            controller: _taskController,
-                                            decoration: const InputDecoration(
-                                              labelText: 'Task',
-                                              border: OutlineInputBorder(),
-                                            ),
-                                          ),
-                                          const SizedBox(height: 10),
-                                          TextField(
-                                            controller: _timeController,
-                                            decoration: const InputDecoration(
-                                              labelText: 'Time',
-                                              border: OutlineInputBorder(),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: const Text('Cancel'),
-                                        ),
-                                        ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.blueAccent,
-                                          ),
-                                          onPressed: _addTask,
-                                          child: const Text('Add'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        Expanded(
-                          child: ListView.builder(
-                            itemCount: toDoTasks.length, // Number of to-do tasks
-                            itemBuilder: (context, index) {
-                              return Card(
-                                color: Colors.blue.shade50,
-                                elevation: 3,
-                                margin: const EdgeInsets.symmetric(vertical: 8),
-                                child: CheckboxListTile(
-                                  controlAffinity: ListTileControlAffinity.leading,
-                                  activeColor: Colors.blueAccent,
-                                  value: false,
-                                  onChanged: (bool? value) {
-                                    if (value == true) {
-                                      setState(() {
-                                        doneTasks.add('${toDoTasks[index]['title']} (Completed)');
-                                        toDoTasks.removeAt(index);
-                                      });
-                                    }
-                                  },
-                                  title: Text(
-                                    toDoTasks[index]['title']!,
-                                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                                  ),
-                                  subtitle: Text(
-                                    toDoTasks[index]['time']!,
-                                    style: const TextStyle(color: Colors.black54),
-                                  ),
-                                ),
-                              );
-                            },
+                    child: ListView.builder(
+                      itemCount: doneTasks.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          color: Colors.white,
+                          elevation: 1,
+                          shadowColor: Colors.grey.withOpacity(0.3),
+                          margin: const EdgeInsets.symmetric(vertical: 8),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                        ),
-                      ],
+                          child: ListTile(
+                            leading: const Icon(Icons.check_circle, color: Colors.green),
+                            title: Text(
+                              doneTasks[index],
+                              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ],
@@ -238,47 +255,28 @@ class _TasksPageState extends State<TasksPage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard, color: Colors.grey),
+            icon: Icon(Icons.dashboard),
             label: 'Dashboard',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.message, color: Colors.grey),
+            icon: Icon(Icons.message),
             label: 'Messages',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.task, color: Colors.grey),
+            icon: Icon(Icons.task),
             label: 'Tasks',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_add, color: Colors.grey),
+            icon: Icon(Icons.person_add),
             label: 'Requests',
           ),
         ],
-        currentIndex: 2,
-        selectedItemColor: Colors.blueAccent, // Blue color when selected
-        showSelectedLabels: true, // Ensure label is always visible
-        showUnselectedLabels: true, // Ensure label is always visible
-        onTap: (int index) {
-          switch (index) {
-            case 0:
-              Navigator.pushNamed(context, '/tutorHome');
-              break;
-            case 1:
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MessagesPageTutor()),
-              );
-              break;
-            case 2:
-              break;
-            case 3:
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => TutorRequestsPage()),
-              );
-              break;
-          }
-        },
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.blueAccent,
+        unselectedItemColor: Colors.black,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
+        onTap: _onItemTapped,
       ),
     );
   }

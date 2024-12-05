@@ -33,13 +33,13 @@ class _StudentHomePageState extends State<StudentHomePage> {
       'isConnected': false,
     },
     {
-      'name': 'Anna K.',
-      'specialty': 'Mathematics Expert',
+      'name': 'Luana W.',
+      'specialty': 'Aerospace engineering',
       'rate': 50.0,
       'success': '95% Job Success',
       'verified': true,
-      'location': 'Los Angeles',
-      'rating': 4.8,
+      'location': 'ibiza',
+      'rating': 5.0,
       'image': 'https://via.placeholder.com/150',
       'isConnected': false,
     },
@@ -152,10 +152,10 @@ class _StudentHomePageState extends State<StudentHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.blueAccent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.account_circle, color: Colors.grey[800]),
+          icon: Icon(Icons.account_circle, color: Colors.black),
           onPressed: () {
             Navigator.push(
               context,

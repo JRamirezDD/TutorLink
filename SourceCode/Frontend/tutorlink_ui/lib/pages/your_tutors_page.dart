@@ -25,10 +25,10 @@ class YourTutorsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.blueAccent,
         elevation: 0,
         title: const Text(
-          'Your Tutors',
+          'My Tutors',
           style: TextStyle(color: Colors.black),
         ),
         leading: IconButton(

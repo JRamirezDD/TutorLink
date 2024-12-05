@@ -48,10 +48,10 @@ class _CatalogSubjectsPageState extends State<CatalogSubjectsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.blueAccent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.account_circle, color: Colors.grey[800]),
+          icon: Icon(Icons.account_circle, color: Colors.black),
           onPressed: () {
             Navigator.push(
               context,

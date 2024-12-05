@@ -18,17 +18,17 @@ class MessagesPageTutor extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.blueAccent,
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.account_circle, color: Colors.grey[800]),
-            onPressed: () {
+          onPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const UserSettingsPage()),
             );
-            },
-          ),
+          },
+        ),
         title: const Text(
           'Messages',
           style: TextStyle(
@@ -46,12 +46,12 @@ class MessagesPageTutor extends StatelessWidget {
           ),
           Expanded(
             child: ListView(
-            padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               children: [
                 ListTile(
                   leading: const CircleAvatar(
                     backgroundImage: NetworkImage('https://via.placeholder.com/150'),
-            ),
+                  ),
                   title: const Text('John Doe'),
                   subtitle: const Text('Hey! How are you doing?'),
                   trailing: const Text('2:30 PM'),
@@ -78,9 +78,9 @@ class MessagesPageTutor extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (context) => const ChatPage(userName: 'Jane Smith'),
                       ),
-                );
-              },
-            ),
+                    );
+                  },
+                ),
                 const Divider(),
               ],
             ),
@@ -90,24 +90,27 @@ class MessagesPageTutor extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard, color: Colors.grey),
+            icon: Icon(Icons.dashboard),
             label: 'Dashboard',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.message, color: Colors.grey),
+            icon: Icon(Icons.message),
             label: 'Messages',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.task, color: Colors.grey),
+            icon: Icon(Icons.task),
             label: 'Tasks',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_add, color: Colors.grey),
+            icon: Icon(Icons.person_add),
             label: 'Requests',
           ),
         ],
         currentIndex: 1,
-        selectedItemColor: Colors.blueAccent, // Blue color when selected
+        selectedItemColor: Colors.blueAccent,
+        unselectedItemColor: Colors.black,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
         onTap: (int index) {
           switch (index) {
             case 0:
