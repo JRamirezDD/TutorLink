@@ -14,17 +14,17 @@ public interface API_ConnectionController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<ConnectionResp> createConnection(@RequestBody CreateConnectionReq request);
 
-    //get connections for a specific student
+    // get connections for a specific student
     @GetMapping("/students/{studentId}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<ConnectionResp>> getConnectionsForStudent(@PathVariable Long studentId);
 
-    //get connections for a specific tutor
+    // get connections for a specific tutor
     @GetMapping("/tutors/{tutorId}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<ConnectionResp>> getConnectionsForTutor(@PathVariable Long tutorId) ;
+    public ResponseEntity<List<ConnectionResp>> getConnectionsForTutor(@PathVariable Long tutorId);
 
-    //respond to connection
+    // respond to connection
     @PostMapping("/respond")
     @ResponseStatus(HttpStatus.OK)
     public void getRespondConnection(@RequestBody RespondConnectionReq connectionRequestResponse);

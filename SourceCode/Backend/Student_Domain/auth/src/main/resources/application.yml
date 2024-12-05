@@ -10,8 +10,8 @@ spring:
         client:
           registration:
             google:
-              client-id: ''
-              client-secret: ''
+              client-id: 'none'
+              client-secret: 'none'
               scope:
                 - profile
                 - email

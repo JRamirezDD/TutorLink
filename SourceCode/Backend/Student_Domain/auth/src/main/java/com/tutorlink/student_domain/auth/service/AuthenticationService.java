@@ -66,8 +66,8 @@ public class AuthenticationService {
             return false;
         }
     }
+
+    public UserEntity getUserFromSessionToken(String token) throws Exception {
+        return sessionTokenService.validateSessionToken(token).getUser();
+    }
 }
-
-
-
-
