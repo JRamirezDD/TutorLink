@@ -1,6 +1,6 @@
 package com.tutorlink.tutor_domain.functional.profile.service;
 
-
+import com.tutorlink.tutor_domain.functional.profile.model.dto.req.CreateTutorProfileReq;
 import com.tutorlink.tutor_domain.functional.profile.model.dto.req.UpdateTutorProfileReq;
 import com.tutorlink.tutor_domain.functional.profile.model.dto.resp.TutorProfileResp;
 import com.tutorlink.tutor_domain.functional.profile.model.entity.TutorProfile;
@@ -37,10 +37,28 @@ public class ProfileService {
         profile.setEmail(updateRequest.email());
         profile.setSpecialization(updateRequest.specialization());
         profile.setHourlyRate(updateRequest.hourlyRate());
+        profile.setDescription(updateRequest.description());
+        profile.setLocation(updateRequest.location());
 
         TutorProfile updatedProfile = profileRepository.save(profile);
         return mapToTutorProfileResp(updatedProfile);
     }
+
+    public TutorProfileResp createTutorProfile(CreateTutorProfileReq createRequest) {
+        TutorProfile profile = TutorProfile.builder()
+                .name(createRequest.name())
+                .email(createRequest.email())
+                .specialization(createRequest.specialization())
+                .hourlyRate(createRequest.hourlyRate()) // Use input value
+                .description("") // Set to empty or use a description field in the request
+                .location("") // Same as description
+                .build();
+  
+        TutorProfile savedProfile = profileRepository.save(profile);
+  
+        return mapToTutorProfileResp(savedProfile);
+    }
+    
 
     private TutorProfileResp mapToTutorProfileResp(TutorProfile profile) {
         return TutorProfileResp.builder()
@@ -48,8 +66,9 @@ public class ProfileService {
                 .name(profile.getName())
                 .email(profile.getEmail())
                 .specialization(profile.getSpecialization())
-                .hourlyRate(profile.getHourlyRate())
+                .hourlyRate(profile.getHourlyRate().orElse(null))
+                .description(profile.getDescription().orElse(null))
+                .location(profile.getLocation().orElse(null))
                 .build();
     }
 }
-

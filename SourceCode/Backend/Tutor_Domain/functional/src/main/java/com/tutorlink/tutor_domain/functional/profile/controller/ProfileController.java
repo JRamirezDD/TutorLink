@@ -1,6 +1,7 @@
 package com.tutorlink.tutor_domain.functional.profile.controller;
 
 
+import com.tutorlink.tutor_domain.functional.profile.model.dto.req.CreateTutorProfileReq;
 import com.tutorlink.tutor_domain.functional.profile.model.dto.req.UpdateTutorProfileReq;
 import com.tutorlink.tutor_domain.functional.profile.model.dto.resp.TutorProfileResp;
 import com.tutorlink.tutor_domain.functional.profile.service.ProfileService;
@@ -17,21 +18,21 @@ public class ProfileController {
 
     private final ProfileService profileService;
 
-    //get tutor profile by ID
+    // Get tutor profile by ID
     @GetMapping("/{tutorId}")
     public ResponseEntity<TutorProfileResp> getTutorProfile(@PathVariable Long tutorId) {
         TutorProfileResp profile = profileService.getTutorProfile(tutorId);
         return ResponseEntity.ok(profile);
     }
 
-    //get all tutor profiles
+    // Get all tutor profiles
     @GetMapping
     public ResponseEntity<List<TutorProfileResp>> getAllTutorProfiles() {
         List<TutorProfileResp> profiles = profileService.getAllTutorProfiles();
         return ResponseEntity.ok(profiles);
     }
 
-    //get tutor’s own profile
+    // Get tutor’s own profile
     @GetMapping("/me")
     public ResponseEntity<TutorProfileResp> getOwnProfile() {
         Long currentTutorId = getCurrentTutorId();
@@ -39,7 +40,7 @@ public class ProfileController {
         return ResponseEntity.ok(profile);
     }
 
-    //update tutor profile
+    // Update tutor profile
     @PutMapping("/{tutorId}")
     public ResponseEntity<TutorProfileResp> updateTutorProfile(
             @PathVariable Long tutorId,
@@ -48,11 +49,20 @@ public class ProfileController {
         return ResponseEntity.ok(updatedProfile);
     }
 
-    //mock method rn
+    // Create a new tutor profile
+    @PostMapping("")
+    public ResponseEntity<TutorProfileResp> createTutorProfile(
+            @RequestBody CreateTutorProfileReq createRequest) {
+        TutorProfileResp newProfile = profileService.createTutorProfile(createRequest);
+        return ResponseEntity.ok(newProfile);
+    }
+
+    // Mock method rn
     private Long getCurrentTutorId() {
         // TODO: make logic for getting tutor ID
         return 1L;
     }
 }
+
 
 
