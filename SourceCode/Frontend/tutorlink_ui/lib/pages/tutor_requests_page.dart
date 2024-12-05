@@ -21,6 +21,18 @@ class _TutorRequestsPageState extends State<TutorRequestsPage> {
       'studentName': 'Jane Smith',
       'message': 'I would like to schedule a session for science lessons.',
     },
+    {
+      'studentName': 'Alice Johnson',
+      'message': 'Can you help me with my English assignment?',
+    },
+    {
+      'studentName': 'Robert Brown',
+      'message': 'I need some guidance for my physics project.',
+    },
+    {
+      'studentName': 'Emily Davis',
+      'message': 'I want to learn more about chemistry. Can we schedule a session?',
+    },
   ];
 
   void _openChat(int index) {
@@ -37,6 +49,24 @@ class _TutorRequestsPageState extends State<TutorRequestsPage> {
         SnackBar(content: Text('Student name is missing.')),
       );
     }
+  }
+
+  void _acceptRequest(int index) {
+    setState(() {
+      studentRequests.removeAt(index);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Request from ${studentRequests[index]['studentName']} accepted.')),
+      );
+    });
+  }
+
+  void _declineRequest(int index) {
+    setState(() {
+      studentRequests.removeAt(index);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Request from ${studentRequests[index]['studentName']} declined.')),
+      );
+    });
   }
 
   @override
@@ -81,6 +111,20 @@ class _TutorRequestsPageState extends State<TutorRequestsPage> {
                                   backgroundColor: Colors.blue,
                                 ),
                                 child: const Text('Message'),
+                              ),
+                              ElevatedButton(
+                                onPressed: () => _acceptRequest(index),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.green,
+                                ),
+                                child: const Text('Accept'),
+                              ),
+                              ElevatedButton(
+                                onPressed: () => _declineRequest(index),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.red,
+                                ),
+                                child: const Text('Decline'),
                               ),
                             ],
                           ),

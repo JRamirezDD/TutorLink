@@ -110,6 +110,41 @@ class MessagesPage extends StatelessWidget {
                     );
                   },
                 ),
+                const Divider(),
+                ListTile(
+                  leading: const CircleAvatar(
+                    backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+                  ),
+                  title: const Text('Omar jake'),
+                  subtitle: const Text('does 8 work for you?'),
+                  trailing: const Text('1:00 PM'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ChatPage(userName: 'Omar jake'),
+                      ),
+                    );
+                  },
+                ),
+                const Divider(),
+                ListTile(
+                  leading: const CircleAvatar(
+                    backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+                  ),
+                  title: const Text('Gracie Abrams'),
+                  subtitle: const Text('Do you understand it now'),
+                  trailing: const Text('12:30 PM'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ChatPage(userName: 'Gracie Abrams'),
+                      ),
+                    );
+                  },
+                ),
+                
               ],
             ),
           ),

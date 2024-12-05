@@ -82,6 +82,57 @@ class MessagesPageTutor extends StatelessWidget {
                   },
                 ),
                 const Divider(),
+                ListTile(
+                  leading: const CircleAvatar(
+                    backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+                  ),
+                  title: const Text('Alice Johnson'),
+                  subtitle: const Text('Can you help me with my assignment?'),
+                  trailing: const Text('12:30 PM'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ChatPage(userName: 'Alice Johnson'),
+                      ),
+                    );
+                  },
+                ),
+                const Divider(),
+                ListTile(
+                  leading: const CircleAvatar(
+                    backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+                  ),
+                  title: const Text('Robert Brown'),
+                  subtitle: const Text('I need help with a physics problem.'),
+                  trailing: const Text('11:00 AM'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ChatPage(userName: 'Robert Brown'),
+                      ),
+                    );
+                  },
+                ),
+                const Divider(),
+                ListTile(
+                  leading: const CircleAvatar(
+                    backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+                  ),
+                  title: const Text('Emily Davis'),
+                  subtitle: const Text('Can we discuss the upcoming chemistry session?'),
+                  trailing: const Text('10:15 AM'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ChatPage(userName: 'Emily Davis'),
+                      ),
+                    );
+                  },
+                ),
+                const Divider(),
               ],
             ),
           ),
