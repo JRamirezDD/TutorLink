@@ -14,7 +14,7 @@ class WelcomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Welcome to TutorLink'),
         centerTitle: true,
-        backgroundColor: Color(0xFF4CA6C6), // Adjusted color to exactly match the image color
+        backgroundColor: Color(0xFF4CA6C6), 
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -26,7 +26,7 @@ class WelcomePage extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Image.asset(
-                  'assets/images/background.jpg', // Adjust the path accordingly
+                  'assets/images/background.jpg', 
                   fit: BoxFit.cover,
                   height: double.infinity,
                 ),
@@ -46,7 +46,7 @@ class WelcomePage extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black87, // Changed for better contrast
+                        color: Colors.black87, 
                       ),
                       textAlign: TextAlign.left,
                     ),
@@ -66,7 +66,7 @@ class WelcomePage extends StatelessWidget {
                       label: const Text('Login as Tutor'),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
-                        backgroundColor: Color(0xFF4CA6C6), // Updated color to match image theme
+                        backgroundColor: Color(0xFF4CA6C6), 
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -85,7 +85,7 @@ class WelcomePage extends StatelessWidget {
                       label: const Text('Login as Student'),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
-                        backgroundColor: Color(0xFF4CA6C6), // Updated color to match image theme
+                        backgroundColor: Color(0xFF4CA6C6), 
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -104,7 +104,7 @@ class WelcomePage extends StatelessWidget {
                       label: const Text('Register as Tutor'),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
-                        backgroundColor: Color(0xFF4CA6C6), // Updated color to match image theme
+                        backgroundColor: Color(0xFF4CA6C6),
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -123,7 +123,7 @@ class WelcomePage extends StatelessWidget {
                       label: const Text('Register as Student'),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
-                        backgroundColor: Color(0xFF4CA6C6), // Updated color to match image theme
+                        backgroundColor: Color(0xFF4CA6C6), 
                       ),
                     ),
                     const SizedBox(height: 24),

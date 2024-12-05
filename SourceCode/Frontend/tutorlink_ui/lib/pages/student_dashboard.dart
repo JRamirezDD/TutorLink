@@ -30,8 +30,8 @@ class StudentDashboardPage extends StatelessWidget {
             // Button to find a tutor
             ElevatedButton(
               onPressed: () {
-                // Add functionality for finding tutors here
-                // e.g., Navigating to a tutor search page or list of tutors
+                //functionality for finding tutors here
+                
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Find a Tutor functionality coming soon!')),
                 );

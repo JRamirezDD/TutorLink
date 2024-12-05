@@ -15,7 +15,7 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  // Dummy database for username and password validation
+  
   final Map<String, String> _dummyUsers = {
     'student1': 'password1',
     'student2': 'password2',
@@ -29,7 +29,7 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
 
       // Check credentials against the dummy database
       if (_dummyUsers.containsKey(username) && _dummyUsers[username] == password) {
-        // Navigate to StudentHomePage after successful login
+        // Navigate to StudentHomePage after login
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -118,8 +118,8 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
                   ),
                 ),
                 const SizedBox(
-                  height: 150, // Constrain the height of FetchDataPage
-                  child: FetchDataPage(), // Display the FetchDataPage widget here
+                  height: 150, 
+                  child: FetchDataPage(), 
                 ),
               ],
             ),

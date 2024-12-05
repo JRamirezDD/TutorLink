@@ -79,7 +79,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
   @override
   void initState() {
     super.initState();
-    filteredTutors = tutors; // Initially display all tutors
+    filteredTutors = tutors; 
   }
 
   void applyFilters() {
@@ -221,7 +221,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
                     .toList(),
               ),
               const SizedBox(height: 16),
-              Text('Max Rate: \$${maxRate.toStringAsFixed(0)}'),
+              Text('Range: \$${maxRate.toStringAsFixed(0)}'),
               Slider(
                 value: maxRate,
                 min: 0,
@@ -235,7 +235,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
                   });
                 },
               ),
-              Text('Min Rating: ${minRating.toStringAsFixed(1)}'),
+              Text(' Rating: ${minRating.toStringAsFixed(1)}'),
               Slider(
                 value: minRating,
                 min: 0,

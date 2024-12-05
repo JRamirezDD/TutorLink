@@ -83,7 +83,7 @@ class PasswordsPage extends StatelessWidget {
               icon: const Icon(Icons.update),
               label: const Text('Update Password'),
               style: ElevatedButton.styleFrom(
-                minimumSize: const Size(double.infinity, 50), // Full-width button
+                minimumSize: const Size(double.infinity, 50), 
               ),
             ),
           ],

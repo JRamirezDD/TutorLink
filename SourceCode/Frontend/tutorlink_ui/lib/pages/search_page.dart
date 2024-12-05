@@ -31,7 +31,7 @@ class _SearchPageState extends State<SearchPage> {
             children: [
               // FetchDataPage wrapped in a Container with fixed height
               const SizedBox(
-                height: 200, // Provide a fixed height for the FetchDataPage widget
+                height: 200,
                 child: FetchDataPage(),
               ),
               const SizedBox(height: 16),

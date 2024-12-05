@@ -39,12 +39,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   Future<void> _pickImage() async {
     try {
-      // Pick an image from the gallery
+      
       final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
       if (pickedFile != null) {
         setState(() {
-          // Update the profile image with the newly picked file
+          // Update the profile image 
           _profileImage = File(pickedFile.path);
           print("Image selected: ${_profileImage!.path}");
         });
@@ -76,10 +76,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       radius: 50,
                       backgroundColor: Colors.purple[100],
                       backgroundImage: _profileImage != null
-                          ? FileImage(_profileImage!) // If a new image is picked
+                          ? FileImage(_profileImage!) 
                           : (widget.profilePictureUrl.isNotEmpty
                               ? NetworkImage(widget.profilePictureUrl)
-                              : null), // Use profile picture URL if available
+                              : null), 
                       child: (_profileImage == null && widget.profilePictureUrl.isEmpty)
                           ? const Icon(
                               Icons.person,

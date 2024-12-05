@@ -44,7 +44,7 @@ class SavedTutorPage extends StatelessWidget {
                     title: Text(tutor['name']),
                     subtitle: Text(tutor['specialty']),
                     trailing: Text(
-                      tutor['rate'].toString(), // Convert to string if necessary
+                      tutor['rate'].toString(), 
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     onTap: () {

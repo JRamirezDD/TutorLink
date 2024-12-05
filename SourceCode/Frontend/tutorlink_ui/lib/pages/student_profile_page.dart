@@ -21,7 +21,7 @@ class StudentProfilePage extends StatelessWidget {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start, // Align content to the start for a more structured layout
+          crossAxisAlignment: CrossAxisAlignment.start, 
           children: <Widget>[
             Text(
               'Name: $studentName',

@@ -25,7 +25,7 @@ class TutorDashboardPage extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // Add functionality for managing availability here
-                // e.g., Add or edit availability slots for tutoring
+                
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Manage Availability functionality coming soon!')),
                 );
@@ -49,7 +49,7 @@ class TutorDashboardPage extends StatelessWidget {
 
             
 
-            // Integration of FetchDataPage to display fetched data
+            
             const Expanded(
               child: FetchDataPage(),
             ),

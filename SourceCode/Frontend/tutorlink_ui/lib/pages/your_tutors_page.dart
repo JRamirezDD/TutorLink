@@ -19,7 +19,7 @@ class YourTutorsPage extends StatelessWidget {
     },
   ];
 
-  YourTutorsPage({Key? key}) : super(key: key); // Removed const
+  YourTutorsPage({Key? key}) : super(key: key); 
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +77,7 @@ class YourTutorsPage extends StatelessWidget {
       ),
      bottomNavigationBar: BottomNavigationBar(
   type: BottomNavigationBarType.fixed,
-  currentIndex: 3, // Correct index for "My Tutors"
+  currentIndex: 3, 
   onTap: (index) {
     if (index == 0) {
       Navigator.pushReplacement(

@@ -45,9 +45,8 @@ class RoleSelectionPage extends StatelessWidget {
               child: const Text('I am a Tutor'),
             ),
             const SizedBox(height: 40),
-            // Adding FetchDataWidget to display data below the role selection
             
-            const FetchDataPage(), // Corrected reference to FetchDataPage
+            const FetchDataPage(), 
           ],
         ),
       ),

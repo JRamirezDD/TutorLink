@@ -62,7 +62,7 @@ class TopRatedTutorsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Get tutors for the selected subject, or show a default list if none exist
+    // Get tutors for the selected subject
     final List<Map<String, dynamic>> tutors = subjectTutors[subject] ?? [];
 
     return Scaffold(

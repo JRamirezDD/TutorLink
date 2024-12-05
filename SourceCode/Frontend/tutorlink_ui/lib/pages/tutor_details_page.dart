@@ -32,9 +32,9 @@ class TutorDetailsPage extends StatelessWidget {
             ),
             SizedBox(height: 20),
 
-            // Replace Expanded with a Container with a fixed height
+            
             SizedBox(
-              height: 200, // Set a finite height for FetchDataPage
+              height: 200, 
               child: FetchDataPage(),
             ),
           ],
