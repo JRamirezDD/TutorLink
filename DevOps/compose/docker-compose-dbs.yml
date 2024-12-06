@@ -11,14 +11,20 @@ services:
     image: postgres:13
     environment:
       POSTGRES_DB: student_db
+<<<<<<< HEAD
       POSTGRES_USER: ${STUDENT_DOMAIN_SPRING_DATASOURCE_USERNAME}
       POSTGRES_PASSWORD: ${STUDENT_DOMAIN_SPRING_DATASOURCE_PASSWORD}
+=======
+      POSTGRES_USER: main_user
+      POSTGRES_PASSWORD: PassWord12@
+>>>>>>> d0c46b246bd6219517a0e07772279b0ad1e076c2
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - tutorlink-network
+<<<<<<< HEAD
 
   tutor-db:
     image: postgres:13
@@ -45,6 +51,8 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - tutorlink-network
+=======
+>>>>>>> d0c46b246bd6219517a0e07772279b0ad1e076c2
   
 ### Other backend services...
 

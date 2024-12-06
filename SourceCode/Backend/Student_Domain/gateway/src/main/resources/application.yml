@@ -8,18 +8,24 @@ spring:
 
   auth:
     check-authentication: false
-    authenticationserviceurl: "http://localhost:10019/authentication"
-    authorizationserviceurl: "http://localhost:10019/authorization"
+    authenticationserviceurl: ${STUDENT_DOMAIN_SERVICES_AUTH_SERVICE_URL:http://localhost}:${STUDENT_DOMAIN_SERVICES_AUTH_SERVICE_PORT:10019}/authentication
+    authorizationserviceurl: ${STUDENT_DOMAIN_SERVICES_AUTH_SERVICE_URL:http://localhost}:${STUDENT_DOMAIN_SERVICES_AUTH_SERVICE_PORT:10019}/authorization
 
   cloud:
     gateway:
       routes:
         - id: authentication-service
-          uri: http://localhost:10019/authentication
+          uri: ${STUDENT_DOMAIN_SERVICES_AUTH_SERVICE_URL:http://localhost}:${STUDENT_DOMAIN_SERVICES_AUTH_SERVICE_PORT:10019}/authentication
           predicates:
             - Path=/gateway/authentication/**
           filters:
             - RewritePath=/gateway/authentication/(?<segment>.*), /authentication/${segment}
+        - id: authorization-service
+          uri: ${STUDENT_DOMAIN_SERVICES_AUTH_SERVICE_URL:http://localhost}:${STUDENT_DOMAIN_SERVICES_AUTH_SERVICE_PORT:10019}/authorization
+          predicates:
+            - Path=/gateway/authorization/**
+          filters:
+            - RewritePath=/gateway/authorization/(?<segment>.*), /authorization/${segment}
         - id: functional-service
           uri: ${STUDENT_DOMAIN_SERVICES_FUNCTIONAL_SERVICE_URL:http://localhost}:${STUDENT_DOMAIN_SERVICES_FUNCTIONAL_SERVICE_PORT:10011}
           predicates:

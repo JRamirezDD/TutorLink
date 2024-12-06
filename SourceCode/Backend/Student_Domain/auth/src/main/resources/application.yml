@@ -38,7 +38,10 @@ spring:
         hibernate:
           default_schema: ${STUDENT_DOMAIN_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA:student_auth_schema}
       open-in-view: ${STUDENT_DOMAIN_JPA_OPEN_IN_VIEW:true}
-
+    sql:
+      init:
+        schema-locations: classpath:schema.sql
+        mode: always
 
 session:
   token-expiry: 1800

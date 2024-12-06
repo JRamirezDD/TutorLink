@@ -14,7 +14,7 @@ spring:
   application:
     name: matchmaking-domain-cross-domain-interactions
   datasource:
-    url: ${MATCHMAKING_DOMAIN_DATASOURCE_URL:jdbc:postgresql://localhost:5432}/${MATCHMAKING_DOMAIN_DATASOURCE_DATABASE:matchmaking_db}
+    url: ${MATCHMAKING_DOMAIN_DATASOURCE_URL:jdbc:postgresql://localhost:5432}/${MATCHMAKING_DOMAIN_DATASOURCE_DATABASE:student_db}
     username: ${MATCHMAKING_DOMAIN_DATASOURCE_USERNAME:main_user}
     password: ${MATCHMAKING_DOMAIN_DATASOURCE_PASSWORD:PassWord12@}
     driver-class-name: ${MATCHMAKING_DOMAIN_DATASOURCE_DRIVER_CLASS_NAME:org.postgresql.Driver}
@@ -25,7 +25,10 @@ spring:
     properties:
       hibernate:
         default_schema: ${MATCHMAKING_DOMAIN_SERVICES_CROSS_DOMAIN_INTERACTIONS_DATABASE_DEFAULT_SCHEMA:cross_domain_interactions_schema}
-
+  sql:
+    init:
+      schema-locations: classpath:schema.sql 
+      mode: always 
 
 student_domain:
   services:

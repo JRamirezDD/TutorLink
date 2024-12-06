@@ -1,7 +1,6 @@
 package com.tutorlink.matchmaking_domain.crossdomaininteractions.payment.controller.APIs;
 
 import com.tutorlink.matchmaking_domain.crossdomaininteractions.payment.model.dto.req.PaymentReq;
-
 import com.tutorlink.matchmaking_domain.crossdomaininteractions.payment.model.dto.resp.PaymentConfirmationResp;
 import com.tutorlink.matchmaking_domain.crossdomaininteractions.payment.model.dto.resp.PaymentResp;
 import org.springframework.http.ResponseEntity;
@@ -23,5 +22,8 @@ public interface API_Payment {
 
     @PostMapping("/{paymentRequestId}/reject")
     PaymentConfirmationResp confirmRejectPayment(@PathVariable Long paymentRequestId);
+
+    @GetMapping("/{paymentId}")
+    public ResponseEntity<PaymentResp> getPayment(@PathVariable Long paymentId);
 }
 

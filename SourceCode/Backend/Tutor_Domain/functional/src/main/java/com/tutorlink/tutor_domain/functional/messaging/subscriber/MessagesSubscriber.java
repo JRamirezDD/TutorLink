@@ -18,4 +18,3 @@ public class MessagesSubscriber {
         log.info("Processing received message: {}", message);
     }
 }
-
