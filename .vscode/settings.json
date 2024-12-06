@@ -1,11 +1,4 @@
 {
     "java.compile.nullAnalysis.mode": "automatic",
-<<<<<<< HEAD
     "java.configuration.updateBuildConfiguration": "automatic"
-=======
-    "java.configuration.updateBuildConfiguration": "disabled",
-    "java.project.sourcePaths": [
-        "SourceCode/Backend/Tutor_Domain"
-    ]
->>>>>>> d0c46b246bd6219517a0e07772279b0ad1e076c2
 }
