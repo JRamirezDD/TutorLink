@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - main
+  push:
+    branches:
+      - main
 
 jobs:
   test:
@@ -27,4 +30,4 @@ jobs:
       
     - name: Run Gradle tests
       working-directory: SourceCode/Backend
-      run: ./gradlew clean test
+      run: ./gradlew clean test --info

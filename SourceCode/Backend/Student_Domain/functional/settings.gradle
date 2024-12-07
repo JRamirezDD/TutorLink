@@ -5,8 +5,3 @@ project(':Matchmaking_Domain:CrossDomainInteractions').projectDir = new File('..
 
 include ':Matchmaking_Domain:TutorDomainManager'
 project(':Matchmaking_Domain:TutorDomainManager').projectDir = new File('../../Matchmaking_Domain/TutorDomainManager')
-<<<<<<< HEAD
-=======
-
-
->>>>>>> new-gio-branch
